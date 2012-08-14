@@ -7,8 +7,7 @@ uses
   SimkaFrm in 'SimkaFrm.pas' {frmSimka},
   TarifPlanFrm in 'TarifPlanFrm.pas' {frmTarifPlan},
   FinanceFrm in 'FinanceFrm.pas' {frmFinance},
-  OwnerFrm in 'OwnerFrm.pas' {frmOwner},
-  DM_ in 'DM_.pas' {DM: TDataModule};
+  OwnerFrm in 'OwnerFrm.pas' {frmOwner};
 
 {$R *.res}
 
@@ -20,6 +19,5 @@ begin
   Application.CreateForm(TfrmTarifPlan, frmTarifPlan);
   Application.CreateForm(TfrmFinance, frmFinance);
   Application.CreateForm(TfrmOwner, frmOwner);
-  Application.CreateForm(TDM, DM);
   Application.Run;
 end.

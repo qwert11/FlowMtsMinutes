@@ -19,8 +19,6 @@ var
 
 implementation
 
-uses DM_;
-
 {$R *.dfm}
 
 end.

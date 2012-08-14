@@ -1,0 +1,24 @@
+unit DM_;
+
+interface
+
+uses
+  SysUtils, Classes, FIBDatabase, pFIBDatabase;
+
+type
+  TDM = class(TDataModule)
+    DB: TpFIBDatabase;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  DM: TDM;
+
+implementation
+
+{$R *.dfm}
+
+end.
