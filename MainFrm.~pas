@@ -8,6 +8,7 @@ uses
 
 type
   TfrmMain = class(TForm)
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -22,5 +23,14 @@ implementation
 uses DM_;
 
 {$R *.dfm}
+
+procedure TfrmMain.FormCreate(Sender: TObject);
+  procedure GetConfig();
+  begin
+
+  end;
+begin
+
+end;
 
 end.

@@ -44,7 +44,7 @@ begin
     ParamByName('S_TARIFPLAN').AsInteger := dblkcbbTarifPlan.KeyValue;
     ParamByName('S_NUMBER').AsString := edtNumber.Text;
   end;
-
+                     // dblkcbbTarifPlan заполнить лист 
   inherited;
 end;
 

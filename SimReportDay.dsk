@@ -11,9 +11,21 @@ File_8=SourceModule,'C:\PITER\Del7V2\Source\Chap_13\Transaction\fmTransU.pas',0,
 File_9=SourceModule,'C:\PITER\Del7V2\Source\Chap_06\OnDrawColumnCell\Correct\Fmnaklsu.pas',0,1,1,1,1,1,0
 
 [Modules]
-Module0=F:\myProgram\Delphi\FlowMtsMinutes\MainFrm.pas
-Count=1
+Module0=F:\myProgram\Delphi\FlowMtsMinutes\DM_.pas
+Module1=F:\myProgram\Delphi\FlowMtsMinutes\SimkaFrm.pas
+Module2=F:\myProgram\Delphi\FlowMtsMinutes\MainFrm.pas
+Count=3
 EditWindowCount=1
+
+[F:\myProgram\Delphi\FlowMtsMinutes\DM_.pas]
+ModuleType=SourceModule
+FormState=1
+FormOnTop=1
+
+[F:\myProgram\Delphi\FlowMtsMinutes\SimkaFrm.pas]
+ModuleType=SourceModule
+FormState=1
+FormOnTop=1
 
 [F:\myProgram\Delphi\FlowMtsMinutes\MainFrm.pas]
 ModuleType=SourceModule
@@ -28,10 +40,20 @@ FormOnTop=0
 FormState=0
 FormOnTop=0
 
+[F:\myProgram\Delphi\FlowMtsMinutes\include\ChaildFrm.pas]
+FormState=0
+FormOnTop=0
+
+[F:\myProgram\Delphi\FlowMtsMinutes\TarifPlanFrm.pas]
+FormState=0
+FormOnTop=0
+
 [EditWindow0]
-ViewCount=1
-CurrentView=0
+ViewCount=3
+CurrentView=2
 View0=0
+View1=1
+View2=2
 CodeExplorer=CodeExplorer@EditWindow0
 MessageView=MessageView@EditWindow0
 Create=1
@@ -57,6 +79,20 @@ BottomPanelData=00000400010000000B0000004D65737361676556696577580300000000000002
 Module=F:\myProgram\Delphi\FlowMtsMinutes\MainFrm.pas
 CursorX=20
 CursorY=7
+TopLine=1
+LeftCol=1
+
+[View1]
+Module=F:\myProgram\Delphi\FlowMtsMinutes\SimkaFrm.pas
+CursorX=1
+CursorY=1
+TopLine=1
+LeftCol=1
+
+[View2]
+Module=F:\myProgram\Delphi\FlowMtsMinutes\DM_.pas
+CursorX=1
+CursorY=1
 TopLine=1
 LeftCol=1
 
@@ -109,11 +145,11 @@ State=0
 Left=1136
 Top=108
 Width=167
-Height=240
+Height=302
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=159
-ClientHeight=214
+ClientHeight=276
 TBDockHeight=240
 LRDockWidth=160
 Dockable=1
@@ -165,7 +201,7 @@ LRDockWidth=182
 Dockable=1
 SplitPos=85
 ArrangeBy=Name
-SelectedItem=Caption
+SelectedItem=Name
 ExpandedItems=
 HiddenCategories=
 

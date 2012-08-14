@@ -99,9 +99,19 @@ procedure TChaildForm.btnSaveClick(Sender: TObject);
 begin
   case FEditorState of
     esDelete:
-      pfbdtst1.Delete;
+      begin
+        if dbgrd1.DataSource.DataSet.Eof then
+          Exit;
+        pfbdtst1.Delete;
+      end;
+
     esEdit:
-      pfbdtst1.Edit;
+      begin
+        if dbgrd1.DataSource.DataSet.Eof then
+          Exit;      
+        pfbdtst1.Edit;
+      end;
+      
     esInsert:
       pfbdtst1.Insert;
   else

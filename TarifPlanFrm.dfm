@@ -1,6 +1,6 @@
 inherited frmTarifPlan: TfrmTarifPlan
-  Left = 304
-  Top = 346
+  Left = 408
+  Top = 258
   Caption = 'frmTarifPlan'
   OldCreateOrder = True
   PixelsPerInch = 96
@@ -123,7 +123,6 @@ inherited frmTarifPlan: TfrmTarifPlan
       '    TP_SMS_MONTH'
       'FROM'
       '    TARIF_PLAN ')
-    Active = True
     object pfbdtst1TPID: TFIBIntegerField
       FieldName = 'TPID'
     end

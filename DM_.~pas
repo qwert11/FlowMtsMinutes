@@ -8,6 +8,7 @@ uses
 type
   TDM = class(TDataModule)
     DB: TpFIBDatabase;
+    pfbtrnsctn1: TpFIBTransaction;
   private
     { Private declarations }
   public

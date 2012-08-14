@@ -1,11 +1,11 @@
 object DM: TDM
   OldCreateOrder = False
-  Left = 1258
-  Top = 136
+  Left = 1095
+  Top = 360
   Height = 150
-  Width = 215
+  Width = 174
   object DB: TpFIBDatabase
-    DBName = 'D:\Prog\FlowMtsMinutes\REPORTMTS.FDB'
+    DBName = 'REPORTMTS.FDB'
     DBParams.Strings = (
       'password=masterkey'
       'user_name=SYSDBA'

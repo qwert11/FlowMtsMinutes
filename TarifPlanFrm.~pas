@@ -42,9 +42,9 @@ begin
         (edtTarifPlan.Text = NullAsStringValue) then
       Exit;
 
-    ParamByName('S_TARIFPLAN').AsString := edtTarifPlan.Text;
-    ParamByName('S_NUMBER').AsString := edtAbonBoard.Text;
-    ParamByName('S_NUMBER').AsString := edtSmsMonth.Text;
+    ParamByName('TP_NAME').AsString := edtTarifPlan.Text;
+    ParamByName('TP_ABON_BOARD').AsString := edtAbonBoard.Text;
+    ParamByName('TP_SMS_MONTH').AsString := edtSmsMonth.Text;
   end;
 
   inherited;
