@@ -8,7 +8,8 @@ uses
   TarifPlanFrm in 'TarifPlanFrm.pas' {frmTarifPlan},
   FinanceFrm in 'FinanceFrm.pas' {frmFinance},
   OwnerFrm in 'OwnerFrm.pas' {frmOwner},
-  DM_ in 'DM_.pas' {DM: TDataModule};
+  DM_ in 'DM_.pas' {DM: TDataModule},
+  CustomerFunctions in 'CustomerFunctions.pas';
 
 {$R *.res}
 

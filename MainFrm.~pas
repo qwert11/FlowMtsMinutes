@@ -20,17 +20,24 @@ var
 
 implementation
 
-uses DM_;
+uses DM_, CustomerFunctions;
 
 {$R *.dfm}
 
 procedure TfrmMain.FormCreate(Sender: TObject);
-  procedure GetConfig();
-  begin
-
-  end;
 begin
-
+  with DM.DB do
+  if not Connected then begin
+    DatabaseName := ReadIni('Base', 'Putch', riString);
+    try
+      Connected := True;
+    except
+      on E: Exception do begin
+        Application.MessageBox(PChar(E.Message), 'Ошибка', MB_ICONERROR);
+      end;
+    end;
+  end;
+  WindowState := ReadIni('Window', 'State', riInteger);
 end;
 
 end.
