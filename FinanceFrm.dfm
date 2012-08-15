@@ -98,7 +98,6 @@ inherited frmFinance: TfrmFinance
       '    F_CODE'
       'FROM'
       '    FINANCE ')
-    Active = True
     object pfbdtst1FID: TFIBIntegerField
       FieldName = 'FID'
     end

@@ -1,6 +1,6 @@
 object ChaildForm: TChaildForm
-  Left = 350
-  Top = 250
+  Left = 804
+  Top = 260
   Width = 480
   Height = 408
   Caption = 'ChaildForm'
@@ -12,6 +12,7 @@ object ChaildForm: TChaildForm
   Font.Style = []
   Menu = mm1
   OldCreateOrder = False
+  OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnShow = FormShow
   PixelsPerInch = 96
@@ -20,7 +21,7 @@ object ChaildForm: TChaildForm
     Left = 0
     Top = 0
     Width = 472
-    Height = 264
+    Height = 272
     Align = alClient
     DataSource = ds1
     PopupMenu = pm1
@@ -34,7 +35,7 @@ object ChaildForm: TChaildForm
   end
   object pnl1: TPanel
     Left = 0
-    Top = 264
+    Top = 272
     Width = 472
     Height = 90
     Align = alBottom

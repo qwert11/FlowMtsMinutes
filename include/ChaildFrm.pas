@@ -40,6 +40,7 @@ type
     procedure btnSaveClick(Sender: TObject); virtual;
     procedure FormShow(Sender: TObject);
     procedure dbgrd1DblClick(Sender: TObject);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
   private
     { Private declarations }
     procedure NullAllField;
@@ -135,7 +136,8 @@ end;
 
 procedure TChaildForm.FormShow(Sender: TObject);
 begin
-  NullAllField
+  NullAllField;
+  pfbdtst1.Open;
 end;
 
 procedure TChaildForm.dbgrd1DblClick(Sender: TObject);
@@ -143,6 +145,12 @@ begin
   ModalResult := mrNone;
   if not dbgrd1.DataSource.DataSet.Eof then
     ModalResult := mrOk;
+end;
+
+procedure TChaildForm.FormCloseQuery(Sender: TObject;
+  var CanClose: Boolean);
+begin
+  pfbdtst1.Close
 end;
 
 end.

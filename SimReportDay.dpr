@@ -9,18 +9,21 @@ uses
   FinanceFrm in 'FinanceFrm.pas' {frmFinance},
   OwnerFrm in 'OwnerFrm.pas' {frmOwner},
   DM_ in 'DM_.pas' {DM: TDataModule},
-  CustomerFunctions in 'CustomerFunctions.pas';
+  CustomerFunctions in 'CustomerFunctions.pas',
+  CustomerGlobals in 'CustomerGlobals.pas',
+  EditingReportFrm in 'EditingReportFrm.pas' {frmEditingReport};
 
 {$R *.res}
 
 begin
   Application.Initialize;
+  Application.CreateForm(TDM, DM);
   Application.CreateForm(TfrmMain, frmMain);
   Application.CreateForm(TChaildForm, ChaildForm);
   Application.CreateForm(TfrmSimka, frmSimka);
   Application.CreateForm(TfrmTarifPlan, frmTarifPlan);
   Application.CreateForm(TfrmFinance, frmFinance);
   Application.CreateForm(TfrmOwner, frmOwner);
-  Application.CreateForm(TDM, DM);
+  // Application.CreateForm(TfrmEditingReport, frmEditingReport);
   Application.Run;
 end.

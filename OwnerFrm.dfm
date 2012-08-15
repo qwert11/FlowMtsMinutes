@@ -66,7 +66,6 @@ inherited frmOwner: TfrmOwner
       '    O_NAME'
       'FROM'
       '    OWNER ')
-    Active = True
     object pfbdtst1OID: TFIBIntegerField
       FieldName = 'OID'
     end

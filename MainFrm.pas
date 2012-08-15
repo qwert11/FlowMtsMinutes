@@ -4,11 +4,32 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, IniFiles;
+  Dialogs, IniFiles, DBGridEhGrouping, ExtCtrls, GridsEh, DBGridEh,
+  ActnList, Menus;
 
 type
   TfrmMain = class(TForm)
+    dbgrdh1: TDBGridEh;
+    pnl1: TPanel;
+    actlst1: TActionList;
+    actInsert: TAction;
+    actEdit: TAction;
+    actDelete: TAction;
+    pm1: TPopupMenu;
+    mniInsert: TMenuItem;
+    mniEdit: TMenuItem;
+    mniN1: TMenuItem;
+    mniDelete: TMenuItem;
+    mm1: TMainMenu;
+    mniFile1: TMenuItem;
+    mniRecord1: TMenuItem;
+    mniInsert1: TMenuItem;
+    mniEdit1: TMenuItem;
+    mniN2: TMenuItem;
+    mniDelete1: TMenuItem;
     procedure FormCreate(Sender: TObject);
+    procedure actEditUpdate(Sender: TObject);
+    procedure actInsertExecute(Sender: TObject);
   private
     { Private declarations }
   public
@@ -20,26 +41,49 @@ var
 
 implementation
 
-uses DM_;
+uses DM_, CustomerFunctions, EditingReportFrm;
 
 {$R *.dfm}
 
 procedure TfrmMain.FormCreate(Sender: TObject);
-  function ReadIni(ASection, AString : String) : Variant;
-  var
-    sIniFile: TIniFile;
-    sPath: String[60];
-  begin
-    GetDir(0, sPath);
-    sIniFile := TIniFile.Create(sPath + '\Name.INI');
-    try
-      Result := sIniFile.ReadString(ASection, AString, ' ');
-    finally
-      sIniFile.Free;
-    end;
-  end;
 begin
+  with DM do
+    try
+      WindowState := ReadIni('Window', 'WindowState', riInteger);
+      if not DB.Connected then begin
+        DB.DatabaseName := ReadIni('Base', 'Patch', riString);
+        DB.Connected := True;
+      end;
+      
+      if not pfbdtstView.Active then
+        pfbdtstView.Open; 
+    except
+      on E: Exception do begin
+        Application.MessageBox(PChar(E.Message), 'Ошибка', MB_ICONERROR);
+        Halt;
+      end;
+    end;
+end;
 
+procedure TfrmMain.actEditUpdate(Sender: TObject);
+begin
+  (Sender as TAction).Enabled := not dbgrdh1.DataSource.DataSet.Eof
+end;
+
+procedure TfrmMain.actInsertExecute(Sender: TObject);
+var
+  EditingReport: TfrmEditingReport;
+begin
+  EditingReport := TfrmEditingReport.Create((Sender as TComponent), erInsert);
+  try
+    ShowModal;
+    if EditingReport.ModalResult = mrOk then begin
+      dbgrdh1.DataSource.DataSet.Close;
+      dbgrdh1.DataSource.DataSet.Open;
+    end;
+  finally
+    EditingReport.Free
+  end;
 end;
 
 end.

@@ -1,6 +1,6 @@
 object ChaildForm: TChaildForm
-  Left = 244
-  Top = 478
+  Left = 350
+  Top = 250
   Width = 480
   Height = 408
   Caption = 'ChaildForm'
@@ -12,6 +12,7 @@ object ChaildForm: TChaildForm
   Font.Style = []
   Menu = mm1
   OldCreateOrder = False
+  OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnShow = FormShow
   PixelsPerInch = 96
