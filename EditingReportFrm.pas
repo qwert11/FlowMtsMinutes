@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, ComCtrls, DBGridEh, StdCtrls, Mask, DBCtrlsEh,
-  DBLookupEh, pFIBDataSet;
+  DBLookupEh, pFIBDataSet, DBGridEhGrouping, GridsEh, Grids,
+  MemTableDataEh, Db, DataDriverEh, DBClient;
 
 type
   TEditingReport = (erEdit, erInsert);
@@ -13,7 +14,20 @@ type
   TfrmEditingReport = class(TForm)
     tmr1: TTimer;
     stat1: TStatusBar;
-    cbbIDAccount: TDBLookupComboboxEh;
+    dbgrdhRepSIM: TDBGridEh;
+    ds1: TDataSource;
+    cds1: TClientDataSet;
+    ClientDataSet1: TClientDataSet;
+    ClientDataSet2: TClientDataSet;
+    dtpDate: TDateTimePicker;
+    lbl1: TLabel;
+    lbl2: TLabel;
+    lbl3: TLabel;
+    cbbIDAccount2: TDBLookupComboboxEh;
+    cbbIDAccount1: TDBLookupComboboxEh;
+    edSum1: TEdit;
+    edtSum2: TEdit;
+    pnl1: TPanel;
     procedure tmr1Timer(Sender: TObject);
   private
     { Private declarations }
