@@ -12,22 +12,29 @@ type
     pfbtrnsView: TpFIBTransaction;
     ds1: TDataSource;
     pfbdtstView: TpFIBDataSet;
-    pfbdtstViewRD_DATE: TFIBDateField;
-    pfbdtstViewRD_FNCE1SUM: TFIBBCDField;
-    pfbdtstViewRD_FNCE2SUM: TFIBBCDField;
-    pfbdtstViewRE_SURNAME: TFIBStringField;
-    pfbdtstViewTP_NAME: TFIBStringField;
-    pfbdtstViewTP_ABON_BOARD: TFIBBCDField;
-    pfbdtstViewTP_SMS_MONTH: TFIBIntegerField;
-    pfbdtstViewRS_SMS: TFIBIntegerField;
-    pfbdtstViewRS_BALANCE: TFIBBCDField;
-    pfbdtstViewD_NUM: TFIBIntegerField;
-    pfbdtstViewD_TITLE: TFIBStringField;
-    pfbdtstViewO_NAME: TFIBStringField;
-    pfbdtstViewS_NUMBER: TFIBStringField;
-    pfbdtstViewF_IDACCOUNT: TFIBStringField;
-    pfbdtstViewF_IDACCOUNT1: TFIBStringField;
+    fbdtfldViewRD_DATE: TFIBDateField;
+    fbcdfldViewRD_FNCE1SUM: TFIBBCDField;
+    fbcdfldViewRD_FNCE2SUM: TFIBBCDField;
+    fbstrngfldViewRE_SURNAME: TFIBStringField;
+    fbstrngfldViewTP_NAME: TFIBStringField;
+    fbcdfldViewTP_ABON_BOARD: TFIBBCDField;
+    fbntgrfldViewTP_SMS_MONTH: TFIBIntegerField;
+    fbntgrfldViewRS_SMS: TFIBIntegerField;
+    fbcdfldViewRS_BALANCE: TFIBBCDField;
+    fbntgrfldViewD_NUM: TFIBIntegerField;
+    fbstrngfldViewD_TITLE: TFIBStringField;
+    fbstrngfldViewO_NAME: TFIBStringField;
+    fbstrngfldViewS_NUMBER: TFIBStringField;
+    fbstrngfldViewF_IDACCOUNT: TFIBStringField;
+    fbstrngfldViewF_IDACCOUNT1: TFIBStringField;
     fbntgrfldViewRD_ID: TFIBIntegerField;
+    fbntgrfldViewRS_SIMKA: TFIBIntegerField;
+    fbntgrfldViewRS_OWNER: TFIBIntegerField;
+    fbntgrfldViewRS_IN: TFIBIntegerField;
+    fbntgrfldViewRSID: TFIBIntegerField;
+    fbntgrfldViewRD_FINANCE1: TFIBIntegerField;
+    fbntgrfldViewRD_FINANCE2: TFIBIntegerField;
+    fbntgrfldViewRD_RESPONS: TFIBIntegerField;
   private
     { Private declarations }
   public

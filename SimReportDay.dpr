@@ -11,7 +11,8 @@ uses
   DM_ in 'DM_.pas' {DM: TDataModule},
   CustomerFunctions in 'CustomerFunctions.pas',
   CustomerGlobals in 'CustomerGlobals.pas',
-  EditingReportFrm in 'EditingReportFrm.pas' {frmEditingReport};
+  EditingReportFrm in 'EditingReportFrm.pas' {frmEditingReport},
+  DeviceFrm in 'DeviceFrm.pas' {frmDevice};
 
 {$R *.res}
 
@@ -19,9 +20,10 @@ begin
   Application.Initialize;
   Application.CreateForm(TDM, DM);
   Application.CreateForm(TfrmMain, frmMain);
-  Application.CreateForm(TChaildForm, ChaildForm);
+  Application.CreateForm(TfrmDevice, frmDevice);
+  //Application.CreateForm(TChaildForm, ChaildForm);
+  Application.CreateForm(TfrmTarifPlan, frmTarifPlan);  
   Application.CreateForm(TfrmSimka, frmSimka);
-  Application.CreateForm(TfrmTarifPlan, frmTarifPlan);
   Application.CreateForm(TfrmFinance, frmFinance);
   Application.CreateForm(TfrmOwner, frmOwner);
   // Application.CreateForm(TfrmEditingReport, frmEditingReport);

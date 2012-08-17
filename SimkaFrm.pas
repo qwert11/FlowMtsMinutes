@@ -16,6 +16,9 @@ type
     pfbdtst1S_TARIFPLAN: TFIBIntegerField;
     pfbdtst1S_NUMBER: TFIBStringField;
     dblkcbbTarifPlan: TDBLookupComboBox;
+    strngfldpfbdtst1TarifPlan: TStringField;
+    crncyfldpfbdtst1AbonBoard: TCurrencyField;
+    intgrfldpfbdtst1SMS_Month: TIntegerField;
     procedure btnSaveClick(Sender: TObject); override;
   private
     { Private declarations }

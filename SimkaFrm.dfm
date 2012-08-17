@@ -1,4 +1,6 @@
 inherited frmSimka: TfrmSimka
+  Left = 765
+  Top = 243
   Caption = 'frmSimka'
   OldCreateOrder = True
   PixelsPerInch = 96
@@ -108,6 +110,34 @@ inherited frmSimka: TfrmSimka
       FieldName = 'S_NUMBER'
       Size = 12
       EmptyStrToNull = True
+    end
+    object strngfldpfbdtst1TarifPlan: TStringField
+      FieldKind = fkLookup
+      FieldName = 'TarifPlan'
+      LookupDataSet = frmTarifPlan.pfbdtst1
+      LookupKeyFields = 'TPID'
+      LookupResultField = 'TP_NAME'
+      KeyFields = 'S_TARIFPLAN'
+      Size = 50
+      Lookup = True
+    end
+    object crncyfldpfbdtst1AbonBoard: TCurrencyField
+      FieldKind = fkLookup
+      FieldName = 'AbonBoard'
+      LookupDataSet = frmTarifPlan.pfbdtst1
+      LookupKeyFields = 'TPID'
+      LookupResultField = 'TP_ABON_BOARD'
+      KeyFields = 'S_TARIFPLAN'
+      Lookup = True
+    end
+    object intgrfldpfbdtst1SMS_Month: TIntegerField
+      FieldKind = fkLookup
+      FieldName = 'SMS_Month'
+      LookupDataSet = frmTarifPlan.pfbdtst1
+      LookupKeyFields = 'TPID'
+      LookupResultField = 'TP_SMS_MONTH'
+      KeyFields = 'S_TARIFPLAN'
+      Lookup = True
     end
   end
 end

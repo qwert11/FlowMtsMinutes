@@ -1,6 +1,6 @@
 object ChaildForm: TChaildForm
-  Left = 804
-  Top = 260
+  Left = 693
+  Top = 161
   Width = 480
   Height = 408
   Caption = 'ChaildForm'

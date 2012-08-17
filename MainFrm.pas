@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, IniFiles, DBGridEhGrouping, ExtCtrls, GridsEh, DBGridEh,
-  ActnList, Menus;
+  ActnList, Menus, StdCtrls;
 
 type
   TfrmMain = class(TForm)
@@ -27,6 +27,9 @@ type
     mniEdit1: TMenuItem;
     mniN2: TMenuItem;
     mniDelete1: TMenuItem;
+    btnNewRecord: TButton;
+    btnEditRecord: TButton;
+    btnDeleteRecord: TButton;
     procedure FormCreate(Sender: TObject);
     procedure actEditUpdate(Sender: TObject);
     procedure actInsertExecute(Sender: TObject);
@@ -76,7 +79,7 @@ var
 begin
   EditingReport := TfrmEditingReport.Create((Sender as TComponent), erInsert);
   try
-    ShowModal;
+    EditingReport.ShowModal;
     if EditingReport.ModalResult = mrOk then begin
       dbgrdh1.DataSource.DataSet.Close;
       dbgrdh1.DataSource.DataSet.Open;

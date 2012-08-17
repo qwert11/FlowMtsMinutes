@@ -35,7 +35,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure Edit1Click(Sender: TObject);
     procedure Insert1Click(Sender: TObject);
-    procedure Delete1Click(Sender: TObject); 
+    procedure Delete1Click(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure btnSaveClick(Sender: TObject); virtual;
     procedure FormShow(Sender: TObject);
@@ -64,7 +64,8 @@ uses MainFrm, DM_;
 procedure TChaildForm.FormCreate(Sender: TObject);
 begin
   FEditorState := esNone;
-  btnSave.Enabled := False
+  btnSave.Enabled := False;
+  pfbdtst1.Open
 end;
 
 procedure TChaildForm.Edit1Click(Sender: TObject);
@@ -137,7 +138,6 @@ end;
 procedure TChaildForm.FormShow(Sender: TObject);
 begin
   NullAllField;
-  pfbdtst1.Open;
 end;
 
 procedure TChaildForm.dbgrd1DblClick(Sender: TObject);

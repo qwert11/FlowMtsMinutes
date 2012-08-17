@@ -1,8 +1,8 @@
 object frmEditingReport: TfrmEditingReport
-  Left = 541
-  Top = 196
-  Width = 762
-  Height = 456
+  Left = 489
+  Top = 236
+  Width = 863
+  Height = 465
   Caption = 'frmEditingReport'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -11,12 +11,13 @@ object frmEditingReport: TfrmEditingReport
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
+  OnActivate = FormActivate
   PixelsPerInch = 96
   TextHeight = 13
   object stat1: TStatusBar
     Left = 0
-    Top = 410
-    Width = 754
+    Top = 419
+    Width = 855
     Height = 19
     Panels = <
       item
@@ -32,8 +33,8 @@ object frmEditingReport: TfrmEditingReport
   object dbgrdhRepSIM: TDBGridEh
     Left = 0
     Top = 0
-    Width = 496
-    Height = 410
+    Width = 655
+    Height = 419
     Align = alClient
     DataGrouping.GroupLevels = <>
     DataSource = ds1
@@ -45,6 +46,7 @@ object frmEditingReport: TfrmEditingReport
     FooterFont.Name = 'MS Sans Serif'
     FooterFont.Style = []
     IndicatorOptions = [gioShowRowIndicatorEh]
+    PopupMenu = pm1
     TabOrder = 1
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
@@ -55,35 +57,35 @@ object frmEditingReport: TfrmEditingReport
     end
   end
   object pnl1: TPanel
-    Left = 496
+    Left = 655
     Top = 0
-    Width = 258
-    Height = 410
+    Width = 200
+    Height = 419
     Align = alRight
     TabOrder = 2
     object lbl2: TLabel
-      Left = 73
+      Left = 65
       Top = 56
       Width = 112
       Height = 13
       Caption = 'ID '#1083#1080#1094#1077#1074#1086#1075#1086' '#1089#1095#1077#1090#1072' '#8470'1'
     end
     object lbl1: TLabel
-      Left = 156
+      Left = 60
       Top = 32
       Width = 29
       Height = 13
       Caption = #1044#1072#1090#1072':'
     end
     object lbl3: TLabel
-      Left = 73
+      Left = 65
       Top = 168
       Width = 112
       Height = 13
       Caption = 'ID '#1083#1080#1094#1077#1074#1086#1075#1086' '#1089#1095#1077#1090#1072' '#8470'2'
     end
     object dtpDate: TDateTimePicker
-      Left = 88
+      Left = 96
       Top = 24
       Width = 97
       Height = 21
@@ -92,61 +94,85 @@ object frmEditingReport: TfrmEditingReport
       TabOrder = 0
     end
     object cbbIDAccount2: TDBLookupComboboxEh
-      Left = 64
+      Left = 56
       Top = 184
       Width = 121
       Height = 21
       EditButtons = <>
+      KeyField = 'FID'
+      ListField = 'F_CODE; F_IDACCOUNT'
+      ListSource = frmFinance.ds1
       TabOrder = 1
       Visible = True
     end
     object cbbIDAccount1: TDBLookupComboboxEh
-      Left = 64
+      Left = 56
       Top = 72
       Width = 121
       Height = 21
       EditButtons = <>
+      KeyField = 'FID'
+      ListField = 'F_CODE; F_IDACCOUNT'
+      ListSource = frmFinance.ds1
       TabOrder = 2
       Visible = True
     end
-    object edSum1: TEdit
-      Left = 64
+    object edtSum1: TEdit
+      Left = 56
       Top = 104
       Width = 121
       Height = 21
       TabOrder = 3
-      Text = 'edSum1'
+      Text = 'edtSum1'
     end
     object edtSum2: TEdit
-      Left = 64
+      Left = 56
       Top = 216
       Width = 121
       Height = 21
       TabOrder = 4
       Text = 'edtSum2'
     end
+    object btnSave: TBitBtn
+      Left = 16
+      Top = 376
+      Width = 75
+      Height = 25
+      TabOrder = 5
+      Kind = bkOK
+    end
+    object btnClose: TBitBtn
+      Left = 104
+      Top = 376
+      Width = 75
+      Height = 25
+      TabOrder = 6
+      Kind = bkCancel
+    end
   end
   object tmr1: TTimer
     OnTimer = tmr1Timer
-    Left = 392
-    Top = 336
+    Left = 96
+    Top = 88
   end
   object ds1: TDataSource
-    DataSet = cds1
-    Left = 280
-    Top = 288
+    DataSet = cds
+    Left = 48
+    Top = 264
   end
-  object cds1: TClientDataSet
+  object cds: TClientDataSet
     Active = True
     Aggregates = <>
     FieldDefs = <
       item
         Name = 'cdsSimka'
-        DataType = ftInteger
+        DataType = ftString
+        Size = 20
       end
       item
         Name = 'cdsIn'
-        DataType = ftInteger
+        DataType = ftString
+        Size = 20
       end
       item
         Name = 'cdsSMS'
@@ -154,91 +180,97 @@ object frmEditingReport: TfrmEditingReport
       end
       item
         Name = 'cdsOwner'
-        DataType = ftInteger
+        DataType = ftString
+        Size = 20
       end
       item
         Name = 'cdsBalance'
         DataType = ftFloat
+      end
+      item
+        Name = 'ID_RS'
+        DataType = ftInteger
+      end
+      item
+        Name = 'IDSimka'
+        DataType = ftInteger
+      end
+      item
+        Name = 'IDIn'
+        DataType = ftInteger
+      end
+      item
+        Name = 'IDOwner'
+        DataType = ftInteger
       end>
     IndexDefs = <>
     Params = <>
     StoreDefs = True
-    Left = 280
-    Top = 256
+    Left = 48
+    Top = 224
     Data = {
-      6C0000009619E0BD0100000018000000050000000000030000006C0008636473
-      53696D6B61040001000000000005636473496E04000100000000000663647353
-      4D530400010000000000086364734F776E657204000100000000000A63647342
-      616C616E636508000400000000000000}
+      900000009619E0BD010000001800000005000000000003000000900008636473
+      53696D6B61010049000000010005574944544802000200140005636473496E01
+      0049000000010005574944544802000200140006636473534D53040001000000
+      0000086364734F776E657201004900000001000557494454480200020014000A
+      63647342616C616E636508000400000000000000}
+    object intgrfldID_RS: TIntegerField
+      DisplayWidth = 7
+      FieldKind = fkInternalCalc
+      FieldName = 'ID_RS'
+    end
+    object strngfldSimka: TStringField
+      DisplayLabel = #1057#1048#1052'-'#1082#1072
+      DisplayWidth = 12
+      FieldName = 'cdsSimka'
+    end
+    object intgrfldIDSimka: TIntegerField
+      DisplayWidth = 10
+      FieldKind = fkInternalCalc
+      FieldName = 'IDSimka'
+    end
+    object strngfldIn: TStringField
+      DisplayWidth = 9
+      FieldName = 'cdsIn'
+    end
+    object intgrfldIDIn: TIntegerField
+      DisplayWidth = 10
+      FieldKind = fkInternalCalc
+      FieldName = 'IDIn'
+    end
+    object intgrfldSMS: TIntegerField
+      DisplayWidth = 10
+      FieldName = 'cdsSMS'
+    end
+    object strngfldOwner: TStringField
+      DisplayWidth = 12
+      FieldName = 'cdsOwner'
+    end
+    object intgrfldIDOwner: TIntegerField
+      DisplayWidth = 10
+      FieldKind = fkInternalCalc
+      FieldName = 'IDOwner'
+    end
+    object fltfldBalance: TFloatField
+      DisplayWidth = 10
+      FieldName = 'cdsBalance'
+    end
   end
-  object ClientDataSet1: TClientDataSet
-    Active = True
-    Aggregates = <>
-    FieldDefs = <
-      item
-        Name = 'cdsSimka'
-        DataType = ftInteger
-      end
-      item
-        Name = 'cdsIn'
-        DataType = ftInteger
-      end
-      item
-        Name = 'cdsSMS'
-        DataType = ftInteger
-      end
-      item
-        Name = 'cdsOwner'
-        DataType = ftInteger
-      end
-      item
-        Name = 'cdsBalance'
-        DataType = ftFloat
-      end>
-    IndexDefs = <>
-    Params = <>
-    StoreDefs = True
-    Left = 280
-    Top = 256
-    Data = {
-      6C0000009619E0BD0100000018000000050000000000030000006C0008636473
-      53696D6B61040001000000000005636473496E04000100000000000663647353
-      4D530400010000000000086364734F776E657204000100000000000A63647342
-      616C616E636508000400000000000000}
+  object actlst1: TActionList
+    Left = 48
+    Top = 88
+    object actEdit: TAction
+      Caption = #1056#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1090#1100' '#1079#1072#1087#1080#1089#1100
+      Hint = #1056#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1085#1080#1077' '#1090#1077#1082#1091#1097#1077#1081' '#1079#1072#1087#1080#1089#1080
+      OnExecute = actEditExecute
+      OnUpdate = actEditingUpdate
+    end
   end
-  object ClientDataSet2: TClientDataSet
-    Active = True
-    Aggregates = <>
-    FieldDefs = <
-      item
-        Name = 'cdsSimka'
-        DataType = ftInteger
-      end
-      item
-        Name = 'cdsIn'
-        DataType = ftInteger
-      end
-      item
-        Name = 'cdsSMS'
-        DataType = ftInteger
-      end
-      item
-        Name = 'cdsOwner'
-        DataType = ftInteger
-      end
-      item
-        Name = 'cdsBalance'
-        DataType = ftFloat
-      end>
-    IndexDefs = <>
-    Params = <>
-    StoreDefs = True
-    Left = 280
-    Top = 256
-    Data = {
-      6C0000009619E0BD0100000018000000050000000000030000006C0008636473
-      53696D6B61040001000000000005636473496E04000100000000000663647353
-      4D530400010000000000086364734F776E657204000100000000000A63647342
-      616C616E636508000400000000000000}
+  object pm1: TPopupMenu
+    Left = 96
+    Top = 40
+    object mniEdit: TMenuItem
+      Action = actEdit
+    end
   end
 end
