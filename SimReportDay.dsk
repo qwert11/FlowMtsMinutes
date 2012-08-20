@@ -1,21 +1,28 @@
 [Closed Files]
-File_0=SourceModule,'F:\myProgram\Delphi\FlowMtsMinutes\MainFrm.dfm',0,1,1,1,1,0,0
-File_1=SourceModule,'C:\Program Files\Borland\Delphi7\Lib\fibplus_6_9_9_D5-2007\sources\pFIBDataSet.pas',0,1,1563,19,1570,0,0
-File_2=SourceModule,'F:\myProgram\Delphi\test\FBConnect\MOXA\MainFrm.pas',0,1,58,27,64,1,1
-File_3=SourceModule,'c:\program files\borland\delphi7\source\vcl\IBDatabase.pas',0,1,1131,1,1138,0,0
-File_4=SourceModule,'F:\Bibls\!Компьютерная литература\!Программирование\Delphi World Books\Фаронов В.В. - Delphi 7 Программирование баз данных\Source\Source\Chap_16\Debit-Credit\Unit1.pas',0,1,74,32,79,1,0
-File_5=SourceModule,'F:\Bibls\!Компьютерная литература\!Программирование\Delphi World Books\Фаронов В.В. - Delphi 7 Программирование баз данных\Source\Source\Chap_16\Debit-Credit\Unit2.pas',0,1,16,1,1,1,1
-File_6=SourceModule,'C:\PITER\Del7V2\Source\Chap_17\Example\Unit1.pas',0,1,1,1,1,1,0
-File_7=SourceModule,'C:\PITER\Del7V2\Source\Chap_17\Example\Unit2.pas',0,1,1,1,1,1,0
-File_8=SourceModule,'C:\PITER\Del7V2\Source\Chap_15\ClientDemo\Unit1.pas',0,1,1,1,1,1,0
+File_0=SourceModule,'C:\Program Files\Borland\Delphi7\Lib\fibplus_6_9_9_D5-2007\sources\fib.pas',0,1,516,10,533,0,0
+File_1=SourceModule,'C:\Program Files\Borland\Delphi7\Lib\fibplus_6_9_9_D5-2007\sources\FIBDataSet.pas',0,1,922,28,933,0,0
+File_2=SourceModule,'C:\Program Files\Borland\Delphi7\Lib\fibplus_6_9_9_D5-2007\sources\FIBQuery.pas',0,1,4,14,21,0,0
+File_3=SourceModule,'C:\Program Files\Borland\Delphi7\Lib\fibplus_6_9_9_D5-2007\sources\pFIBDataSet.pas',0,1,1564,1,1573,0,0
+File_4=SourceModule,'F:\myProgram\Delphi\FlowMtsMinutes\MainFrm.dfm',0,1,1,1,1,0,0
+File_5=SourceModule,'F:\myProgram\Delphi\test\FBConnect\MOXA\MainFrm.pas',0,1,58,27,64,1,1
+File_6=SourceModule,'c:\program files\borland\delphi7\source\vcl\IBDatabase.pas',0,1,1131,1,1138,0,0
+File_7=SourceModule,'F:\Bibls\!Компьютерная литература\!Программирование\Delphi World Books\Фаронов В.В. - Delphi 7 Программирование баз данных\Source\Source\Chap_16\Debit-Credit\Unit1.pas',0,1,74,32,79,1,0
+File_8=SourceModule,'F:\Bibls\!Компьютерная литература\!Программирование\Delphi World Books\Фаронов В.В. - Delphi 7 Программирование баз данных\Source\Source\Chap_16\Debit-Credit\Unit2.pas',0,1,16,1,1,1,1
+File_9=SourceModule,'C:\PITER\Del7V2\Source\Chap_17\Example\Unit1.pas',0,1,1,1,1,1,0
 
 [Modules]
-Module0=F:\myProgram\Delphi\FlowMtsMinutes\TarifPlanFrm.pas
-Module1=F:\myProgram\Delphi\FlowMtsMinutes\EditingReportFrm.pas
-Module2=F:\myProgram\Delphi\FlowMtsMinutes\DM_.pas
+Module0=F:\myProgram\Delphi\FlowMtsMinutes\include\ChaildFrm.pas
+Module1=F:\myProgram\Delphi\FlowMtsMinutes\TarifPlanFrm.pas
+Module2=F:\myProgram\Delphi\FlowMtsMinutes\EditingReportFrm.pas
 Module3=F:\myProgram\Delphi\FlowMtsMinutes\MainFrm.pas
-Count=4
+Module4=F:\myProgram\Delphi\FlowMtsMinutes\SimReportDay.dpr
+Count=5
 EditWindowCount=1
+
+[F:\myProgram\Delphi\FlowMtsMinutes\include\ChaildFrm.pas]
+ModuleType=SourceModule
+FormState=1
+FormOnTop=1
 
 [F:\myProgram\Delphi\FlowMtsMinutes\TarifPlanFrm.pas]
 ModuleType=SourceModule
@@ -27,17 +34,13 @@ ModuleType=SourceModule
 FormState=1
 FormOnTop=0
 
-[F:\myProgram\Delphi\FlowMtsMinutes\DM_.pas]
-ModuleType=SourceModule
-FormState=1
-FormOnTop=0
-
 [F:\myProgram\Delphi\FlowMtsMinutes\MainFrm.pas]
 ModuleType=SourceModule
 FormState=1
 FormOnTop=0
 
 [F:\myProgram\Delphi\FlowMtsMinutes\SimReportDay.dpr]
+ModuleType=SourceModule
 FormState=0
 FormOnTop=0
 
@@ -45,7 +48,7 @@ FormOnTop=0
 FormState=0
 FormOnTop=0
 
-[F:\myProgram\Delphi\FlowMtsMinutes\include\ChaildFrm.pas]
+[F:\myProgram\Delphi\FlowMtsMinutes\DM_.pas]
 FormState=0
 FormOnTop=0
 
@@ -58,12 +61,13 @@ FormState=0
 FormOnTop=0
 
 [EditWindow0]
-ViewCount=4
-CurrentView=2
+ViewCount=5
+CurrentView=4
 View0=0
 View1=1
 View2=2
 View3=3
+View4=4
 CodeExplorer=CodeExplorer@EditWindow0
 MessageView=MessageView@EditWindow0
 Create=1
@@ -88,29 +92,36 @@ BottomPanelData=0000040000000000A10300000000000002550000000000000001000000000000
 [View0]
 Module=F:\myProgram\Delphi\FlowMtsMinutes\MainFrm.pas
 CursorX=1
-CursorY=1
-TopLine=1
+CursorY=104
+TopLine=95
 LeftCol=1
 
 [View1]
-Module=F:\myProgram\Delphi\FlowMtsMinutes\EditingReportFrm.pas
-CursorX=31
-CursorY=103
-TopLine=93
+Module=F:\myProgram\Delphi\FlowMtsMinutes\SimReportDay.dpr
+CursorX=1
+CursorY=19
+TopLine=1
 LeftCol=1
 
 [View2]
-Module=F:\myProgram\Delphi\FlowMtsMinutes\TarifPlanFrm.pas
-CursorX=27
-CursorY=57
+Module=F:\myProgram\Delphi\FlowMtsMinutes\EditingReportFrm.pas
+CursorX=31
+CursorY=103
 TopLine=46
 LeftCol=1
 
 [View3]
-Module=F:\myProgram\Delphi\FlowMtsMinutes\DM_.pas
-CursorX=22
-CursorY=4
-TopLine=1
+Module=F:\myProgram\Delphi\FlowMtsMinutes\TarifPlanFrm.pas
+CursorX=70
+CursorY=59
+TopLine=43
+LeftCol=1
+
+[View4]
+Module=F:\myProgram\Delphi\FlowMtsMinutes\include\ChaildFrm.pas
+CursorX=59
+CursorY=91
+TopLine=69
 LeftCol=1
 
 [Watches]
@@ -148,8 +159,8 @@ Left=0
 Top=0
 Width=1280
 Height=112
-MaxLeft=-1
-MaxTop=-1
+MaxLeft=-4
+MaxTop=-4
 MaxWidth=1288
 MaxHeight=112
 ClientWidth=1280
@@ -162,11 +173,11 @@ State=0
 Left=1136
 Top=108
 Width=167
-Height=328
+Height=354
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=159
-ClientHeight=302
+ClientHeight=328
 TBDockHeight=240
 LRDockWidth=160
 Dockable=1
@@ -340,7 +351,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=205
 ClientHeight=487
-TBDockHeight=575
+TBDockHeight=487
 LRDockWidth=205
 Dockable=1
 

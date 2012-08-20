@@ -37,30 +37,37 @@ uses DM_;
 
 procedure TfrmTarifPlan.btnSaveClick(Sender: TObject);
 begin
-  DM.pfbtrnsctn1.Active := False;
-  DM.pfbtrnsctn1.StartTransaction;
-  with DM.pfbtrnsctn1 do
-  try
-    with pfbdtst1, QInsert do begin
-      //ParamByName('TPID').AsInteger := pfbdtst1.FieldByName('TPID').AsInteger;
-      Prepare;
-      if (FEditorState in [esEdit, esInsert]) and
-          (edtTarifPlan.Text = NullAsStringValue) then
-        Exit;
+  with pfbdtst1 do begin
 
-      ParamByName('TP_NAME').AsString := ''' +edtTarifPlan.Text + ''';
-      //ParamByName('TP_ABON_BOARD').AsFloat := StrToFloat(edtAbonBoard.Text);
-      //ParamByName('TP_SMS_MONTH').AsInteger := StrToInt(edtSmsMonth.Text);
-    end;
-    //inherited;
-    pfbdtst1.Insert;
-    Commit;
-    pfbdtst1.Close;
-    pfbdtst1.Open;
-  except
-    Rollback;
-    Application.MessageBox('Ошибка', '', MB_ICONERROR);
+    QueryPrepare;
+
+    case FEditorState of
+      esEdit: with QUpdate do begin
+        if (edtTarifPlan.Text = NullAsStringValue) then
+          Exit;
+
+        ParamByName('P_OLD_TPID').AsInteger := FieldByName('TPID').AsInteger;
+        ParamByName('P_TP_NAME').AsString := edtTarifPlan.Text;
+        ParamByName('P_TP_ABON_BOARD').AsFloat := StrToFloat(edtAbonBoard.Text);
+        ParamByName('P_TP_SMS_MONTH').AsInteger := StrToInt(edtSmsMonth.Text);
+      end;
+      esInsert: with QInsert do begin
+        if (edtTarifPlan.Text = NullAsStringValue) then
+          Exit;
+
+        ParamByName('P_TP_NAME').AsString := edtTarifPlan.Text;
+        ParamByName('P_TP_ABON_BOARD').AsString := edtAbonBoard.Text;
+        ParamByName('P_TP_SMS_MONTH').AsString := edtSmsMonth.Text;
+      end;
+      esDelete: with QDelete do begin
+        ParamByName('P_OLD_TPID').AsInteger := FieldByName('TPID').AsInteger;
+      end;
+    else
+      Exit;
+    end;      
   end;
+
+  inherited;
 end;
 
 end.

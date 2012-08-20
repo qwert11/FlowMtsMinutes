@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Grids, DBGrids, ExtCtrls, StdCtrls, Buttons, Menus, IBDatabase,
   DB, IBCustomDataSet, IBQuery, DBCtrls, ActnList, FIBDatabase,
-  pFIBDatabase, FIBDataSet, pFIBDataSet;
+  pFIBDatabase, FIBDataSet, pFIBDataSet, FIBQuery;
 
 type
   TEditorSetState = (esEdit, esInsert, esDelete, esNone);
@@ -47,6 +47,8 @@ type
   public
     { Public declarations }
     FEditorState: TEditorSetState;
+  protected
+    procedure QueryPrepare;
   end;
 
 var
@@ -99,27 +101,44 @@ end;
 
 procedure TChaildForm.btnSaveClick(Sender: TObject);
 begin
-  case FEditorState of
-    esDelete:
-      begin
+  try
+    with pfbdtst1 do
+    case FEditorState of
+      esDelete: begin
         if dbgrd1.DataSource.DataSet.Eof then
           Exit;
-        pfbdtst1.Delete;
+        Delete;
+        Post;
+        Close;
+        Open;
       end;
 
-    esEdit:
-      begin
+      esEdit: begin
         if dbgrd1.DataSource.DataSet.Eof then
-          Exit;      
-        pfbdtst1.Edit;
+          Exit;
+        Edit;
+        Post;
+        Close;
+        Open;
       end;
-      
-    esInsert:
-      pfbdtst1.Insert;
-  else
-    Exit;
+
+      esInsert: begin
+        Insert;
+        Post;
+        Close;
+        Open;
+      end;
+        
+    else
+      Exit;
+    end;  
+  except
+    on E: Exception do begin
+      DM.pfbtrnsctn1.Rollback;
+      Application.MessageBox(PChar(E.Message), '', MB_ICONERROR);
+    end;
   end;
-  
+
   btnCancelClick(nil);
 end;
 
@@ -138,6 +157,8 @@ end;
 procedure TChaildForm.FormShow(Sender: TObject);
 begin
   NullAllField;
+  if not pfbdtst1.Active then
+    pfbdtst1.Open
 end;
 
 procedure TChaildForm.dbgrd1DblClick(Sender: TObject);
@@ -151,6 +172,24 @@ procedure TChaildForm.FormCloseQuery(Sender: TObject;
   var CanClose: Boolean);
 begin
   pfbdtst1.Close
+end;
+
+procedure TChaildForm.QueryPrepare;
+  procedure Prep(Q: TFIBQuery);
+  begin
+    if not Q.Prepared then
+      Q.Prepare;
+  end;
+begin
+  with pfbdtst1 do begin
+    if not Active then
+      Open;
+    case FEditorState of
+      esEdit: Prep(QUpdate);
+      esInsert: Prep(QInsert);
+      esDelete: Prep(QDelete);
+    end;
+  end;
 end;
 
 end.

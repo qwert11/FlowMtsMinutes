@@ -1,6 +1,6 @@
 object ChaildForm: TChaildForm
-  Left = 693
-  Top = 161
+  Left = 418
+  Top = 187
   Width = 480
   Height = 408
   Caption = 'ChaildForm'
@@ -21,7 +21,7 @@ object ChaildForm: TChaildForm
     Left = 0
     Top = 0
     Width = 472
-    Height = 272
+    Height = 264
     Align = alClient
     DataSource = ds1
     PopupMenu = pm1
@@ -35,7 +35,7 @@ object ChaildForm: TChaildForm
   end
   object pnl1: TPanel
     Left = 0
-    Top = 272
+    Top = 264
     Width = 472
     Height = 90
     Align = alBottom

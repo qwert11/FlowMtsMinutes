@@ -1,6 +1,6 @@
 inherited frmTarifPlan: TfrmTarifPlan
-  Left = 458
-  Top = 232
+  Left = 403
+  Top = 216
   Caption = 'frmTarifPlan'
   OldCreateOrder = True
   PixelsPerInch = 96
@@ -80,17 +80,17 @@ inherited frmTarifPlan: TfrmTarifPlan
     UpdateSQL.Strings = (
       'UPDATE TARIF_PLAN'
       'SET '
-      '    TP_NAME = :TP_NAME,'
-      '    TP_ABON_BOARD = :TP_ABON_BOARD,'
-      '    TP_SMS_MONTH = :TP_SMS_MONTH'
+      '    TP_NAME = :P_TP_NAME,'
+      '    TP_ABON_BOARD = :P_TP_ABON_BOARD,'
+      '    TP_SMS_MONTH = :P_TP_SMS_MONTH'
       'WHERE'
-      '    TPID = :TPID'
+      '    TPID = :P_OLD_TPID'
       '    ')
     DeleteSQL.Strings = (
       'DELETE FROM'
       '    TARIF_PLAN'
       'WHERE'
-      '    TPID = :TPID'
+      '        TPID = :P_OLD_TPID'
       '    ')
     InsertSQL.Strings = (
       'INSERT INTO TARIF_PLAN('
@@ -99,9 +99,9 @@ inherited frmTarifPlan: TfrmTarifPlan
       '    TP_SMS_MONTH'
       ')'
       'VALUES('
-      '    :TP_NAME,'
-      '    :TP_ABON_BOARD,'
-      '    :TP_SMS_MONTH'
+      '    :P_TP_NAME,'
+      '    :P_TP_ABON_BOARD,'
+      '    :P_TP_SMS_MONTH'
       ')')
     RefreshSQL.Strings = (
       'SELECT'
@@ -112,8 +112,8 @@ inherited frmTarifPlan: TfrmTarifPlan
       'FROM'
       '    TARIF_PLAN '
       ''
-      'WHERE '
-      '    TARIF_PLAN.TPID = :TPID'
+      ' WHERE '
+      '        TARIF_PLAN.TPID = :P_OLD_TPID'
       '    ')
     SelectSQL.Strings = (
       'SELECT'
