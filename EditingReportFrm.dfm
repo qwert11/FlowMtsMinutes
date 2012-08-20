@@ -16,7 +16,7 @@ object frmEditingReport: TfrmEditingReport
   TextHeight = 13
   object stat1: TStatusBar
     Left = 0
-    Top = 412
+    Top = 419
     Width = 855
     Height = 19
     Panels = <
@@ -34,7 +34,7 @@ object frmEditingReport: TfrmEditingReport
     Left = 0
     Top = 0
     Width = 655
-    Height = 412
+    Height = 419
     Align = alClient
     DataGrouping.GroupLevels = <>
     DataSource = ds1
@@ -60,7 +60,7 @@ object frmEditingReport: TfrmEditingReport
     Left = 655
     Top = 0
     Width = 200
-    Height = 412
+    Height = 419
     Align = alRight
     TabOrder = 2
     object lbl2: TLabel
@@ -219,41 +219,42 @@ object frmEditingReport: TfrmEditingReport
       FieldKind = fkInternalCalc
       FieldName = 'ID_RS'
     end
-    object strngfldSimka: TStringField
-      DisplayLabel = #1057#1048#1052'-'#1082#1072
-      DisplayWidth = 12
-      FieldName = 'cdsSimka'
-      LookupDataSet = frmSimka.pfbdtst1
-      LookupKeyFields = 'SID'
-      LookupResultField = 'S_NUMBER; S_TARIFPLAN'
-      KeyFields = 'IDSimka'
-    end
     object intgrfldIDSimka: TIntegerField
       DisplayWidth = 10
       FieldKind = fkInternalCalc
       FieldName = 'IDSimka'
-    end
-    object strngfldIn: TStringField
-      DisplayWidth = 9
-      FieldName = 'cdsIn'
     end
     object intgrfldIDIn: TIntegerField
       DisplayWidth = 10
       FieldKind = fkInternalCalc
       FieldName = 'IDIn'
     end
+    object intgrfldIDOwner: TIntegerField
+      DisplayWidth = 10
+      FieldKind = fkInternalCalc
+      FieldName = 'IDOwner'
+    end
+    object strngfldSimka: TStringField
+      DisplayWidth = 12
+      FieldKind = fkLookup
+      FieldName = 'cdsSimka'
+      LookupDataSet = frmSimka.pfbdtst1
+      LookupKeyFields = 'SID'
+      LookupResultField = 'S_NUMBER'
+      KeyFields = 'IDSimka'
+      Lookup = True
+    end
+    object strngfldIn: TStringField
+      DisplayWidth = 6
+      FieldName = 'cdsIn'
+    end
     object intgrfldSMS: TIntegerField
       DisplayWidth = 10
       FieldName = 'cdsSMS'
     end
     object strngfldOwner: TStringField
-      DisplayWidth = 12
+      DisplayWidth = 15
       FieldName = 'cdsOwner'
-    end
-    object intgrfldIDOwner: TIntegerField
-      DisplayWidth = 10
-      FieldKind = fkInternalCalc
-      FieldName = 'IDOwner'
     end
     object fltfldBalance: TFloatField
       DisplayWidth = 10

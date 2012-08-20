@@ -1,6 +1,6 @@
 inherited frmFinance: TfrmFinance
-  Left = 721
-  Top = 254
+  Left = 749
+  Top = 184
   Caption = 'frmFinance'
   OldCreateOrder = True
   PixelsPerInch = 96
@@ -98,16 +98,20 @@ inherited frmFinance: TfrmFinance
       '    F_CODE'
       'FROM'
       '    FINANCE ')
+    AutoUpdateOptions.AutoReWriteSqls = True
     object pfbdtst1FID: TFIBIntegerField
       FieldName = 'FID'
+      Origin = 'FINANCE.FID'
     end
     object pfbdtst1F_IDACCOUNT: TFIBStringField
       FieldName = 'F_IDACCOUNT'
+      Origin = 'FINANCE.F_IDACCOUNT'
       Size = 50
       EmptyStrToNull = True
     end
     object pfbdtst1F_CODE: TFIBStringField
       FieldName = 'F_CODE'
+      Origin = 'FINANCE.F_CODE'
       Size = 30
       EmptyStrToNull = True
     end

@@ -173,6 +173,24 @@ object frmMain: TfrmMain
       Action = actDelete
       TabOrder = 2
     end
+    object btnFinance: TButton
+      Left = 568
+      Top = 16
+      Width = 75
+      Height = 25
+      Caption = 'btnFinance'
+      TabOrder = 3
+      OnClick = btnFinanceClick
+    end
+    object btnTarifPlan: TButton
+      Left = 664
+      Top = 16
+      Width = 75
+      Height = 25
+      Caption = 'btnTarifPlan'
+      TabOrder = 4
+      OnClick = btnTarifPlanClick
+    end
   end
   object actlst1: TActionList
     Left = 48

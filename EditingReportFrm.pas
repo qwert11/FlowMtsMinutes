@@ -27,11 +27,6 @@ type
     edtSum1: TEdit;
     edtSum2: TEdit;
     pnl1: TPanel;
-    strngfldSimka: TStringField;
-    strngfldIn: TStringField;
-    intgrfldSMS: TIntegerField;
-    strngfldOwner: TStringField;
-    fltfldBalance: TFloatField;
     intgrfldIDSimka: TIntegerField;
     intgrfldIDIn: TIntegerField;
     intgrfldIDOwner: TIntegerField;
@@ -42,6 +37,11 @@ type
     mniEdit: TMenuItem;
     btnSave: TBitBtn;
     btnClose: TBitBtn;
+    strngfldSimka: TStringField;
+    strngfldIn: TStringField;
+    intgrfldSMS: TIntegerField;
+    strngfldOwner: TStringField;
+    fltfldBalance: TFloatField;
     procedure tmr1Timer(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure actEditingUpdate(Sender: TObject);

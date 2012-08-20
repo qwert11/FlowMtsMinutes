@@ -30,9 +30,13 @@ type
     btnNewRecord: TButton;
     btnEditRecord: TButton;
     btnDeleteRecord: TButton;
+    btnFinance: TButton;
+    btnTarifPlan: TButton;
     procedure FormCreate(Sender: TObject);
     procedure actEditUpdate(Sender: TObject);
     procedure actInsertExecute(Sender: TObject);
+    procedure btnFinanceClick(Sender: TObject);
+    procedure btnTarifPlanClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -44,7 +48,7 @@ var
 
 implementation
 
-uses DM_, CustomerFunctions, EditingReportFrm;
+uses DM_, CustomerFunctions, EditingReportFrm, FinanceFrm, TarifPlanFrm;
 
 {$R *.dfm}
 
@@ -87,6 +91,16 @@ begin
   finally
     EditingReport.Free
   end;
+end;
+
+procedure TfrmMain.btnFinanceClick(Sender: TObject);
+begin
+  frmFinance.ShowModal
+end;
+
+procedure TfrmMain.btnTarifPlanClick(Sender: TObject);
+begin
+  frmTarifPlan.ShowModal
 end;
 
 end.

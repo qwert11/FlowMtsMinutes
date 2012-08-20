@@ -19,13 +19,11 @@ type
     pfbdtst1TP_NAME: TFIBStringField;
     pfbdtst1TP_ABON_BOARD: TFIBBCDField;
     pfbdtst1TP_SMS_MONTH: TFIBIntegerField;
-    ibqry1: TIBQuery;
     procedure btnSaveClick(Sender: TObject); override;
-    procedure FormActivate(Sender: TObject);
   private
     { Private declarations }
   public
-    { Public declarations }     
+    { Public declarations }
   end;
 
 var
@@ -33,29 +31,36 @@ var
 
 implementation
 
+uses DM_;
+
 {$R *.dfm}
 
 procedure TfrmTarifPlan.btnSaveClick(Sender: TObject);
 begin
-  with pfbdtst1 do begin
-    ParamByName('TPID').AsInteger := FieldByName('TPID').AsInteger;
+  DM.pfbtrnsctn1.Active := False;
+  DM.pfbtrnsctn1.StartTransaction;
+  with DM.pfbtrnsctn1 do
+  try
+    with pfbdtst1, QInsert do begin
+      //ParamByName('TPID').AsInteger := pfbdtst1.FieldByName('TPID').AsInteger;
+      Prepare;
+      if (FEditorState in [esEdit, esInsert]) and
+          (edtTarifPlan.Text = NullAsStringValue) then
+        Exit;
 
-    if (FEditorState in [esEdit, esInsert]) and
-        (edtTarifPlan.Text = NullAsStringValue) then
-      Exit;
-
-    ParamByName('TP_NAME').AsString := edtTarifPlan.Text;
-    ParamByName('TP_ABON_BOARD').AsString := edtAbonBoard.Text;
-    ParamByName('TP_SMS_MONTH').AsString := edtSmsMonth.Text;
+      ParamByName('TP_NAME').AsString := ''' +edtTarifPlan.Text + ''';
+      //ParamByName('TP_ABON_BOARD').AsFloat := StrToFloat(edtAbonBoard.Text);
+      //ParamByName('TP_SMS_MONTH').AsInteger := StrToInt(edtSmsMonth.Text);
+    end;
+    //inherited;
+    pfbdtst1.Insert;
+    Commit;
+    pfbdtst1.Close;
+    pfbdtst1.Open;
+  except
+    Rollback;
+    Application.MessageBox('Ошибка', '', MB_ICONERROR);
   end;
-
-  inherited;
-end;
-
-procedure TfrmTarifPlan.FormActivate(Sender: TObject);
-begin
-  inherited;         conec
-  //pfbdtst1.Params.
 end;
 
 end.

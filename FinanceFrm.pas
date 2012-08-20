@@ -30,10 +30,12 @@ implementation
 
 {$R *.dfm}
 
-// test git
 procedure TfrmFinance.btnSaveClick(Sender: TObject);
 begin
-  with pfbdtst1 do begin
+  with pfbdtst1, QInsert do begin
+
+    Prepare;
+    
     if not pfbdtst1.Eof then
       ParamByName('FID').AsInteger := FieldByName('FID').AsInteger;
 

@@ -1,9 +1,8 @@
 inherited frmTarifPlan: TfrmTarifPlan
-  Left = 481
-  Top = 208
+  Left = 458
+  Top = 232
   Caption = 'frmTarifPlan'
   OldCreateOrder = True
-  OnActivate = FormActivate
   PixelsPerInch = 96
   TextHeight = 13
   inherited dbgrd1: TDBGrid
@@ -125,16 +124,20 @@ inherited frmTarifPlan: TfrmTarifPlan
       'FROM'
       '    TARIF_PLAN ')
     Active = True
+    AutoCommit = True
     object pfbdtst1TPID: TFIBIntegerField
       FieldName = 'TPID'
+      Origin = 'TARIF_PLAN.TPID'
     end
     object pfbdtst1TP_NAME: TFIBStringField
       FieldName = 'TP_NAME'
+      Origin = 'TARIF_PLAN.TP_NAME'
       Size = 50
       EmptyStrToNull = True
     end
     object pfbdtst1TP_ABON_BOARD: TFIBBCDField
       FieldName = 'TP_ABON_BOARD'
+      Origin = 'TARIF_PLAN.TP_ABON_BOARD'
       DisplayFormat = '#,##0.00'
       EditFormat = '0.00'
       Size = 2
@@ -143,18 +146,7 @@ inherited frmTarifPlan: TfrmTarifPlan
     object pfbdtst1TP_SMS_MONTH: TFIBIntegerField
       DefaultExpression = '0'
       FieldName = 'TP_SMS_MONTH'
+      Origin = 'TARIF_PLAN.TP_SMS_MONTH'
     end
-  end
-  object ibqry1: TIBQuery
-    BufferChunks = 1000
-    CachedUpdates = False
-    Left = 152
-    Top = 96
-    ParamData = <
-      item
-        DataType = ftString
-        Name = 'eee'
-        ParamType = ptUnknown
-      end>
   end
 end
