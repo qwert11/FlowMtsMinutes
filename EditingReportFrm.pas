@@ -103,14 +103,14 @@ begin
 
   dtpDate.Date := Date;
                  
-  // заполняем PickList Simka
-  FillSimkaPkLst;
-
-  // заполняем PickList In
-  FillDevicePkLst;
-
-  // заполняем PickList Ovner
-  FillOvnerPkLst;
+//   заполняем PickList Simka
+////  FillSimkaPkLst;
+////
+//   заполняем PickList In
+////  FillDevicePkLst;
+////
+//   заполняем PickList Ovner
+////  FillOvnerPkLst;
 
   with frmMain.dbgrdh1.DataSource.DataSet do
     case FEditingReport of

@@ -1,42 +1,47 @@
 [Closed Files]
-File_0=SourceModule,'F:\myProgram\Delphi\test\FBConnect\MOXA\MainFrm.pas',0,1,58,27,64,1,1
-File_1=SourceModule,'c:\program files\borland\delphi7\source\vcl\IBDatabase.pas',0,1,1131,1,1138,0,0
-File_2=SourceModule,'F:\Bibls\!Компьютерная литература\!Программирование\Delphi World Books\Фаронов В.В. - Delphi 7 Программирование баз данных\Source\Source\Chap_16\Debit-Credit\Unit1.pas',0,1,74,32,79,1,0
-File_3=SourceModule,'F:\Bibls\!Компьютерная литература\!Программирование\Delphi World Books\Фаронов В.В. - Delphi 7 Программирование баз данных\Source\Source\Chap_16\Debit-Credit\Unit2.pas',0,1,16,1,1,1,1
-File_4=SourceModule,'C:\PITER\Del7V2\Source\Chap_17\Example\Unit1.pas',0,1,1,1,1,1,0
-File_5=SourceModule,'C:\PITER\Del7V2\Source\Chap_17\Example\Unit2.pas',0,1,1,1,1,1,0
-File_6=SourceModule,'C:\PITER\Del7V2\Source\Chap_15\ClientDemo\Unit1.pas',0,1,1,1,1,1,0
-File_7=SourceModule,'C:\PITER\Del7V2\Source\Chap_15\ClientDemo\Unit2.pas',0,1,1,1,1,0,0
-File_8=SourceModule,'C:\PITER\Del7V2\Source\Chap_13\Transaction\fmTransU.pas',0,1,1,48,18,1,0
-File_9=SourceModule,'C:\PITER\Del7V2\Source\Chap_06\OnDrawColumnCell\Correct\Fmnaklsu.pas',0,1,1,1,1,1,0
+File_0=SourceModule,'F:\myProgram\Delphi\FlowMtsMinutes\MainFrm.dfm',0,1,1,1,1,0,0
+File_1=SourceModule,'C:\Program Files\Borland\Delphi7\Lib\fibplus_6_9_9_D5-2007\sources\pFIBDataSet.pas',0,1,1563,19,1570,0,0
+File_2=SourceModule,'F:\myProgram\Delphi\test\FBConnect\MOXA\MainFrm.pas',0,1,58,27,64,1,1
+File_3=SourceModule,'c:\program files\borland\delphi7\source\vcl\IBDatabase.pas',0,1,1131,1,1138,0,0
+File_4=SourceModule,'F:\Bibls\!Компьютерная литература\!Программирование\Delphi World Books\Фаронов В.В. - Delphi 7 Программирование баз данных\Source\Source\Chap_16\Debit-Credit\Unit1.pas',0,1,74,32,79,1,0
+File_5=SourceModule,'F:\Bibls\!Компьютерная литература\!Программирование\Delphi World Books\Фаронов В.В. - Delphi 7 Программирование баз данных\Source\Source\Chap_16\Debit-Credit\Unit2.pas',0,1,16,1,1,1,1
+File_6=SourceModule,'C:\PITER\Del7V2\Source\Chap_17\Example\Unit1.pas',0,1,1,1,1,1,0
+File_7=SourceModule,'C:\PITER\Del7V2\Source\Chap_17\Example\Unit2.pas',0,1,1,1,1,1,0
+File_8=SourceModule,'C:\PITER\Del7V2\Source\Chap_15\ClientDemo\Unit1.pas',0,1,1,1,1,1,0
 
 [Modules]
-Module0=F:\myProgram\Delphi\FlowMtsMinutes\DM_.pas
-Module1=F:\myProgram\Delphi\FlowMtsMinutes\SimkaFrm.pas
-Module2=F:\myProgram\Delphi\FlowMtsMinutes\MainFrm.pas
-Count=3
+Module0=F:\myProgram\Delphi\FlowMtsMinutes\TarifPlanFrm.pas
+Module1=F:\myProgram\Delphi\FlowMtsMinutes\EditingReportFrm.pas
+Module2=F:\myProgram\Delphi\FlowMtsMinutes\DM_.pas
+Module3=F:\myProgram\Delphi\FlowMtsMinutes\MainFrm.pas
+Count=4
 EditWindowCount=1
+
+[F:\myProgram\Delphi\FlowMtsMinutes\TarifPlanFrm.pas]
+ModuleType=SourceModule
+FormState=1
+FormOnTop=0
+
+[F:\myProgram\Delphi\FlowMtsMinutes\EditingReportFrm.pas]
+ModuleType=SourceModule
+FormState=1
+FormOnTop=0
 
 [F:\myProgram\Delphi\FlowMtsMinutes\DM_.pas]
 ModuleType=SourceModule
 FormState=1
-FormOnTop=1
-
-[F:\myProgram\Delphi\FlowMtsMinutes\SimkaFrm.pas]
-ModuleType=SourceModule
-FormState=1
-FormOnTop=1
+FormOnTop=0
 
 [F:\myProgram\Delphi\FlowMtsMinutes\MainFrm.pas]
 ModuleType=SourceModule
 FormState=1
 FormOnTop=0
 
-[C:\Program Files\Borland\Delphi7\Projects\ProjectGroup1.bpg]
+[F:\myProgram\Delphi\FlowMtsMinutes\SimReportDay.dpr]
 FormState=0
 FormOnTop=0
 
-[F:\myProgram\Delphi\FlowMtsMinutes\SimReportDay.dpr]
+[C:\Program Files\Borland\Delphi7\Projects\ProjectGroup1.bpg]
 FormState=0
 FormOnTop=0
 
@@ -44,16 +49,21 @@ FormOnTop=0
 FormState=0
 FormOnTop=0
 
-[F:\myProgram\Delphi\FlowMtsMinutes\TarifPlanFrm.pas]
+[F:\myProgram\Delphi\FlowMtsMinutes\FinanceFrm.pas]
+FormState=0
+FormOnTop=0
+
+[F:\myProgram\Delphi\FlowMtsMinutes\SimkaFrm.pas]
 FormState=0
 FormOnTop=0
 
 [EditWindow0]
-ViewCount=3
+ViewCount=4
 CurrentView=2
 View0=0
 View1=1
 View2=2
+View3=3
 CodeExplorer=CodeExplorer@EditWindow0
 MessageView=MessageView@EditWindow0
 Create=1
@@ -71,28 +81,35 @@ LeftPanelSize=205
 LeftPanelClients=CodeExplorer@EditWindow0
 LeftPanelData=000004000000000000000000000000000000000000000000000100000000000000000C000000436F64654578706C6F726572FFFFFFFF
 RightPanelSize=0
-BottomPanelSize=0
+BottomPanelSize=85
 BottomPanelClients=MessageView@EditWindow0
-BottomPanelData=00000400010000000B0000004D6573736167655669657758030000000000000255000000000000000100000000000000000000000001000000005803000000000000010000000058030000000000000100000000580300000000000001000000005803000000000000FFFFFFFF
+BottomPanelData=0000040000000000A10300000000000002550000000000000001000000000000000000000000010000000058030000000000000100000000580300000000000001000000005803000000000000010000000058030000000000000100000000A10300000B0000004D65737361676556696577FFFFFFFF
 
 [View0]
 Module=F:\myProgram\Delphi\FlowMtsMinutes\MainFrm.pas
-CursorX=20
-CursorY=7
+CursorX=1
+CursorY=1
 TopLine=1
 LeftCol=1
 
 [View1]
-Module=F:\myProgram\Delphi\FlowMtsMinutes\SimkaFrm.pas
-CursorX=1
-CursorY=1
-TopLine=1
+Module=F:\myProgram\Delphi\FlowMtsMinutes\EditingReportFrm.pas
+CursorX=31
+CursorY=103
+TopLine=93
 LeftCol=1
 
 [View2]
+Module=F:\myProgram\Delphi\FlowMtsMinutes\TarifPlanFrm.pas
+CursorX=27
+CursorY=57
+TopLine=46
+LeftCol=1
+
+[View3]
 Module=F:\myProgram\Delphi\FlowMtsMinutes\DM_.pas
-CursorX=1
-CursorY=1
+CursorX=22
+CursorY=4
 TopLine=1
 LeftCol=1
 
@@ -145,11 +162,11 @@ State=0
 Left=1136
 Top=108
 Width=167
-Height=302
+Height=328
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=159
-ClientHeight=276
+ClientHeight=302
 TBDockHeight=240
 LRDockWidth=160
 Dockable=1
@@ -201,7 +218,7 @@ LRDockWidth=182
 Dockable=1
 SplitPos=85
 ArrangeBy=Name
-SelectedItem=Name
+SelectedItem=Caption
 ExpandedItems=
 HiddenCategories=
 
@@ -318,26 +335,26 @@ State=0
 Left=0
 Top=12
 Width=205
-Height=575
+Height=487
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=205
-ClientHeight=575
+ClientHeight=487
 TBDockHeight=575
 LRDockWidth=205
 Dockable=1
 
 [MessageView@EditWindow0]
 Create=1
-Visible=0
+Visible=1
 State=0
 Left=12
 Top=0
-Width=844
+Width=917
 Height=85
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=844
+ClientWidth=917
 ClientHeight=85
 TBDockHeight=85
 LRDockWidth=443

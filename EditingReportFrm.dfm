@@ -1,6 +1,6 @@
 object frmEditingReport: TfrmEditingReport
-  Left = 489
-  Top = 236
+  Left = 354
+  Top = 256
   Width = 863
   Height = 465
   Caption = 'frmEditingReport'
@@ -16,7 +16,7 @@ object frmEditingReport: TfrmEditingReport
   TextHeight = 13
   object stat1: TStatusBar
     Left = 0
-    Top = 419
+    Top = 412
     Width = 855
     Height = 19
     Panels = <
@@ -34,7 +34,7 @@ object frmEditingReport: TfrmEditingReport
     Left = 0
     Top = 0
     Width = 655
-    Height = 419
+    Height = 412
     Align = alClient
     DataGrouping.GroupLevels = <>
     DataSource = ds1
@@ -60,7 +60,7 @@ object frmEditingReport: TfrmEditingReport
     Left = 655
     Top = 0
     Width = 200
-    Height = 419
+    Height = 412
     Align = alRight
     TabOrder = 2
     object lbl2: TLabel
@@ -223,6 +223,10 @@ object frmEditingReport: TfrmEditingReport
       DisplayLabel = #1057#1048#1052'-'#1082#1072
       DisplayWidth = 12
       FieldName = 'cdsSimka'
+      LookupDataSet = frmSimka.pfbdtst1
+      LookupKeyFields = 'SID'
+      LookupResultField = 'S_NUMBER; S_TARIFPLAN'
+      KeyFields = 'IDSimka'
     end
     object intgrfldIDSimka: TIntegerField
       DisplayWidth = 10

@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ChaildFrm, ActnList, Menus, StdCtrls, Buttons, ExtCtrls, Grids,
-  DBGrids, DB, FIBDataSet, pFIBDataSet;
+  DBGrids, DB, FIBDataSet, pFIBDataSet, IBCustomDataSet, IBQuery;
 
 type
   TfrmTarifPlan = class(TChaildForm)
@@ -19,7 +19,9 @@ type
     pfbdtst1TP_NAME: TFIBStringField;
     pfbdtst1TP_ABON_BOARD: TFIBBCDField;
     pfbdtst1TP_SMS_MONTH: TFIBIntegerField;
+    ibqry1: TIBQuery;
     procedure btnSaveClick(Sender: TObject); override;
+    procedure FormActivate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -48,6 +50,12 @@ begin
   end;
 
   inherited;
+end;
+
+procedure TfrmTarifPlan.FormActivate(Sender: TObject);
+begin
+  inherited;         conec
+  //pfbdtst1.Params.
 end;
 
 end.

@@ -19,7 +19,9 @@ type
     strngfldpfbdtst1TarifPlan: TStringField;
     crncyfldpfbdtst1AbonBoard: TCurrencyField;
     intgrfldpfbdtst1SMS_Month: TIntegerField;
+    btnTarifPlan: TSpeedButton;
     procedure btnSaveClick(Sender: TObject); override;
+    procedure btnTarifPlanClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -49,6 +51,17 @@ begin
   end;
                      // dblkcbbTarifPlan заполнить лист 
   inherited;
+end;
+
+procedure TfrmSimka.btnTarifPlanClick(Sender: TObject);
+begin
+  inherited;
+  frmTarifPlan.ShowModal;
+  with frmTarifPlan do begin
+    if ModalResult <> mrOK then
+      Exit;
+    dblkcbbTarifPlan.KeyValue := pfbdtst1TPID.Value;
+  end;
 end;
 
 end.
