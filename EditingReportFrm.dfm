@@ -16,7 +16,7 @@ object frmEditingReport: TfrmEditingReport
   TextHeight = 13
   object stat1: TStatusBar
     Left = 0
-    Top = 419
+    Top = 412
     Width = 855
     Height = 19
     Panels = <
@@ -34,7 +34,7 @@ object frmEditingReport: TfrmEditingReport
     Left = 0
     Top = 0
     Width = 655
-    Height = 419
+    Height = 412
     Align = alClient
     DataGrouping.GroupLevels = <>
     DataSource = ds1
@@ -61,7 +61,7 @@ object frmEditingReport: TfrmEditingReport
     Left = 655
     Top = 0
     Width = 200
-    Height = 419
+    Height = 412
     Align = alRight
     TabOrder = 2
     object lbl2: TLabel
@@ -162,6 +162,7 @@ object frmEditingReport: TfrmEditingReport
     Top = 264
   end
   object cds: TClientDataSet
+    Active = True
     Aggregates = <>
     FieldDefs = <
       item
@@ -203,6 +204,11 @@ object frmEditingReport: TfrmEditingReport
     StoreDefs = True
     Left = 48
     Top = 224
+    Data = {
+      730000009619E0BD010000001800000004000000000003000000730005636473
+      496E010049000000010005574944544802000200140006636473534D53040001
+      0000000000086364734F776E6572010049000000010005574944544802000200
+      14000A63647342616C616E636508000400000000000000}
     object intgrfldID_RS: TIntegerField
       DisplayWidth = 7
       FieldKind = fkInternalCalc
@@ -231,6 +237,7 @@ object frmEditingReport: TfrmEditingReport
       LookupKeyFields = 'SID'
       LookupResultField = 'S_NUMBER'
       KeyFields = 'IDSimka'
+      OnGetText = strngfldSimkaGetText
       Lookup = True
     end
     object strngfldIn: TStringField
@@ -248,6 +255,33 @@ object frmEditingReport: TfrmEditingReport
     object fltfldBalance: TFloatField
       DisplayWidth = 10
       FieldName = 'cdsBalance'
+    end
+    object strngfldSAbonBoard: TStringField
+      FieldKind = fkLookup
+      FieldName = 'SAbonBoard'
+      LookupDataSet = frmSimka.pfbdtst1
+      LookupKeyFields = 'SID'
+      LookupResultField = 'AbonBoard'
+      KeyFields = 'IDSimka'
+      Lookup = True
+    end
+    object strngfldSTarifPlan: TStringField
+      FieldKind = fkLookup
+      FieldName = 'STarifPlan'
+      LookupDataSet = frmSimka.pfbdtst1
+      LookupKeyFields = 'SID'
+      LookupResultField = 'TarifPlan'
+      KeyFields = 'IDSimka'
+      Lookup = True
+    end
+    object intgrfldSSMSMonth: TIntegerField
+      FieldKind = fkLookup
+      FieldName = 'SSMSMonth'
+      LookupDataSet = frmSimka.pfbdtst1
+      LookupKeyFields = 'SID'
+      LookupResultField = 'SMS_Month'
+      KeyFields = 'IDSimka'
+      Lookup = True
     end
   end
   object actlst1: TActionList

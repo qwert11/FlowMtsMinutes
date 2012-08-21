@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = 256
-  Top = 123
-  Width = 1316
+  Left = 82
+  Top = 129
+  Width = 1292
   Height = 623
   Caption = #1056#1072#1089#1093#1086#1076' '#1084#1080#1085#1091#1090' '#1052#1058#1057
   Color = clBtnFace
@@ -18,8 +18,8 @@ object frmMain: TfrmMain
   object dbgrdh1: TDBGridEh
     Left = 0
     Top = 0
-    Width = 1308
-    Height = 525
+    Width = 1284
+    Height = 517
     Align = alClient
     DataGrouping.GroupLevels = <>
     DataSource = DM.ds1
@@ -144,8 +144,8 @@ object frmMain: TfrmMain
   end
   object pnl1: TPanel
     Left = 0
-    Top = 525
-    Width = 1308
+    Top = 517
+    Width = 1284
     Height = 52
     Align = alBottom
     TabOrder = 1

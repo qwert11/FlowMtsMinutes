@@ -46,6 +46,7 @@ type
     procedure dbgrd1DblClick(Sender: TObject);
     procedure actSaveUpdate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
   private
     { Private declarations }
     procedure NullAllField;
@@ -62,7 +63,7 @@ var
 
 implementation
 
-uses MainFrm, DM_;
+uses MainFrm, DM_, CustomerFunctions;
 
 const
   STATE_PNL_SBAR = 0;
@@ -241,6 +242,12 @@ procedure TChaildForm.FormDestroy(Sender: TObject);
 begin
   FCheckComponents.Free;
   pfbdtst1.Close;
+end;
+
+procedure TChaildForm.FormCloseQuery(Sender: TObject;
+  var CanClose: Boolean);
+begin
+  CloseAllCombobox(Self)
 end;
 
 end.

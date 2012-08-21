@@ -42,11 +42,16 @@ type
     intgrfldSMS: TIntegerField;
     strngfldOwner: TStringField;
     fltfldBalance: TFloatField;
+    strngfldSAbonBoard: TStringField;
+    strngfldSTarifPlan: TStringField;
+    intgrfldSSMSMonth: TIntegerField;
     procedure tmr1Timer(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure actEditingUpdate(Sender: TObject);
     procedure actEditExecute(Sender: TObject);
     procedure dbgrdhRepSIMKeyPress(Sender: TObject; var Key: Char);
+    procedure strngfldSimkaGetText(Sender: TField; var Text: String;
+      DisplayText: Boolean);
   private
     { Private declarations }
     FEditingReport: TEditingReport;
@@ -284,6 +289,12 @@ procedure TfrmEditingReport.dbgrdhRepSIMKeyPress(Sender: TObject;
 begin
   if Ord(Key) = VK_RETURN then
     actEditExecute(nil);
+end;
+
+procedure TfrmEditingReport.strngfldSimkaGetText(Sender: TField;
+  var Text: String; DisplayText: Boolean);
+begin
+  Text := strngfldSimka.AsString + ' ' + strngfldSTarifPlan.AsString
 end;
 
 end.

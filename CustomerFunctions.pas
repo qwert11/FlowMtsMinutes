@@ -5,7 +5,7 @@ interface
 uses
   IniFiles, SysUtils, StdCtrls, Windows, DBCtrlsEh,
   DBLookupEh, Forms, pFIBDataSet, Classes, Controls, Variants,
-  FIBQuery;
+  FIBQuery, DBCtrls;
 
 type
   TReadIni = (riString, riInteger, riBool, riDate, riFloat);
@@ -15,7 +15,7 @@ function ToStrNull(S: string): string; overload;
 function ToStrNull(V: Variant): string; overload;
 function EditFieldInt(FIBXSQLVAR: TFIBXSQLVAR; const AValue: string): Boolean;
 function EditFieldFlt(FIBXSQLVAR: TFIBXSQLVAR; const AValue: string): Boolean;
-
+procedure CloseAllCombobox(Form: TForm);
 
 //function TestInteger(A: string): Boolean;
 //function TestFloat(A: string): Boolean;
@@ -241,9 +241,15 @@ begin
     KeyValue := null
 end;
 
+procedure CloseAllCombobox(Form: TForm);
+var
+  I: Integer;
+begin
+  with Form do
   for I := 0 to ComponentCount - 1 do
     if Components[I] is TDBLookupComboBox then
       if (Components[I] as TDBLookupComboBox).ListVisible then
         (Components[I] as TDBLookupComboBox).CloseUp(True);
+end;
 
 end.
