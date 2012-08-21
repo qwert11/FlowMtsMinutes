@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ChaildFrm, ActnList, Menus, StdCtrls, Buttons, ExtCtrls, Grids,
-  DBGrids, DB, FIBDataSet, pFIBDataSet, DBCtrls;
+  DBGrids, DB, FIBDataSet, pFIBDataSet, DBCtrls, fib;
 
 type
   TfrmSimka = class(TChaildForm)
@@ -22,6 +22,7 @@ type
     btnTarifPlan: TSpeedButton;
     procedure btnSaveClick(Sender: TObject); override;
     procedure btnTarifPlanClick(Sender: TObject);
+    procedure edtNumberKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -33,24 +34,54 @@ var
 
 implementation
 
-uses TarifPlanFrm;
+uses TarifPlanFrm, CustomerFunctions;
 
 {$R *.dfm}
 
 procedure TfrmSimka.btnSaveClick(Sender: TObject);
 begin
-  with pfbdtst1 do begin
-    ParamByName('SID').AsInteger := FieldByName('SID').AsInteger;
+  with pfbdtst1 do
+  try
 
-    if (FEditorState in [esEdit, esInsert]) and
-        (VarIsNull(dblkcbbTarifPlan.KeyValue) or VarIsEmpty(dblkcbbTarifPlan.KeyValue)) then
-      Exit;
+    QueryPrepare;
 
-    ParamByName('S_TARIFPLAN').AsInteger := dblkcbbTarifPlan.KeyValue;
-    ParamByName('S_NUMBER').AsString := edtNumber.Text;
+    case FEditorState of
+      esEdit: with QUpdate do begin
+        if VarIsEmpty(dblkcbbTarifPlan.KeyValue) then
+          raise Exception.Create('Заполните поля');
+        ParamByName('P_SID').AsInteger := pfbdtst1.FieldByName('SID').AsInteger;
+        ParamByName('P_S_TARIFPLAN').Value := dblkcbbTarifPlan.KeyValue;
+        ParamByName('P_S_NUMBER').AsString := edtNumber.Text;
+      end;
+
+      esInsert: with QInsert do begin
+        if VarIsEmpty(dblkcbbTarifPlan.KeyValue) then
+          raise Exception.Create('Заполните поля');
+        ParamByName('P_S_TARIFPLAN').Value := dblkcbbTarifPlan.KeyValue;
+        ParamByName('P_S_NUMBER').AsString := edtNumber.Text;
+      end;
+
+      esDelete: with QDelete do begin
+        ParamByName('P_SID').AsInteger := pfbdtst1.FieldByName('SID').AsInteger;
+      end;
+    else
+      raise Exception.Create('FEditorState: не определенное значение');
+    end;
+    
+    inherited;
+  except
+    on EFIBError do begin
+      Application.MessageBox('Обратитесь к разработчику',
+          'Ошибка базы данных', MB_ICONERROR);
+      Abort;
+    end;
+    on E: Exception do begin
+      Application.MessageBox(PChar(E.Message + #13#10 +
+          'Введите верные данные и повторите попытку'),
+          'Ошибка', MB_ICONERROR);
+      Abort;
+    end;
   end;
-                     // dblkcbbTarifPlan заполнить лист 
-  inherited;
 end;
 
 procedure TfrmSimka.btnTarifPlanClick(Sender: TObject);
@@ -64,4 +95,13 @@ begin
   end;
 end;
 
+procedure TfrmSimka.edtNumberKeyPress(Sender: TObject; var Key: Char);
+begin
+  inherited;
+  MaskKeyEdit(Sender, Key, ['0'..'9']);
+end;
+
 end.
+
+
+

@@ -49,9 +49,9 @@ type
   private
     { Private declarations }
     FEditingReport: TEditingReport;
-    procedure FillSimkaPkLst;
-    procedure FillDevicePkLst;
-    procedure FillOvnerPkLst;
+//    procedure FillSimkaPkLst;
+//    procedure FillDevicePkLst;
+//    procedure FillOvnerPkLst;
   public
     { Public declarations }
     constructor Create(AOwner: TComponent;
@@ -209,7 +209,7 @@ begin
     end;
 end;
 
-procedure TfrmEditingReport.FillDevicePkLst;
+{procedure TfrmEditingReport.FillDevicePkLst;
 begin
   // заполняем PickList In
   dbgrdhRepSIM.FindFieldColumn('cdsIn').PickList.Clear;
@@ -217,8 +217,8 @@ begin
   with frmDevice.pfbdtst1 do
     while not Eof do begin
       dbgrdhRepSIM.FindFieldColumn('cdsIn').PickList.AddObject(
-          FieldByName('D_NUM').AsString + '/' +   {симка в устройстве №}
-          FieldByName('D_TITLE').AsString         {назв. устройства}
+          FieldByName('D_NUM').AsString + '/' +   // симка в устройстве №
+          FieldByName('D_TITLE').AsString         //назв. устройства
           , Pointer(FieldByName('DID').AsInteger));
       Next;
     end;
@@ -232,7 +232,7 @@ begin
   with frmOwner.pfbdtst1 do
     while not Eof do begin
       dbgrdhRepSIM.FindFieldColumn('cdsOwner').PickList.AddObject(
-          FieldByName('OName').AsString {владелец симки тел.}
+          FieldByName('OName').AsString //владелец симки тел.
           , Pointer(FieldByName('OID').AsInteger));
       Next;
     end;
@@ -246,14 +246,14 @@ begin
   with frmSimka.pfbdtst1 do
     while not Eof do begin
       dbgrdhRepSIM.FindFieldColumn('cdsSimka').PickList.AddObject(
-          FieldByName('SNumber').AsString + '/' +   {номер тел.}
-          FieldByName('TarifPlan').AsString + '/' + {тарифн. план}
-          FieldByName('AbonFoard').AsString + '/' + {абон. плата}
-          FieldByName('SMS_Month').AsString {SMS на месяц}
+          FieldByName('SNumber').AsString + '/' +   //номер тел.
+          FieldByName('TarifPlan').AsString + '/' + //тарифн. план
+          FieldByName('AbonFoard').AsString + '/' + //абон. плата
+          FieldByName('SMS_Month').AsString //SMS на месяц
           , Pointer(FieldByName('SID').AsInteger));
       Next;
     end;
-end;
+end;}
 
 procedure TfrmEditingReport.actEditingUpdate(Sender: TObject);
 begin

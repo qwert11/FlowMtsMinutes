@@ -1,7 +1,7 @@
 program SimReportDay;
 
 uses
-  Forms,
+  Forms,                                     
   MainFrm in 'MainFrm.pas' {frmMain},
   ChaildFrm in 'include\ChaildFrm.pas' {ChaildForm},
   SimkaFrm in 'SimkaFrm.pas' {frmSimka},

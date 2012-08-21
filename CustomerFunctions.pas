@@ -4,12 +4,21 @@ interface
 
 uses
   IniFiles, SysUtils, StdCtrls, Windows, DBCtrlsEh,
-  DBLookupEh, Forms, pFIBDataSet, Classes, Controls, Variants;
+  DBLookupEh, Forms, pFIBDataSet, Classes, Controls, Variants,
+  FIBQuery;
 
 type
   TReadIni = (riString, riInteger, riBool, riDate, riFloat);
   TMask = set of Char;
 
+function ToStrNull(S: string): string; overload;
+function ToStrNull(V: Variant): string; overload;
+function EditFieldInt(FIBXSQLVAR: TFIBXSQLVAR; const AValue: string): Boolean;
+function EditFieldFlt(FIBXSQLVAR: TFIBXSQLVAR; const AValue: string): Boolean;
+
+
+//function TestInteger(A: string): Boolean;
+//function TestFloat(A: string): Boolean;
 
 function ReadIni(ASection, AString : String; ReadIni: TReadIni) : Variant;
 
@@ -23,6 +32,136 @@ procedure SetDblkCbbFrom_IbTbl_Frm(Frm: TForm; Cbb: TDBLookupComboboxEh;
 implementation
 
 uses CustomerGlobals;
+
+
+function ToStrNull(S: string): string;
+begin
+  Result := 'Null';
+  if (S <> '') and (S <> null) then
+    Result := S
+end;
+
+function ToStrNull(V: Variant): string;
+begin
+  if VarIsNull(V) then
+    Result := 'NULL'
+  else
+    Result := VarToStr(V)
+end;
+
+
+function TestInteger(A: string): Boolean;
+//var
+//  tmpInteger: Integer;
+begin
+  Result := False;
+  try
+    StrToInt(A);
+    Result := True;
+  except
+    on EConvertError do begin
+      Application.MessageBox('Ошибка преобразования типа String в Integer',
+          'Ошибка', MB_ICONERROR);
+      Abort;
+    end;
+  end;
+end;
+
+function TestFloat(A: string): Boolean;
+//var
+//  tmpReal: Real;
+begin
+  Result := False;
+  try
+    StrToFloat(A);
+    Result := True;
+  except
+    on EConvertError do begin
+      Application.MessageBox('Ошибка преобразования типа String в Real',
+          'Ошибка', MB_ICONERROR);
+      Abort;
+    end;
+  end;
+end;
+
+
+function findComa(s: string): Integer;
+var
+  I: Integer;
+begin
+  Result := -1;
+  for I := 1 to Length(s) do
+    case s[I] of
+      ',', '.': Result := I;
+    end;
+end;
+
+function ToStrPoint(Value: Real): string; overload;
+begin
+  Result := FloatToStr(Value);
+  if findComa(Result) < 0 then
+    Result := Result + DecimalSeparator + '00'
+  else
+    Result[findComa(Result)] := DecimalSeparator
+end;
+
+function ToStrPoint(Value: string): string; overload;
+begin
+  try
+    Result := FloatToStr(StrToFloat(Value))
+  except
+    Result := 'null';
+    Abort;
+  end;
+
+  if findComa(Result) < 0 then
+    Result := Result + DecimalSeparator + '00'
+  else
+    Result[findComa(Result)] := DecimalSeparator
+end;
+
+function EditFieldInt(FIBXSQLVAR: TFIBXSQLVAR; const AValue: string): Boolean;
+begin
+  Result := False;
+  try
+    if AValue = NullAsStringValue then
+      FIBXSQLVAR.Value := Null
+    else begin
+      if not TestInteger(AValue) then
+        raise Exception.Create('Ошибка преобразования типов');
+      FIBXSQLVAR.AsString := AValue;
+    end;
+    Result := True;
+  except
+    on E: Exception do begin
+      Application.MessageBox(PChar(E.Message),
+          'Ошибка', MB_ICONERROR);
+      Abort;
+    end;
+  end;
+end;
+
+
+function EditFieldFlt(FIBXSQLVAR: TFIBXSQLVAR; const AValue: string): Boolean;
+begin
+  Result := False;
+  try
+    if AValue = NullAsStringValue then
+      FIBXSQLVAR.Value := Null
+    else begin
+      if not TestFloat(AValue) then
+        raise Exception.Create('Ошибка преобразования типов');
+      FIBXSQLVAR.AsString := ToStrPoint(AValue);
+    end;
+    Result := True;
+  except
+    on E: Exception do begin
+      Application.MessageBox(PChar(E.Message),
+          'Ошибка', MB_ICONERROR);
+      Abort;
+    end;
+  end;    
+end;  
 
 // читает настройки из ini файла
 function ReadIni(ASection, AString : String; ReadIni: TReadIni) : Variant;

@@ -66,6 +66,7 @@ inherited frmTarifPlan: TfrmTarifPlan
       Height = 21
       TabOrder = 5
       Text = 'edtAbonBoard'
+      OnKeyPress = edtAbonBoardKeyPress
     end
     object edtSmsMonth: TEdit
       Left = 152
@@ -74,6 +75,7 @@ inherited frmTarifPlan: TfrmTarifPlan
       Height = 21
       TabOrder = 6
       Text = 'edtSmsMonth'
+      OnKeyPress = edtSmsMonthKeyPress
     end
   end
   inherited pfbdtst1: TpFIBDataSet

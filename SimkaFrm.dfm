@@ -82,6 +82,7 @@ inherited frmSimka: TfrmSimka
       Height = 21
       TabOrder = 4
       Text = 'edtNumber'
+      OnKeyPress = edtNumberKeyPress
     end
     object dblkcbbTarifPlan: TDBLookupComboBox
       Left = 16
@@ -98,16 +99,16 @@ inherited frmSimka: TfrmSimka
     UpdateSQL.Strings = (
       'UPDATE SIMKA'
       'SET '
-      '    S_TARIFPLAN = :S_TARIFPLAN,'
-      '    S_NUMBER = :S_NUMBER'
+      '    S_TARIFPLAN = :P_S_TARIFPLAN,'
+      '    S_NUMBER = :P_S_NUMBER'
       'WHERE'
-      '    SID = :SID'
+      '    SID = :P_SID'
       '    ')
     DeleteSQL.Strings = (
       'DELETE FROM'
       '    SIMKA'
       'WHERE'
-      '    SID = :SID'
+      '    SID = :P_SID'
       '    ')
     InsertSQL.Strings = (
       'INSERT INTO SIMKA('
@@ -115,8 +116,8 @@ inherited frmSimka: TfrmSimka
       '    S_NUMBER'
       ')'
       'VALUES('
-      '    :S_TARIFPLAN,'
-      '    :S_NUMBER'
+      '    :P_S_TARIFPLAN,'
+      '    :P_S_NUMBER'
       ')')
     RefreshSQL.Strings = (
       'SELECT'
@@ -127,7 +128,7 @@ inherited frmSimka: TfrmSimka
       '    SIMKA '
       ''
       'WHERE '
-      '    SIMKA.SID = :SID'
+      '    SIMKA.SID = :P_SID'
       '    ')
     SelectSQL.Strings = (
       'SELECT'
@@ -139,12 +140,15 @@ inherited frmSimka: TfrmSimka
     Active = True
     object pfbdtst1SID: TFIBIntegerField
       FieldName = 'SID'
+      Origin = 'SIMKA.SID'
     end
     object pfbdtst1S_TARIFPLAN: TFIBIntegerField
       FieldName = 'S_TARIFPLAN'
+      Origin = 'SIMKA.S_TARIFPLAN'
     end
     object pfbdtst1S_NUMBER: TFIBStringField
       FieldName = 'S_NUMBER'
+      Origin = 'SIMKA.S_NUMBER'
       Size = 12
       EmptyStrToNull = True
     end
@@ -155,6 +159,7 @@ inherited frmSimka: TfrmSimka
       LookupKeyFields = 'TPID'
       LookupResultField = 'TP_NAME'
       KeyFields = 'S_TARIFPLAN'
+      Origin = 'TARIF_PLAN.TP_NAME'
       Size = 50
       Lookup = True
     end
@@ -165,6 +170,7 @@ inherited frmSimka: TfrmSimka
       LookupKeyFields = 'TPID'
       LookupResultField = 'TP_ABON_BOARD'
       KeyFields = 'S_TARIFPLAN'
+      Origin = 'TARIF_PLAN.TP_ABON_BOARD'
       Lookup = True
     end
     object intgrfldpfbdtst1SMS_Month: TIntegerField
@@ -175,6 +181,7 @@ inherited frmSimka: TfrmSimka
       LookupKeyFields = 'TPID'
       LookupResultField = 'TP_SMS_MONTH'
       KeyFields = 'S_TARIFPLAN'
+      Origin = 'TARIF_PLAN.TP_SMS_MONTH'
       Lookup = True
     end
   end

@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ChaildFrm, ActnList, Menus, StdCtrls, Buttons, ExtCtrls, Grids,
-  DBGrids, DB, FIBDataSet, pFIBDataSet;
+  DBGrids, DB, FIBDataSet, pFIBDataSet, fib;
 
 type
   TfrmOwner = class(TChaildForm)
@@ -29,18 +29,44 @@ implementation
 
 procedure TfrmOwner.btnSaveClick(Sender: TObject);
 begin
-  with pfbdtst1 do begin
-    if not pfbdtst1.Eof then
-      ParamByName('OID').AsInteger := FieldByName('OID').AsInteger;
+  with pfbdtst1 do
+  try
 
-    if (FEditorState in [esEdit, esInsert]) and
-        (edtOwner.Text = NullAsStringValue) then
-      Exit;
+    QueryPrepare;
 
-    ParamByName('O_NAME').AsString := edtOwner.Text;
+    case FEditorState of
+      esEdit: with QUpdate do begin
+        if edtOwner.Text = NullAsStringValue then
+          raise Exception.Create('Заполните поля');
+        ParamByName('P_OID').AsInteger := pfbdtst1.FieldByName('OID').AsInteger;
+        ParamByName('P_O_NAME').AsString := edtOwner.Text;
+      end;
+      esInsert: with QInsert do begin
+        if (edtOwner.Text = NullAsStringValue) then
+          raise Exception.Create('Заполните поля');
+        ParamByName('P_O_NAME').AsString := edtOwner.Text;
+      end;
+      esDelete: with QDelete do begin
+        ParamByName('P_OID').AsInteger := pfbdtst1.FieldByName('OID').AsInteger;
+      end;
+    else
+      raise Exception.Create('Не определенное значение FEditorState');
+    end;
+    
+    inherited;
+  except
+    on EFIBError do begin
+      Application.MessageBox('Обратитесь к разработчику',
+          'Ошибка базы данных', MB_ICONERROR);
+      Abort;
+    end;
+    on E: Exception do begin
+      Application.MessageBox(PChar(E.Message + #13#10 +
+          'Введите верные данные и повторите попытку'),
+          'Ошибка', MB_ICONERROR);
+      Abort;
+    end;
   end;
-
-  inherited;
 end;
 
 end.

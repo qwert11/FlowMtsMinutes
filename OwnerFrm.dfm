@@ -39,20 +39,20 @@ inherited frmOwner: TfrmOwner
     UpdateSQL.Strings = (
       'UPDATE OWNER'
       'SET '
-      '    O_NAME = :O_NAME'
+      '    O_NAME = :P_O_NAME'
       'WHERE'
-      '    OID = :OID')
+      '    OID = :P_OID')
     DeleteSQL.Strings = (
       'DELETE FROM'
       '    OWNER'
       'WHERE'
-      '    OID = :OID    ')
+      '    OID = :P_OID    ')
     InsertSQL.Strings = (
       'INSERT INTO OWNER('
       '    O_NAME'
       ')'
       'VALUES('
-      '    :O_NAME'
+      '    :P_O_NAME'
       ')')
     RefreshSQL.Strings = (
       'SELECT'
@@ -68,9 +68,11 @@ inherited frmOwner: TfrmOwner
       '    OWNER ')
     object pfbdtst1OID: TFIBIntegerField
       FieldName = 'OID'
+      Origin = 'OWNER.OID'
     end
     object pfbdtst1O_NAME: TFIBStringField
       FieldName = 'O_NAME'
+      Origin = 'OWNER.O_NAME'
       Size = 50
       EmptyStrToNull = True
     end

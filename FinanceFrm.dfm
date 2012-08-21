@@ -61,15 +61,15 @@ inherited frmFinance: TfrmFinance
       'UPDATE FINANCE'
       'SET '
       '    F_IDACCOUNT = :F_IDACCOUNT,'
-      '    F_CODE = :F_CODE'
+      '    F_CODE = :P_F_CODE'
       'WHERE'
-      '    FID = :FID'
+      '    FID = :P_FID'
       '    ')
     DeleteSQL.Strings = (
       'DELETE FROM'
       '    FINANCE'
       'WHERE'
-      '        FID = :FID'
+      '        FID = :P_FID'
       '    ')
     InsertSQL.Strings = (
       'INSERT INTO FINANCE('
@@ -77,8 +77,8 @@ inherited frmFinance: TfrmFinance
       '    F_CODE'
       ')'
       'VALUES('
-      '    :F_IDACCOUNT,'
-      '    :F_CODE'
+      '    :P_F_IDACCOUNT,'
+      '    :P_F_CODE'
       ')')
     RefreshSQL.Strings = (
       'SELECT'
@@ -89,7 +89,7 @@ inherited frmFinance: TfrmFinance
       '    FINANCE '
       ''
       ' WHERE '
-      '        FINANCE.FID = :FID'
+      '        FINANCE.FID = :P_FID'
       '    ')
     SelectSQL.Strings = (
       'SELECT'

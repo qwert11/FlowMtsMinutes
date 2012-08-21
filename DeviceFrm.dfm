@@ -1,7 +1,8 @@
 inherited frmDevice: TfrmDevice
-  Left = 762
+  Left = 754
   Top = 322
   Caption = 'frmDevice'
+  OldCreateOrder = True
   PixelsPerInch = 96
   TextHeight = 13
   inherited dbgrd1: TDBGrid
@@ -44,6 +45,7 @@ inherited frmDevice: TfrmDevice
       Height = 21
       TabOrder = 4
       Text = 'edtNum'
+      OnKeyPress = edtNumKeyPress
     end
     object edtTitle: TEdit
       Left = 16
@@ -58,16 +60,16 @@ inherited frmDevice: TfrmDevice
     UpdateSQL.Strings = (
       'UPDATE DEVICE'
       'SET '
-      '    D_NUM = :D_NUM,'
-      '    D_TITLE = :D_TITLE'
+      '    D_NUM = :P_D_NUM,'
+      '    D_TITLE = :P_D_TITLE'
       'WHERE'
-      '    DID = :DID'
+      '    DID = :P_DID'
       '    ')
     DeleteSQL.Strings = (
       'DELETE FROM'
       '    DEVICE'
       'WHERE'
-      '    DID = :DID'
+      '    DID = :P_DID'
       '    ')
     InsertSQL.Strings = (
       'INSERT INTO DEVICE('
@@ -76,9 +78,9 @@ inherited frmDevice: TfrmDevice
       '    D_TITLE'
       ')'
       'VALUES('
-      '    :DID,'
-      '    :D_NUM,'
-      '    :D_TITLE'
+      '    :P_DID,'
+      '    :P_D_NUM,'
+      '    :P_D_TITLE'
       ')')
     RefreshSQL.Strings = (
       'SELECT'
@@ -89,7 +91,7 @@ inherited frmDevice: TfrmDevice
       '    DEVICE '
       ''
       'WHERE '
-      '    DEVICE.DID = :DID'
+      '    DEVICE.DID = :P_DID'
       '    ')
     SelectSQL.Strings = (
       'SELECT'
@@ -101,13 +103,16 @@ inherited frmDevice: TfrmDevice
     Active = True
     object pfbdtst1DID: TFIBIntegerField
       FieldName = 'DID'
+      Origin = 'DEVICE.DID'
     end
     object pfbdtst1D_NUM: TFIBIntegerField
       DefaultExpression = '0'
       FieldName = 'D_NUM'
+      Origin = 'DEVICE.D_NUM'
     end
     object pfbdtst1D_TITLE: TFIBStringField
       FieldName = 'D_TITLE'
+      Origin = 'DEVICE.D_TITLE'
       EmptyStrToNull = True
     end
   end

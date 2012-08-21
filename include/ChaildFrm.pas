@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Grids, DBGrids, ExtCtrls, StdCtrls, Buttons, Menus, IBDatabase,
   DB, IBCustomDataSet, IBQuery, DBCtrls, ActnList, FIBDatabase,
-  pFIBDatabase, FIBDataSet, pFIBDataSet, FIBQuery;
+  pFIBDatabase, FIBDataSet, pFIBDataSet, FIBQuery, fib;
 
 type
   TEditorSetState = (esEdit, esInsert, esDelete, esNone);
@@ -130,12 +130,17 @@ begin
       end;
         
     else
-      Exit;
+      raise Exception.Create('Не определенное значение FEditorState');
     end;  
   except
+    on EFIBError do begin
+      Application.MessageBox('Обратитесь к разработчику',
+          'Ошибка базы данных', MB_ICONERROR);
+      Abort;
+    end;  
     on E: Exception do begin
       DM.pfbtrnsctn1.Rollback;
-      Application.MessageBox(PChar(E.Message), '', MB_ICONERROR);
+      Application.MessageBox(PChar(E.Message), 'Ошибка', MB_ICONERROR);
     end;
   end;
 

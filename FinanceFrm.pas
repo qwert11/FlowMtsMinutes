@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ChaildFrm, ActnList, Menus, StdCtrls, Buttons, ExtCtrls, Grids,
-  DBGrids, DB, FIBDataSet, pFIBDataSet;
+  DBGrids, DB, FIBDataSet, pFIBDataSet, fib;
 
 type
   TfrmFinance = class(TChaildForm)
@@ -32,21 +32,48 @@ implementation
 
 procedure TfrmFinance.btnSaveClick(Sender: TObject);
 begin
-  with pfbdtst1, QInsert do begin
+  with pfbdtst1 do
+  try
+    QueryPrepare;
 
-    Prepare;
-    
-    if not pfbdtst1.Eof then
-      ParamByName('FID').AsInteger := FieldByName('FID').AsInteger;
+    case FEditorState of
+      esEdit: with QUpdate do begin
+        if edtIDAccount.Text = NullAsStringValue then
+          raise Exception.Create('Заполните поля');
+        ParamByName('P_FID').AsInteger := pfbdtst1.FieldByName('FID').AsInteger;
+        ParamByName('P_F_IDACCOUNT').AsString := edtIDAccount.Text;
+        ParamByName('P_F_CODE').AsString := edtCode.Text;
+      end;
 
-    if (FEditorState in [esEdit, esInsert]) and
-        (edtIDAccount.Text = NullAsStringValue) then
-      Exit;
+      esInsert: with QInsert do begin
+        if (edtIDAccount.Text = NullAsStringValue) then
+          raise Exception.Create('Заполните поля');
+
+        ParamByName('P_F_IDACCOUNT').AsString := edtIDAccount.Text;
+        ParamByName('P_F_CODE').AsString := edtCode.Text;
+      end;
       
-    ParamByName('F_IDACCOUNT').AsString := edtIDAccount.Text;
-    ParamByName('F_CODE').AsString := edtCode.Text;
+      esDelete: with QDelete do begin
+        ParamByName('P_FID').AsInteger := pfbdtst1.FieldByName('FID').AsInteger;
+      end;
+    else
+      raise Exception.Create('Не определенное значение FEditorState');
+    end;
+    
+    inherited;
+  except
+    on EFIBError do begin
+      Application.MessageBox('Обратитесь к разработчику',
+          'Ошибка базы данных', MB_ICONERROR);
+      Abort;
+    end;
+    on E: Exception do begin
+      Application.MessageBox(PChar(E.Message + #13#10 +
+          'Введите верные данные и повторите попытку'),
+          'Ошибка', MB_ICONERROR);
+      Abort;
+    end;
   end;
-  inherited;
 end;
 
 end.

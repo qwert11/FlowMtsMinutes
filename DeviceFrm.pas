@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ChaildFrm, DB, FIBDataSet, pFIBDataSet, ActnList, Menus,
-  StdCtrls, Buttons, ExtCtrls, Grids, DBGrids;
+  StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, fib;
 
 type
   TfrmDevice = class(TChaildForm)
@@ -17,6 +17,7 @@ type
     edtTitle: TEdit;
     lbl2: TLabel;
     procedure btnSaveClick(Sender: TObject); override;
+    procedure edtNumKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -28,23 +29,72 @@ var
 
 implementation
 
+uses CustomerFunctions;
+
 {$R *.dfm}
 
 procedure TfrmDevice.btnSaveClick(Sender: TObject);
 begin
   with pfbdtst1 do begin
     if not pfbdtst1.Eof then
-      ParamByName('DID').AsInteger := FieldByName('DID').AsInteger;
+      ParamByName('P_DID').AsInteger := FieldByName('DID').AsInteger;
 
     if (FEditorState in [esEdit, esInsert]) and
         ((edtNum.Text = NullAsStringValue) or (edtTitle.Text = NullAsStringValue)) then
       Exit;
 
-    ParamByName('D_Num').AsString := edtNum.Text;
-    ParamByName('D_Title').AsString := edtTitle.Text;
+    ParamByName('P_D_Num').AsString := edtNum.Text;
+    ParamByName('P_D_Title').AsString := edtTitle.Text;
+  end;
+
+  with pfbdtst1 do
+  try
+
+    QueryPrepare;
+
+    case FEditorState of
+      esEdit: with QUpdate do begin
+        if edtNum.Text = NullAsStringValue then
+          raise Exception.Create('Заполните поля');
+        ParamByName('P_DID').AsInteger := pfbdtst1.FieldByName('DID').AsInteger;
+        EditFieldInt(ParamByName('P_D_Num'), edtNum.Text);
+        ParamByName('P_D_Title').AsString := ToStrNull(edtTitle.Text);
+      end;
+      esInsert: with QInsert do begin
+        if (edtNum.Text = NullAsStringValue) then
+          raise Exception.Create('Заполните поля');
+        EditFieldInt(ParamByName('P_D_Num'), edtNum.Text);
+        ParamByName('P_D_Title').AsString := ToStrNull(edtTitle.Text);
+      end;
+      esDelete: with QDelete do begin
+        ParamByName('DID').AsInteger := pfbdtst1.FieldByName('DID').AsInteger;
+      end;
+    else
+      raise Exception.Create('Не определенное значение FEditorState');
+    end;
+    
+    inherited;
+  except
+    on EFIBError do begin
+      Application.MessageBox('Обратитесь к разработчику',
+          'Ошибка базы данных', MB_ICONERROR);
+      Abort;
+    end;
+    on E: Exception do begin
+      Application.MessageBox(PChar(E.Message + #13#10 +
+          'Введите верные данные и повторите попытку'),
+          'Ошибка', MB_ICONERROR);
+      Abort;
+    end;
   end;
 
   inherited;
+end;
+
+procedure TfrmDevice.edtNumKeyPress(Sender: TObject; var Key: Char);
+begin
+  inherited;
+  MaskKeyEdit(Sender, Key, ['0'..'9']);
 end;
 
 end.
