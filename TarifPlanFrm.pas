@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ChaildFrm, ActnList, Menus, StdCtrls, Buttons, ExtCtrls, Grids,
-  DBGrids, DB, FIBDataSet, pFIBDataSet, IBCustomDataSet, IBQuery, fib;
+  DBGrids, DB, FIBDataSet, pFIBDataSet, IBCustomDataSet, IBQuery, fib,
+  ComCtrls;
 
 type
   TfrmTarifPlan = class(TChaildForm)
@@ -22,6 +23,7 @@ type
     procedure btnSaveClick(Sender: TObject); override;
     procedure edtAbonBoardKeyPress(Sender: TObject; var Key: Char);
     procedure edtSmsMonthKeyPress(Sender: TObject; var Key: Char);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -98,6 +100,12 @@ procedure TfrmTarifPlan.edtSmsMonthKeyPress(Sender: TObject;
 begin
   inherited;
   MaskKeyEdit(Sender, Key, ['0'..'9']);
+end;
+
+procedure TfrmTarifPlan.FormCreate(Sender: TObject);
+begin
+  inherited;
+  FCheckComponents.Add(edtTarifPlan);
 end;
 
 end.

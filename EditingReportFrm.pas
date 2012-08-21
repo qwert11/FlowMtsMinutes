@@ -46,6 +46,7 @@ type
     procedure FormActivate(Sender: TObject);
     procedure actEditingUpdate(Sender: TObject);
     procedure actEditExecute(Sender: TObject);
+    procedure dbgrdhRepSIMKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
     FEditingReport: TEditingReport;
@@ -67,7 +68,7 @@ uses CustomerGlobals, MainFrm, DM_, CustomerFunctions, FinanceFrm,
   OwnerFrm, SimkaFrm, TarifPlanFrm, DeviceFrm;
 
 const
-  PNL_INF_TOTAL = 0;
+  PNL_INF_STAT_EDIT = 0;
 
   PNL_INF_TIMER = 1;
 
@@ -118,8 +119,8 @@ begin
         begin
           if Eof then
             Exit;
-          Caption := 'Редактирование записи: ' +
-            FieldByName('RD_ID').AsString + Caption;
+          stat1.Panels[PNL_INF_STAT_EDIT].Text := 'Редактирование записи: ' +
+            FieldByName('RD_ID').AsString;
 
           stat1.Panels[PNL_INF_RESPONS].Text := 'Отчет составил: ' +
             FieldByName('RE_SURNAME').AsString;
@@ -163,7 +164,7 @@ begin
           end;
         end;
       erInsert: begin
-          Caption := 'Новая запись: ' + Caption;
+          stat1.Panels[PNL_INF_STAT_EDIT].Text := 'Новая запись';
           stat1.Panels[PNL_INF_RESPONS].Text := 'Отчет составил: ' +
             FieldByName('RE_SURNAME').AsString;
 
@@ -274,6 +275,13 @@ begin
     if FieldName = 'cdsOwner' then begin
       frmOwner.ShowModal
     end;
+end;
+
+procedure TfrmEditingReport.dbgrdhRepSIMKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if Ord(Key) = VK_RETURN then
+    actEditExecute(nil);
 end;
 
 end.

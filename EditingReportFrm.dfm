@@ -53,6 +53,7 @@ object frmEditingReport: TfrmEditingReport
     TitleFont.Height = -11
     TitleFont.Name = 'MS Sans Serif'
     TitleFont.Style = []
+    OnKeyPress = dbgrdhRepSIMKeyPress
     object RowDetailData: TRowDetailPanelControlEh
     end
   end
@@ -161,13 +162,9 @@ object frmEditingReport: TfrmEditingReport
     Top = 264
   end
   object cds: TClientDataSet
+    Active = True
     Aggregates = <>
     FieldDefs = <
-      item
-        Name = 'cdsSimka'
-        DataType = ftString
-        Size = 20
-      end
       item
         Name = 'cdsIn'
         DataType = ftString
@@ -207,6 +204,11 @@ object frmEditingReport: TfrmEditingReport
     StoreDefs = True
     Left = 48
     Top = 224
+    Data = {
+      730000009619E0BD010000001800000004000000000003000000730005636473
+      496E010049000000010005574944544802000200140006636473534D53040001
+      0000000000086364734F776E6572010049000000010005574944544802000200
+      14000A63647342616C616E636508000400000000000000}
     object intgrfldID_RS: TIntegerField
       DisplayWidth = 7
       FieldKind = fkInternalCalc

@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ChaildFrm, ActnList, Menus, StdCtrls, Buttons, ExtCtrls, Grids,
-  DBGrids, DB, FIBDataSet, pFIBDataSet, DBCtrls, fib;
+  DBGrids, DB, FIBDataSet, pFIBDataSet, DBCtrls, fib, ComCtrls;
 
 type
   TfrmSimka = class(TChaildForm)
@@ -23,6 +23,7 @@ type
     procedure btnSaveClick(Sender: TObject); override;
     procedure btnTarifPlanClick(Sender: TObject);
     procedure edtNumberKeyPress(Sender: TObject; var Key: Char);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -99,6 +100,13 @@ procedure TfrmSimka.edtNumberKeyPress(Sender: TObject; var Key: Char);
 begin
   inherited;
   MaskKeyEdit(Sender, Key, ['0'..'9']);
+end;
+
+procedure TfrmSimka.FormCreate(Sender: TObject);
+begin
+  inherited;
+  FCheckComponents.Add(edtNumber);
+  FCheckComponents.Add(dblkcbbTarifPlan);
 end;
 
 end.

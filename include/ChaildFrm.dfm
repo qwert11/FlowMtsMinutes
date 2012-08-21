@@ -12,8 +12,8 @@ object ChaildForm: TChaildForm
   Font.Style = []
   Menu = mm1
   OldCreateOrder = False
-  OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -21,7 +21,7 @@ object ChaildForm: TChaildForm
     Left = 0
     Top = 0
     Width = 472
-    Height = 272
+    Height = 253
     Align = alClient
     DataSource = ds1
     PopupMenu = pm1
@@ -35,10 +35,11 @@ object ChaildForm: TChaildForm
   end
   object pnl1: TPanel
     Left = 0
-    Top = 272
+    Top = 253
     Width = 472
     Height = 90
     Align = alBottom
+    BevelInner = bvLowered
     TabOrder = 1
     object btn2: TBitBtn
       Left = 376
@@ -61,9 +62,8 @@ object ChaildForm: TChaildForm
       Top = 8
       Width = 75
       Height = 25
-      Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100
+      Action = actSave
       TabOrder = 2
-      OnClick = btnSaveClick
     end
     object btnCancel: TButton
       Left = 376
@@ -74,6 +74,19 @@ object ChaildForm: TChaildForm
       TabOrder = 3
       OnClick = btnCancelClick
     end
+  end
+  object stat1: TStatusBar
+    Left = 0
+    Top = 343
+    Width = 472
+    Height = 19
+    Panels = <
+      item
+        Width = 100
+      end
+      item
+        Width = 50
+      end>
   end
   object mm1: TMainMenu
     Left = 240
@@ -113,13 +126,6 @@ object ChaildForm: TChaildForm
       OnClick = Delete1Click
     end
   end
-  object actlst1: TActionList
-    Left = 336
-    Top = 144
-    object act1: TAction
-      Caption = 'act1'
-    end
-  end
   object pfbdtst1: TpFIBDataSet
     Transaction = DM.pfbtrnsctn1
     Database = DM.DB
@@ -130,5 +136,26 @@ object ChaildForm: TChaildForm
     DataSet = pfbdtst1
     Left = 280
     Top = 96
+  end
+  object actlst1: TActionList
+    Left = 48
+    Top = 64
+    object actInsert: TAction
+      Caption = #1053#1086#1074#1072#1103' '#1079#1072#1087#1080#1089#1100
+      Hint = #1044#1086#1073#1072#1074#1080#1090#1100' '#1085#1086#1074#1091#1102' '#1079#1072#1087#1080#1089#1100
+    end
+    object actEdit: TAction
+      Caption = #1056#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1090#1100' '#1079#1072#1087#1080#1089#1100
+      Hint = #1056#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1085#1080#1077' '#1090#1077#1082#1091#1097#1077#1081' '#1079#1072#1087#1080#1089#1080
+    end
+    object actDelete: TAction
+      Caption = #1059#1076#1072#1083#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
+      Hint = #1059#1076#1072#1083#1077#1085#1080#1077' '#1090#1077#1082#1091#1097#1077#1081' '#1079#1072#1087#1080#1089#1080
+    end
+    object actSave: TAction
+      Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100
+      OnExecute = btnSaveClick
+      OnUpdate = actSaveUpdate
+    end
   end
 end

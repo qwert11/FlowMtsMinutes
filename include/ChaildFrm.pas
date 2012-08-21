@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Grids, DBGrids, ExtCtrls, StdCtrls, Buttons, Menus, IBDatabase,
   DB, IBCustomDataSet, IBQuery, DBCtrls, ActnList, FIBDatabase,
-  pFIBDatabase, FIBDataSet, pFIBDataSet, FIBQuery, fib;
+  pFIBDatabase, FIBDataSet, pFIBDataSet, FIBQuery, fib, ComCtrls;
 
 type
   TEditorSetState = (esEdit, esInsert, esDelete, esNone);
@@ -28,10 +28,14 @@ type
     Insert2: TMenuItem;
     N1: TMenuItem;
     Delete2: TMenuItem;
-    actlst1: TActionList;
-    act1: TAction;
     pfbdtst1: TpFIBDataSet;
     ds1: TDataSource;
+    stat1: TStatusBar;
+    actlst1: TActionList;
+    actInsert: TAction;
+    actEdit: TAction;
+    actDelete: TAction;
+    actSave: TAction;
     procedure FormCreate(Sender: TObject);
     procedure Edit1Click(Sender: TObject);
     procedure Insert1Click(Sender: TObject);
@@ -40,13 +44,15 @@ type
     procedure btnSaveClick(Sender: TObject); virtual;
     procedure FormShow(Sender: TObject);
     procedure dbgrd1DblClick(Sender: TObject);
-    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure actSaveUpdate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   private
     { Private declarations }
     procedure NullAllField;
   public
     { Public declarations }
     FEditorState: TEditorSetState;
+    FCheckComponents: TList;
   protected
     procedure QueryPrepare;
   end;
@@ -58,6 +64,10 @@ implementation
 
 uses MainFrm, DM_;
 
+const
+  STATE_PNL_SBAR = 0;
+
+  INFO_PNL_SBAR = 1;
 
 {$R *.dfm}
 
@@ -67,18 +77,25 @@ procedure TChaildForm.FormCreate(Sender: TObject);
 begin
   FEditorState := esNone;
   btnSave.Enabled := False;
-  pfbdtst1.Open
+  pfbdtst1.Open;
+  FCheckComponents := TList.Create;
 end;
 
 procedure TChaildForm.Edit1Click(Sender: TObject);
 begin
+  if pfbdtst1.Eof then begin
+    btnCancelClick(nil);
+    Abort;
+  end;
   FEditorState := esEdit;
+  stat1.Panels[STATE_PNL_SBAR].Text := 'Edit';
   btnSave.Enabled := True;
 end;
 
 procedure TChaildForm.Insert1Click(Sender: TObject);
 begin
   FEditorState := esInsert;
+  stat1.Panels[STATE_PNL_SBAR].Text := 'Insert';
   btnSave.Enabled := True;
 end;
 
@@ -86,16 +103,20 @@ end;
 procedure TChaildForm.Delete1Click(Sender: TObject);
 begin
   FEditorState := esNone;
+  stat1.Panels[STATE_PNL_SBAR].Text := 'Delete';
+  stat1.Refresh;
   if Application.MessageBox('Вы действительно хотите удалить запись?',
       'Удаление', MB_ICONQUESTION + MB_YESNO) = ID_YES then
     FEditorState := esDelete;
-  btnSaveClick(nil)
+  btnSaveClick(nil);
+  stat1.Panels[STATE_PNL_SBAR].Text := '';
 end;
 
 procedure TChaildForm.btnCancelClick(Sender: TObject);
 begin
   FEditorState := esNone;
   btnSave.Enabled := False;
+  stat1.Panels[STATE_PNL_SBAR].Text := '';
   NullAllField;
 end;
 
@@ -108,7 +129,6 @@ begin
         if dbgrd1.DataSource.DataSet.Eof then
           Exit;
         Delete;
-        Post;
         Close;
         Open;
       end;
@@ -156,7 +176,6 @@ begin
       (Components[I] as TEdit).Clear else
     if Components[I] is TDBLookupComboBox then
       (Components[I] as TDBLookupComboBox).KeyValue := null
-
 end;
 
 procedure TChaildForm.FormShow(Sender: TObject);
@@ -171,12 +190,6 @@ begin
   ModalResult := mrNone;
   if not dbgrd1.DataSource.DataSet.Eof then
     ModalResult := mrOk;
-end;
-
-procedure TChaildForm.FormCloseQuery(Sender: TObject;
-  var CanClose: Boolean);
-begin
-  pfbdtst1.Close
 end;
 
 procedure TChaildForm.QueryPrepare;
@@ -195,6 +208,39 @@ begin
       esDelete: Prep(QDelete);
     end;
   end;
+end;
+
+procedure TChaildForm.actSaveUpdate(Sender: TObject);
+const
+  CheckInput = 'Заполните все поля';
+var
+  I: Integer;
+begin
+  case FEditorState of
+    esEdit, esInsert: begin
+      for I := 0 to FCheckComponents.Count - 1 do
+        if (TObject(FCheckComponents.Items[I]) is TEdit) then
+          actSave.Enabled :=
+            (TObject(FCheckComponents.Items[I]) as TEdit).Text <> '' else
+        if (TObject(FCheckComponents.Items[I]) is TDBLookupComboBox) then
+          actSave.Enabled :=
+            (TObject(FCheckComponents.Items[I]) as TDBLookupComboBox).KeyValue <> Null;
+
+      if actSave.Enabled then
+        stat1.Panels[INFO_PNL_SBAR].Text := NullAsStringValue else
+      if stat1.Panels[INFO_PNL_SBAR].Text = NullAsStringValue then
+          stat1.Panels[INFO_PNL_SBAR].Text := CheckInput
+    end;
+  else
+    stat1.Panels[INFO_PNL_SBAR].Text := '';
+    actSave.Enabled := False;
+  end;
+end;
+
+procedure TChaildForm.FormDestroy(Sender: TObject);
+begin
+  FCheckComponents.Free;
+  pfbdtst1.Close;
 end;
 
 end.

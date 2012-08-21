@@ -191,6 +191,15 @@ object frmMain: TfrmMain
       TabOrder = 4
       OnClick = btnTarifPlanClick
     end
+    object btnSimka: TButton
+      Left = 752
+      Top = 16
+      Width = 75
+      Height = 25
+      Caption = 'btnSimka'
+      TabOrder = 5
+      OnClick = btnSimkaClick
+    end
   end
   object actlst1: TActionList
     Left = 48

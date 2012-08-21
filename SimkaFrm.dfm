@@ -15,6 +15,11 @@ inherited frmSimka: TfrmSimka
       end
       item
         Expanded = False
+        FieldName = 'TarifPlan'
+        Visible = True
+      end
+      item
+        Expanded = False
         FieldName = 'S_TARIFPLAN'
         Width = 174
         Visible = True
@@ -137,7 +142,6 @@ inherited frmSimka: TfrmSimka
       '    S_NUMBER'
       'FROM'
       '    SIMKA ')
-    Active = True
     object pfbdtst1SID: TFIBIntegerField
       FieldName = 'SID'
       Origin = 'SIMKA.SID'
@@ -152,17 +156,6 @@ inherited frmSimka: TfrmSimka
       Size = 12
       EmptyStrToNull = True
     end
-    object strngfldpfbdtst1TarifPlan: TStringField
-      FieldKind = fkLookup
-      FieldName = 'TarifPlan'
-      LookupDataSet = frmTarifPlan.pfbdtst1
-      LookupKeyFields = 'TPID'
-      LookupResultField = 'TP_NAME'
-      KeyFields = 'S_TARIFPLAN'
-      Origin = 'TARIF_PLAN.TP_NAME'
-      Size = 50
-      Lookup = True
-    end
     object crncyfldpfbdtst1AbonBoard: TCurrencyField
       FieldKind = fkLookup
       FieldName = 'AbonBoard'
@@ -171,6 +164,17 @@ inherited frmSimka: TfrmSimka
       LookupResultField = 'TP_ABON_BOARD'
       KeyFields = 'S_TARIFPLAN'
       Origin = 'TARIF_PLAN.TP_ABON_BOARD'
+      Lookup = True
+    end
+    object strngfldpfbdtst1TarifPlan: TStringField
+      FieldKind = fkLookup
+      FieldName = 'TarifPlan'
+      LookupDataSet = frmTarifPlan.pfbdtst1
+      LookupKeyFields = 'TPID'
+      LookupResultField = 'TP_NAME;TP_ABON_BOARD'
+      KeyFields = 'S_TARIFPLAN'
+      Origin = 'TARIF_PLAN.TP_NAME'
+      Size = 50
       Lookup = True
     end
     object intgrfldpfbdtst1SMS_Month: TIntegerField

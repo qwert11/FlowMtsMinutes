@@ -32,11 +32,13 @@ type
     btnDeleteRecord: TButton;
     btnFinance: TButton;
     btnTarifPlan: TButton;
+    btnSimka: TButton;
     procedure FormCreate(Sender: TObject);
     procedure actEditUpdate(Sender: TObject);
     procedure actInsertExecute(Sender: TObject);
     procedure btnFinanceClick(Sender: TObject);
     procedure btnTarifPlanClick(Sender: TObject);
+    procedure btnSimkaClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -48,7 +50,8 @@ var
 
 implementation
 
-uses DM_, CustomerFunctions, EditingReportFrm, FinanceFrm, TarifPlanFrm;
+uses DM_, CustomerFunctions, EditingReportFrm, FinanceFrm, TarifPlanFrm,
+  SimkaFrm;
 
 {$R *.dfm}
 
@@ -101,6 +104,11 @@ end;
 procedure TfrmMain.btnTarifPlanClick(Sender: TObject);
 begin
   frmTarifPlan.ShowModal
+end;
+
+procedure TfrmMain.btnSimkaClick(Sender: TObject);
+begin
+  frmSimka.ShowModal
 end;
 
 end.

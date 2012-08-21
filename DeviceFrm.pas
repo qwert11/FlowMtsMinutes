@@ -18,6 +18,7 @@ type
     lbl2: TLabel;
     procedure btnSaveClick(Sender: TObject); override;
     procedure edtNumKeyPress(Sender: TObject; var Key: Char);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -35,18 +36,6 @@ uses CustomerFunctions;
 
 procedure TfrmDevice.btnSaveClick(Sender: TObject);
 begin
-  with pfbdtst1 do begin
-    if not pfbdtst1.Eof then
-      ParamByName('P_DID').AsInteger := FieldByName('DID').AsInteger;
-
-    if (FEditorState in [esEdit, esInsert]) and
-        ((edtNum.Text = NullAsStringValue) or (edtTitle.Text = NullAsStringValue)) then
-      Exit;
-
-    ParamByName('P_D_Num').AsString := edtNum.Text;
-    ParamByName('P_D_Title').AsString := edtTitle.Text;
-  end;
-
   with pfbdtst1 do
   try
 
@@ -95,6 +84,12 @@ procedure TfrmDevice.edtNumKeyPress(Sender: TObject; var Key: Char);
 begin
   inherited;
   MaskKeyEdit(Sender, Key, ['0'..'9']);
+end;
+
+procedure TfrmDevice.FormCreate(Sender: TObject);
+begin
+  inherited;
+  FCheckComponents.Add(edtNum);
 end;
 
 end.
