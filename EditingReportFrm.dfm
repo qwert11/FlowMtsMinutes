@@ -1,6 +1,6 @@
 object frmEditingReport: TfrmEditingReport
-  Left = 354
-  Top = 256
+  Left = 353
+  Top = 240
   Width = 863
   Height = 465
   Caption = 'frmEditingReport'
@@ -162,7 +162,6 @@ object frmEditingReport: TfrmEditingReport
     Top = 264
   end
   object cds: TClientDataSet
-    Active = True
     Aggregates = <>
     FieldDefs = <
       item
@@ -204,11 +203,6 @@ object frmEditingReport: TfrmEditingReport
     StoreDefs = True
     Left = 48
     Top = 224
-    Data = {
-      730000009619E0BD010000001800000004000000000003000000730005636473
-      496E010049000000010005574944544802000200140006636473534D53040001
-      0000000000086364734F776E6572010049000000010005574944544802000200
-      14000A63647342616C616E636508000400000000000000}
     object intgrfldID_RS: TIntegerField
       DisplayWidth = 7
       FieldKind = fkInternalCalc

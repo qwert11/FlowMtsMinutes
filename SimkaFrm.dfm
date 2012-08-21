@@ -171,7 +171,7 @@ inherited frmSimka: TfrmSimka
       FieldName = 'TarifPlan'
       LookupDataSet = frmTarifPlan.pfbdtst1
       LookupKeyFields = 'TPID'
-      LookupResultField = 'TP_NAME;TP_ABON_BOARD'
+      LookupResultField = 'TP_ABON_BOARD'
       KeyFields = 'S_TARIFPLAN'
       Origin = 'TARIF_PLAN.TP_NAME'
       Size = 50

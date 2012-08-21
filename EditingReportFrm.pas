@@ -96,13 +96,15 @@ begin
 //  if user.login = DEF_USER then
 //    Exit;
 
-  // чистим edit
+  // чистим edit-ты
   ClearEdit(Self);
 
   Caption := 'Сегодня: ' + DateToStr(Date) + '' + user.Patronymic + '.' +
     user.Name[1] + user.Patronymic[1];
 
   dtpDate.Date := Date;
+
+  cds.Open;
                  
 //   заполняем PickList Simka
 ////  FillSimkaPkLst;

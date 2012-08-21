@@ -132,6 +132,7 @@ inherited frmTarifPlan: TfrmTarifPlan
       Origin = 'TARIF_PLAN.TPID'
     end
     object pfbdtst1TP_NAME: TFIBStringField
+      DisplayWidth = 10
       FieldName = 'TP_NAME'
       Origin = 'TARIF_PLAN.TP_NAME'
       Size = 50

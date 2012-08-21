@@ -241,4 +241,9 @@ begin
     KeyValue := null
 end;
 
+  for I := 0 to ComponentCount - 1 do
+    if Components[I] is TDBLookupComboBox then
+      if (Components[I] as TDBLookupComboBox).ListVisible then
+        (Components[I] as TDBLookupComboBox).CloseUp(True);
+
 end.
