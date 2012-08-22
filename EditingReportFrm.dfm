@@ -12,11 +12,12 @@ object frmEditingReport: TfrmEditingReport
   Font.Style = []
   OldCreateOrder = False
   OnActivate = FormActivate
+  OnCloseQuery = FormCloseQuery
   PixelsPerInch = 96
   TextHeight = 13
   object stat1: TStatusBar
     Left = 0
-    Top = 412
+    Top = 419
     Width = 855
     Height = 19
     Panels = <
@@ -34,7 +35,7 @@ object frmEditingReport: TfrmEditingReport
     Left = 0
     Top = 0
     Width = 655
-    Height = 412
+    Height = 419
     Align = alClient
     DataGrouping.GroupLevels = <>
     DataSource = ds1
@@ -61,7 +62,7 @@ object frmEditingReport: TfrmEditingReport
     Left = 655
     Top = 0
     Width = 200
-    Height = 412
+    Height = 419
     Align = alRight
     TabOrder = 2
     object lbl2: TLabel
@@ -162,127 +163,13 @@ object frmEditingReport: TfrmEditingReport
     Top = 264
   end
   object cds: TClientDataSet
-    Active = True
     Aggregates = <>
-    FieldDefs = <
-      item
-        Name = 'cdsIn'
-        DataType = ftString
-        Size = 20
-      end
-      item
-        Name = 'cdsSMS'
-        DataType = ftInteger
-      end
-      item
-        Name = 'cdsOwner'
-        DataType = ftString
-        Size = 20
-      end
-      item
-        Name = 'cdsBalance'
-        DataType = ftFloat
-      end
-      item
-        Name = 'ID_RS'
-        DataType = ftInteger
-      end
-      item
-        Name = 'IDSimka'
-        DataType = ftInteger
-      end
-      item
-        Name = 'IDIn'
-        DataType = ftInteger
-      end
-      item
-        Name = 'IDOwner'
-        DataType = ftInteger
-      end>
+    FieldDefs = <>
     IndexDefs = <>
     Params = <>
     StoreDefs = True
-    Left = 48
-    Top = 224
-    Data = {
-      730000009619E0BD010000001800000004000000000003000000730005636473
-      496E010049000000010005574944544802000200140006636473534D53040001
-      0000000000086364734F776E6572010049000000010005574944544802000200
-      14000A63647342616C616E636508000400000000000000}
-    object intgrfldID_RS: TIntegerField
-      DisplayWidth = 7
-      FieldKind = fkInternalCalc
-      FieldName = 'ID_RS'
-    end
-    object intgrfldIDSimka: TIntegerField
-      DisplayWidth = 10
-      FieldKind = fkInternalCalc
-      FieldName = 'IDSimka'
-    end
-    object intgrfldIDIn: TIntegerField
-      DisplayWidth = 10
-      FieldKind = fkInternalCalc
-      FieldName = 'IDIn'
-    end
-    object intgrfldIDOwner: TIntegerField
-      DisplayWidth = 10
-      FieldKind = fkInternalCalc
-      FieldName = 'IDOwner'
-    end
-    object strngfldSimka: TStringField
-      DisplayWidth = 12
-      FieldKind = fkLookup
-      FieldName = 'cdsSimka'
-      LookupDataSet = frmSimka.pfbdtst1
-      LookupKeyFields = 'SID'
-      LookupResultField = 'S_NUMBER'
-      KeyFields = 'IDSimka'
-      OnGetText = strngfldSimkaGetText
-      Lookup = True
-    end
-    object strngfldIn: TStringField
-      DisplayWidth = 6
-      FieldName = 'cdsIn'
-    end
-    object intgrfldSMS: TIntegerField
-      DisplayWidth = 10
-      FieldName = 'cdsSMS'
-    end
-    object strngfldOwner: TStringField
-      DisplayWidth = 15
-      FieldName = 'cdsOwner'
-    end
-    object fltfldBalance: TFloatField
-      DisplayWidth = 10
-      FieldName = 'cdsBalance'
-    end
-    object strngfldSAbonBoard: TStringField
-      FieldKind = fkLookup
-      FieldName = 'SAbonBoard'
-      LookupDataSet = frmSimka.pfbdtst1
-      LookupKeyFields = 'SID'
-      LookupResultField = 'AbonBoard'
-      KeyFields = 'IDSimka'
-      Lookup = True
-    end
-    object strngfldSTarifPlan: TStringField
-      FieldKind = fkLookup
-      FieldName = 'STarifPlan'
-      LookupDataSet = frmSimka.pfbdtst1
-      LookupKeyFields = 'SID'
-      LookupResultField = 'TarifPlan'
-      KeyFields = 'IDSimka'
-      Lookup = True
-    end
-    object intgrfldSSMSMonth: TIntegerField
-      FieldKind = fkLookup
-      FieldName = 'SSMSMonth'
-      LookupDataSet = frmSimka.pfbdtst1
-      LookupKeyFields = 'SID'
-      LookupResultField = 'SMS_Month'
-      KeyFields = 'IDSimka'
-      Lookup = True
-    end
+    Left = 152
+    Top = 192
   end
   object actlst1: TActionList
     Left = 48
@@ -299,6 +186,76 @@ object frmEditingReport: TfrmEditingReport
     Top = 40
     object mniEdit: TMenuItem
       Action = actEdit
+    end
+  end
+  object cdsTmpER: TClientDataSet
+    Aggregates = <>
+    FieldDefs = <>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 48
+    Top = 232
+    object intgrfldTmpERcSimka: TIntegerField
+      FieldName = 'cSimka'
+    end
+    object intgrfldTmpERcIn: TIntegerField
+      FieldName = 'cIn'
+    end
+    object intgrfldTmpERcSMS: TIntegerField
+      FieldName = 'cSMS'
+    end
+    object intgrfldTmpERcOwner: TIntegerField
+      FieldName = 'cOwner'
+    end
+    object crncyfldTmpERcBalance: TCurrencyField
+      FieldName = 'cBalance'
+    end
+    object strngfldTmpERSimNumber: TStringField
+      FieldKind = fkLookup
+      FieldName = 'SimNumber'
+      LookupDataSet = frmSimka.pfbdtst1
+      LookupKeyFields = 'SID'
+      LookupResultField = 'S_NUMBER'
+      KeyFields = 'cSimka'
+      Size = 50
+      Lookup = True
+    end
+    object strngfldTmpERSimTarifPlan: TStringField
+      FieldKind = fkLookup
+      FieldName = 'SimTarifPlan'
+      LookupDataSet = frmSimka.pfbdtst1
+      LookupKeyFields = 'SID'
+      LookupResultField = 'TarifPlan'
+      KeyFields = 'cSimka'
+      Lookup = True
+    end
+    object crncyfldTmpERSimAbonBoard: TCurrencyField
+      FieldKind = fkLookup
+      FieldName = 'SimAbonBoard'
+      LookupDataSet = frmSimka.pfbdtst1
+      LookupKeyFields = 'SID'
+      LookupResultField = 'AbonBoard'
+      KeyFields = 'cSimka'
+      Lookup = True
+    end
+    object intgrfldTmpERDeviceNumbr: TIntegerField
+      FieldKind = fkLookup
+      FieldName = 'DeviceNumbr'
+      LookupDataSet = frmDevice.pfbdtst1
+      LookupKeyFields = 'DID'
+      LookupResultField = 'D_NUM'
+      KeyFields = 'cIn'
+      Lookup = True
+    end
+    object strngfldTmpERDeviceName: TStringField
+      FieldKind = fkLookup
+      FieldName = 'DeviceName'
+      LookupDataSet = frmDevice.pfbdtst1
+      LookupKeyFields = 'DID'
+      LookupResultField = 'D_TITLE'
+      KeyFields = 'cIn'
+      Lookup = True
     end
   end
 end

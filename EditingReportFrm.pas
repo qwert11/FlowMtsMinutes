@@ -27,24 +27,23 @@ type
     edtSum1: TEdit;
     edtSum2: TEdit;
     pnl1: TPanel;
-    intgrfldIDSimka: TIntegerField;
-    intgrfldIDIn: TIntegerField;
-    intgrfldIDOwner: TIntegerField;
-    intgrfldID_RS: TIntegerField;
     actlst1: TActionList;
     actEdit: TAction;
     pm1: TPopupMenu;
     mniEdit: TMenuItem;
     btnSave: TBitBtn;
     btnClose: TBitBtn;
-    strngfldSimka: TStringField;
-    strngfldIn: TStringField;
-    intgrfldSMS: TIntegerField;
-    strngfldOwner: TStringField;
-    fltfldBalance: TFloatField;
-    strngfldSAbonBoard: TStringField;
-    strngfldSTarifPlan: TStringField;
-    intgrfldSSMSMonth: TIntegerField;
+    cdsTmpER: TClientDataSet;
+    intgrfldTmpERcSimka: TIntegerField;
+    intgrfldTmpERcIn: TIntegerField;
+    intgrfldTmpERcSMS: TIntegerField;
+    intgrfldTmpERcOwner: TIntegerField;
+    crncyfldTmpERcBalance: TCurrencyField;
+    strngfldTmpERSimNumber: TStringField;
+    strngfldTmpERSimTarifPlan: TStringField;
+    crncyfldTmpERSimAbonBoard: TCurrencyField;
+    intgrfldTmpERDeviceNumbr: TIntegerField;
+    strngfldTmpERDeviceName: TStringField;
     procedure tmr1Timer(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure actEditingUpdate(Sender: TObject);
@@ -52,12 +51,10 @@ type
     procedure dbgrdhRepSIMKeyPress(Sender: TObject; var Key: Char);
     procedure strngfldSimkaGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
   private
     { Private declarations }
     FEditingReport: TEditingReport;
-//    procedure FillSimkaPkLst;
-//    procedure FillDevicePkLst;
-//    procedure FillOvnerPkLst;
   public
     { Public declarations }
     constructor Create(AOwner: TComponent;
@@ -110,15 +107,6 @@ begin
   dtpDate.Date := Date;
 
   cds.Open;
-                 
-//   заполн€ем PickList Simka
-////  FillSimkaPkLst;
-////
-//   заполн€ем PickList In
-////  FillDevicePkLst;
-////
-//   заполн€ем PickList Ovner
-////  FillOvnerPkLst;
 
   with frmMain.dbgrdh1.DataSource.DataSet do
     case FEditingReport of
@@ -217,51 +205,6 @@ begin
     end;
 end;
 
-{procedure TfrmEditingReport.FillDevicePkLst;
-begin
-  // заполн€ем PickList In
-  dbgrdhRepSIM.FindFieldColumn('cdsIn').PickList.Clear;
-  frmDevice.pfbdtst1.First;
-  with frmDevice.pfbdtst1 do
-    while not Eof do begin
-      dbgrdhRepSIM.FindFieldColumn('cdsIn').PickList.AddObject(
-          FieldByName('D_NUM').AsString + '/' +   // симка в устройстве є
-          FieldByName('D_TITLE').AsString         //назв. устройства
-          , Pointer(FieldByName('DID').AsInteger));
-      Next;
-    end;
-end;
-
-procedure TfrmEditingReport.FillOvnerPkLst;
-begin
-  // заполн€ем PickList Owner
-  dbgrdhRepSIM.FindFieldColumn('cdsOwner').PickList.Clear;
-  frmOwner.pfbdtst1.First;
-  with frmOwner.pfbdtst1 do
-    while not Eof do begin
-      dbgrdhRepSIM.FindFieldColumn('cdsOwner').PickList.AddObject(
-          FieldByName('OName').AsString //владелец симки тел.
-          , Pointer(FieldByName('OID').AsInteger));
-      Next;
-    end;
-end;
-
-procedure TfrmEditingReport.FillSimkaPkLst;
-begin
-  // заполн€ем PickList Simka
-  dbgrdhRepSIM.FindFieldColumn('cdsSimka').PickList.Clear;
-  frmSimka.pfbdtst1.First;
-  with frmSimka.pfbdtst1 do
-    while not Eof do begin
-      dbgrdhRepSIM.FindFieldColumn('cdsSimka').PickList.AddObject(
-          FieldByName('SNumber').AsString + '/' +   //номер тел.
-          FieldByName('TarifPlan').AsString + '/' + //тарифн. план
-          FieldByName('AbonFoard').AsString + '/' + //абон. плата
-          FieldByName('SMS_Month').AsString //SMS на мес€ц
-          , Pointer(FieldByName('SID').AsInteger));
-      Next;
-    end;
-end;}
 
 procedure TfrmEditingReport.actEditingUpdate(Sender: TObject);
 begin
@@ -295,6 +238,12 @@ procedure TfrmEditingReport.strngfldSimkaGetText(Sender: TField;
   var Text: String; DisplayText: Boolean);
 begin
   Text := strngfldSimka.AsString + ' ' + strngfldSTarifPlan.AsString
+end;
+
+procedure TfrmEditingReport.FormCloseQuery(Sender: TObject;
+  var CanClose: Boolean);
+begin
+  CloseAllCombobox(Self)
 end;
 
 end.
