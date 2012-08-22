@@ -1,30 +1,25 @@
 [Closed Files]
 File_0=SourceModule,'F:\myProgram\Delphi\FlowMtsMinutes\MainFrm.pas',0,1,81,1,90,1,0
-File_1=SourceModule,'c:\program files\borland\delphi7\source\vcl\dbctrls.pas',0,1,1,13,10,0,0
-File_2=SourceModule,'C:\Program Files\Borland\Delphi7\Lib\fibplus_6_9_9_D5-2007\sources\fib.pas',0,1,516,10,533,0,0
-File_3=SourceModule,'C:\Program Files\Borland\Delphi7\Lib\fibplus_6_9_9_D5-2007\sources\FIBDataSet.pas',0,1,922,28,933,0,0
-File_4=SourceModule,'C:\Program Files\Borland\Delphi7\Lib\fibplus_6_9_9_D5-2007\sources\FIBQuery.pas',0,1,4,14,21,0,0
-File_5=SourceModule,'C:\Program Files\Borland\Delphi7\Lib\fibplus_6_9_9_D5-2007\sources\pFIBDataSet.pas',0,1,1564,1,1573,0,0
-File_6=SourceModule,'F:\myProgram\Delphi\FlowMtsMinutes\MainFrm.dfm',0,1,1,1,1,0,0
-File_7=SourceModule,'F:\myProgram\Delphi\test\FBConnect\MOXA\MainFrm.pas',0,1,58,27,64,1,1
-File_8=SourceModule,'c:\program files\borland\delphi7\source\vcl\IBDatabase.pas',0,1,1131,1,1138,0,0
-File_9=SourceModule,'F:\Bibls\!Компьютерная литература\!Программирование\Delphi World Books\Фаронов В.В. - Delphi 7 Программирование баз данных\Source\Source\Chap_16\Debit-Credit\Unit1.pas',0,1,74,32,79,1,0
+File_1=SourceModule,'F:\myProgram\Delphi\FlowMtsMinutes\CustomerFunctions.pas',0,1,7,1,21,0,0
+File_2=SourceModule,'F:\myProgram\Delphi\FlowMtsMinutes\DM_.pas',0,1,1,43,8,1,0
+File_3=SourceModule,'F:\myProgram\Delphi\FlowMtsMinutes\OwnerFrm.pas',0,1,43,11,51,1,0
+File_4=SourceModule,'F:\myProgram\Delphi\FlowMtsMinutes\EditingReportFrm.pas',0,1,365,41,376,1,0
+File_5=SourceModule,'c:\program files\borland\delphi7\source\vcl\DB.pas',0,1,10399,1,10412,0,0
+File_6=SourceModule,'F:\myProgram\Delphi\FlowMtsMinutes\CustomerGlobals.pas',0,1,4,5,26,0,0
+File_7=SourceModule,'c:\program files\borland\delphi7\source\vcl\dbctrls.pas',0,1,1,13,10,0,0
+File_8=SourceModule,'C:\Program Files\Borland\Delphi7\Lib\fibplus_6_9_9_D5-2007\sources\fib.pas',0,1,516,10,533,0,0
+File_9=SourceModule,'C:\Program Files\Borland\Delphi7\Lib\fibplus_6_9_9_D5-2007\sources\FIBDataSet.pas',0,1,922,28,933,0,0
 
 [Modules]
 Module0=F:\myProgram\Delphi\FlowMtsMinutes\include\ChaildFrm.pas
-Module1=F:\myProgram\Delphi\FlowMtsMinutes\EditingReportFrm.pas
-Module2=F:\myProgram\Delphi\FlowMtsMinutes\SimkaFrm.pas
-Module3=F:\myProgram\Delphi\FlowMtsMinutes\TarifPlanFrm.pas
-Module4=F:\myProgram\Delphi\FlowMtsMinutes\CustomerFunctions.pas
+Module1=F:\myProgram\Delphi\FlowMtsMinutes\SimkaFrm.pas
+Module2=F:\myProgram\Delphi\FlowMtsMinutes\TarifPlanFrm.pas
+Module3=F:\myProgram\Delphi\FlowMtsMinutes\DeviceFrm.pas
+Module4=F:\myProgram\Delphi\FlowMtsMinutes\FinanceFrm.pas
 Count=5
 EditWindowCount=1
 
 [F:\myProgram\Delphi\FlowMtsMinutes\include\ChaildFrm.pas]
-ModuleType=SourceModule
-FormState=1
-FormOnTop=0
-
-[F:\myProgram\Delphi\FlowMtsMinutes\EditingReportFrm.pas]
 ModuleType=SourceModule
 FormState=1
 FormOnTop=0
@@ -39,24 +34,25 @@ ModuleType=SourceModule
 FormState=1
 FormOnTop=0
 
-[F:\myProgram\Delphi\FlowMtsMinutes\CustomerFunctions.pas]
+[F:\myProgram\Delphi\FlowMtsMinutes\DeviceFrm.pas]
 ModuleType=SourceModule
-FormState=0
+FormState=1
 FormOnTop=0
 
-[F:\myProgram\Delphi\FlowMtsMinutes\ProjectGroup1.bpg]
-FormState=0
+[F:\myProgram\Delphi\FlowMtsMinutes\FinanceFrm.pas]
+ModuleType=SourceModule
+FormState=1
 FormOnTop=0
 
 [F:\myProgram\Delphi\FlowMtsMinutes\SimReportDay.dpr]
 FormState=0
 FormOnTop=0
 
-[F:\myProgram\Delphi\FlowMtsMinutes\FinanceFrm.pas]
+[F:\myProgram\Delphi\FlowMtsMinutes\DM_.pas]
 FormState=0
 FormOnTop=0
 
-[F:\myProgram\Delphi\FlowMtsMinutes\DM_.pas]
+[C:\Program Files\Borland\Delphi7\Projects\ProjectGroup1.bpg]
 FormState=0
 FormOnTop=0
 
@@ -73,8 +69,8 @@ MessageView=MessageView@EditWindow0
 Create=1
 Visible=1
 State=0
-Left=204
-Top=132
+Left=162
+Top=126
 Width=937
 Height=621
 MaxLeft=-1
@@ -87,41 +83,41 @@ LeftPanelData=000004000000000000000000000000000000000000000000000100000000000000
 RightPanelSize=0
 BottomPanelSize=0
 BottomPanelClients=MessageView@EditWindow0
-BottomPanelData=00000400010000000B0000004D6573736167655669657758030000000000000255000000000000000100000000000000000000000001000000005803000000000000010000000058030000000000000100000000580300000000000001000000005803000000000000FFFFFFFF
+BottomPanelData=00000400010000000B0000004D65737361676556696577A10300000000000002550000000000000001000000000000000000000000010000000058030000000000000100000000580300000000000001000000005803000000000000010000000058030000000000000100000000A10300000B0000004D65737361676556696577FFFFFFFF
 
 [View0]
-Module=F:\myProgram\Delphi\FlowMtsMinutes\EditingReportFrm.pas
+Module=F:\myProgram\Delphi\FlowMtsMinutes\DeviceFrm.pas
 CursorX=1
-CursorY=297
-TopLine=287
+CursorY=42
+TopLine=41
 LeftCol=1
 
 [View1]
-Module=F:\myProgram\Delphi\FlowMtsMinutes\SimkaFrm.pas
-CursorX=38
-CursorY=18
-TopLine=7
+Module=F:\myProgram\Delphi\FlowMtsMinutes\FinanceFrm.pas
+CursorX=11
+CursorY=58
+TopLine=52
 LeftCol=1
 
 [View2]
-Module=F:\myProgram\Delphi\FlowMtsMinutes\CustomerFunctions.pas
-CursorX=41
-CursorY=18
-TopLine=1
+Module=F:\myProgram\Delphi\FlowMtsMinutes\TarifPlanFrm.pas
+CursorX=11
+CursorY=70
+TopLine=55
 LeftCol=1
 
 [View3]
-Module=F:\myProgram\Delphi\FlowMtsMinutes\TarifPlanFrm.pas
-CursorX=11
-CursorY=59
-TopLine=43
+Module=F:\myProgram\Delphi\FlowMtsMinutes\SimkaFrm.pas
+CursorX=25
+CursorY=67
+TopLine=34
 LeftCol=1
 
 [View4]
 Module=F:\myProgram\Delphi\FlowMtsMinutes\include\ChaildFrm.pas
-CursorX=1
-CursorY=250
-TopLine=235
+CursorX=25
+CursorY=170
+TopLine=157
 LeftCol=1
 
 [Watches]
@@ -159,8 +155,8 @@ Left=0
 Top=0
 Width=1280
 Height=112
-MaxLeft=-4
-MaxTop=-4
+MaxLeft=-1
+MaxTop=-1
 MaxWidth=1288
 MaxHeight=112
 ClientWidth=1280
@@ -173,11 +169,11 @@ State=0
 Left=1136
 Top=108
 Width=167
-Height=240
+Height=347
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=159
-ClientHeight=214
+ClientHeight=321
 TBDockHeight=240
 LRDockWidth=160
 Dockable=1
@@ -229,7 +225,7 @@ LRDockWidth=182
 Dockable=1
 SplitPos=85
 ArrangeBy=Name
-SelectedItem=OnGetText
+SelectedItem=Name
 ExpandedItems=
 HiddenCategories=
 
@@ -361,11 +357,11 @@ Visible=0
 State=0
 Left=12
 Top=0
-Width=844
+Width=917
 Height=85
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=844
+ClientWidth=917
 ClientHeight=85
 TBDockHeight=85
 LRDockWidth=443

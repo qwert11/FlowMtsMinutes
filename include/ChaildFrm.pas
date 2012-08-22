@@ -72,6 +72,8 @@ const
 
 {$R *.dfm}
 
+{$DEFINE TESTMODE}
+
 { TODO 2 -oAcrion -cUpdate : UPDATE для Edit, Insert, Delete }
 
 procedure TChaildForm.FormCreate(Sender: TObject);
@@ -124,45 +126,54 @@ end;
 procedure TChaildForm.btnSaveClick(Sender: TObject);
 begin
   try
-    with pfbdtst1 do
-    case FEditorState of
-      esDelete: begin
-        if dbgrd1.DataSource.DataSet.Eof then
-          Exit;
-        Delete;
-        Close;
-        Open;
-      end;
+    try
+      with pfbdtst1 do
+      case FEditorState of
+        esDelete: begin
+          if dbgrd1.DataSource.DataSet.Eof then
+            Exit;
+          Delete;
+          Close;
+          Open;
+        end;
 
-      esEdit: begin
-        if dbgrd1.DataSource.DataSet.Eof then
-          Exit;
-        Edit;
-        Post;
-        Close;
-        Open;
-      end;
+        esEdit: begin
+          if dbgrd1.DataSource.DataSet.Eof then
+            Exit;
+          Edit;
+          Post;
+          Close;
+          Open;
+        end;
 
-      esInsert: begin
-        Insert;
-        Post;
-        Close;
-        Open;
+        esInsert: begin
+          Insert;
+          Post;
+          Close;
+          Open;
+        end;
+
+      else
+        raise Exception.Create('Не определенное значение FEditorState');
       end;
-        
-    else
-      raise Exception.Create('Не определенное значение FEditorState');
-    end;  
-  except
-    on EFIBError do begin
-      Application.MessageBox('Обратитесь к разработчику',
-          'Ошибка базы данных', MB_ICONERROR);
-      Abort;
-    end;  
-    on E: Exception do begin
-      DM.pfbtrnsctn1.Rollback;
-      Application.MessageBox(PChar(E.Message), 'Ошибка', MB_ICONERROR);
+      DM.pfbtrnsctn1.CommitRetaining;
+    except
+      on EFIBError do begin
+        DM.pfbtrnsctn1.Rollback;
+        raise Exception.Create('Ошибка базы данных' + #13#10 + 'Обратитесь к разработчику');
+      end;
+      on E: Exception do begin
+        DM.pfbtrnsctn1.Rollback;
+        Application.MessageBox(PChar(E.Message), 'Ошибка', MB_ICONERROR);
+        {$IFNDEF TESTMODE}
+        raise EAbort.Create('Это нельзя видеть');
+        {$ENDIF}
+      end;
     end;
+  except
+    { TODO -oexception -cошибки  : проверить hook на ошибки }
+    on E: Exception do
+      Application.MessageBox(PChar(E.Message), 'Ошибка HOOK', MB_ICONERROR);
   end;
 
   btnCancelClick(nil);

@@ -1,6 +1,6 @@
 object frmEditingReport: TfrmEditingReport
-  Left = 294
-  Top = 242
+  Left = 190
+  Top = 236
   Width = 879
   Height = 489
   Caption = 'frmEditingReport'
@@ -14,11 +14,12 @@ object frmEditingReport: TfrmEditingReport
   OldCreateOrder = False
   OnActivate = FormActivate
   OnCloseQuery = FormCloseQuery
+  OnDestroy = FormDestroy
   PixelsPerInch = 96
   TextHeight = 13
   object stat1: TStatusBar
     Left = 0
-    Top = 424
+    Top = 416
     Width = 871
     Height = 19
     Panels = <
@@ -36,7 +37,7 @@ object frmEditingReport: TfrmEditingReport
     Left = 0
     Top = 0
     Width = 671
-    Height = 424
+    Height = 416
     Align = alClient
     DataGrouping.GroupLevels = <>
     DataSource = ds1
@@ -136,7 +137,7 @@ object frmEditingReport: TfrmEditingReport
     Left = 671
     Top = 0
     Width = 200
-    Height = 424
+    Height = 416
     Align = alRight
     TabOrder = 2
     object lbl2: TLabel
@@ -266,6 +267,7 @@ object frmEditingReport: TfrmEditingReport
         DataType = ftInteger
       end>
     IndexDefs = <>
+    FetchOnDemand = False
     Params = <>
     StoreDefs = True
     Left = 48
@@ -273,26 +275,32 @@ object frmEditingReport: TfrmEditingReport
     object intgrfldTmpERcSimka: TIntegerField
       DisplayWidth = 10
       FieldName = 'cSimka'
+      Required = True
     end
     object intgrfldTmpERcIn: TIntegerField
       DisplayWidth = 10
       FieldName = 'cIn'
+      Required = True
     end
     object intgrfldTmpERcSMS: TIntegerField
       DisplayWidth = 10
       FieldName = 'cSMS'
+      Required = True
     end
     object intgrfldTmpERcOwner: TIntegerField
       DisplayWidth = 10
       FieldName = 'cOwner'
+      Required = True
     end
     object crncyfldTmpERcBalance: TCurrencyField
       DisplayWidth = 10
       FieldName = 'cBalance'
+      Required = True
     end
     object intgrfldTmpERcIDRepSim: TIntegerField
       DisplayWidth = 10
       FieldName = 'cIDRepSim'
+      Required = True
     end
     object strngfldTmpERSimNumber: TStringField
       DisplayWidth = 22
@@ -379,6 +387,7 @@ object frmEditingReport: TfrmEditingReport
       Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100
       Hint = #1057#1086#1093#1088#1072#1085#1080#1090#1100
       OnExecute = actSaveExecute
+      OnUpdate = actSaveUpdate
     end
   end
   object pm1: TPopupMenu

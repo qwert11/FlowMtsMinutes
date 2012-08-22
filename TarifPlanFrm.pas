@@ -68,8 +68,6 @@ begin
       esDelete: with QDelete do begin
         ParamByName('P_OLD_TPID').AsInteger := pfbdtst1.FieldByName('TPID').AsInteger;
       end;
-    else
-      raise Exception.Create('Не определенное значение FEditorState');
     end;
     
     inherited;

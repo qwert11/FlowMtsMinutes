@@ -18,10 +18,10 @@ type
   end;
 
 var
-  user: TUser;
+  user: TUser = (login: DEF_USER; ID: -1; Name: DEF_USER; Patronymic: DEF_USER; Surname: DEF_USER);
 
 implementation
 
 initialization
-  user.login := DEF_USER;
+  //user.login := DEF_USER;
 end.

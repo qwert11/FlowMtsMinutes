@@ -49,8 +49,6 @@ begin
       esDelete: with QDelete do begin
         ParamByName('P_OID').AsInteger := pfbdtst1.FieldByName('OID').AsInteger;
       end;
-    else
-      raise Exception.Create('Не определенное значение FEditorState');
     end;
     
     inherited;

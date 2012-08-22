@@ -142,6 +142,7 @@ inherited frmSimka: TfrmSimka
       '    S_NUMBER'
       'FROM'
       '    SIMKA ')
+    Active = True
     object pfbdtst1SID: TFIBIntegerField
       FieldName = 'SID'
       Origin = 'SIMKA.SID'

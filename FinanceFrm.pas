@@ -56,8 +56,6 @@ begin
       esDelete: with QDelete do begin
         ParamByName('P_FID').AsInteger := pfbdtst1.FieldByName('FID').AsInteger;
       end;
-    else
-      raise Exception.Create('Не определенное значение FEditorState');
     end;
     
     inherited;

@@ -17,8 +17,12 @@ function EditFieldInt(FIBXSQLVAR: TFIBXSQLVAR; const AValue: string): Boolean;
 function EditFieldFlt(FIBXSQLVAR: TFIBXSQLVAR; const AValue: string): Boolean;
 procedure CloseAllCombobox(Form: TForm);
 
-//function TestInteger(A: string): Boolean;
-//function TestFloat(A: string): Boolean;
+function TestInteger(A: string): Boolean;
+function TestFloat(A: string): Boolean;
+
+
+function ToStrPoint(Value: Real): string; overload;
+function ToStrPoint(Value: string): string; overload;
 
 function ReadIni(ASection, AString : String; ReadIni: TReadIni) : Variant;
 
@@ -96,7 +100,7 @@ begin
     end;
 end;
 
-function ToStrPoint(Value: Real): string; overload;
+function ToStrPoint(Value: Real): string;
 begin
   Result := FloatToStr(Value);
   if findComa(Result) < 0 then
@@ -105,7 +109,7 @@ begin
     Result[findComa(Result)] := DecimalSeparator
 end;
 
-function ToStrPoint(Value: string): string; overload;
+function ToStrPoint(Value: string): string; 
 begin
   try
     Result := FloatToStr(StrToFloat(Value))

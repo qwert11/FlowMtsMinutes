@@ -58,8 +58,6 @@ begin
       esDelete: with QDelete do begin
         ParamByName('DID').AsInteger := pfbdtst1.FieldByName('DID').AsInteger;
       end;
-    else
-      raise Exception.Create('Не определенное значение FEditorState');
     end;
     
     inherited;
@@ -76,8 +74,6 @@ begin
       Abort;
     end;
   end;
-
-  inherited;
 end;
 
 procedure TfrmDevice.edtNumKeyPress(Sender: TObject; var Key: Char);

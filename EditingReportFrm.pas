@@ -71,6 +71,8 @@ type
     procedure intgrfldTmpERDeviceNumbrGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
     procedure actSaveExecute(Sender: TObject);
+    procedure actSaveUpdate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   private
     { Private declarations }
     FEditingReport: TEditingReport;
@@ -102,7 +104,7 @@ const
 
 var
   TimerStop: TTime;
-
+  old_rd_id: Integer; // редактируемая запись ReportDay
 
 {$R *.dfm}
 
@@ -122,20 +124,21 @@ end;
 procedure TfrmEditingReport.FormActivate(Sender: TObject);
 begin
   { TODO 5 : раскоментировать и добавить вход по паролю }
-//  if user.login = DEF_USER then
-//    Exit;
+  if user.login = DEF_USER then
+    Close;
 
   TimerStop := Time;
 
   // чистим edit-ты
   ClearEdit(Self);
 
-  Caption := 'Сегодня: ' + DateToStr(Date) + '' + user.Patronymic + '.' +
-    user.Name[1] + user.Patronymic[1];
+  Caption := 'Сегодня: ' + DateToStr(Date) + ' ' +
+    user.Patronymic + ' ' + user.Name[1] + '.' + user.Patronymic[1] + '.';
 
   dtpDate.Date := Date;
 
-  cdsTmpER.Open;
+  if not cdsTmpER.Active then
+    cdsTmpER.CreateDataSet;
 
   with frmMain.dbgrdh1.DataSource.DataSet do
     case FEditingReport of
@@ -145,6 +148,9 @@ begin
             Exit;
           stat1.Panels[PNL_INF_STAT_EDIT].Text := 'Редактирование записи: ' +
             FieldByName('RD_ID').AsString;
+
+          // запоминаем редактируемую запись ReportDay
+          old_rd_id := FieldByName('RD_ID').Value;
 
           stat1.Panels[PNL_INF_RESPONS].Text := 'Отчет составил: ' +
             FieldByName('RE_SURNAME').AsString;
@@ -199,7 +205,7 @@ begin
       erInsert: begin
           stat1.Panels[PNL_INF_STAT_EDIT].Text := 'Новая запись';
           stat1.Panels[PNL_INF_RESPONS].Text := 'Отчет составил: ' +
-            FieldByName('RE_SURNAME').AsString;
+            user.Patronymic + ' ' + user.Name[1] + '.' + user.Patronymic[1] + '.';
 
           // заполняем поля по умолчанию если они имеются (умолчания)
           // - т.е. берем данные с последнего отчета 
@@ -283,15 +289,67 @@ end;
 
 procedure TfrmEditingReport.actSaveExecute(Sender: TObject);
 var
-  RDB_DB_KEY: Integer;
+  RDB_DB_KEY_LAST_REPORT_DAY: Integer;
 begin
   { TODO 5 -oUpdate -cChecked : проверить введенные данные }
   with pfbqryUpdate, pfbtrnsctUpdate do
   try
     StartTransaction;
-    SQL.Text := 'INSERT INTO ';  conec
-    ExecSQL;
-    RDB_DB_KEY := Fields[0].AsInteger;
+    Close;
+
+    case FEditingReport of
+      erEdit: begin
+        SQL.Text := 'UPDATE REPORT_DAY SET RD_DATE = "' + DateToStr(dtpDate.Date) + '", ' +
+            'RD_FINANCE1 = ' + VarToStr(cbbIDAccount1.KeyValue) + ', ' +
+            'RD_FNCE1SUM = ' + ToStrPoint(edtSum1.Text) + ', ' +
+            'RD_FINANCE2 = ' + VarToStr(cbbIDAccount2.KeyValue) + ', ' +
+            'RD_FNCE2SUM = ' + ToStrPoint(edtSum2.Text) + ', ' +
+            'RD_RESPONS = ' + IntToStr(user.ID) + ' ' +
+            'WHERE RD_ID = ' + IntToStr(old_rd_id);
+        ExecQuery;
+        Close;
+
+        with cdsTmpER do begin
+          First;
+          while not Eof do begin
+            pfbqryUpdate.Close;
+            SQL.Text := 'UPDATE REPORT_SIMKA SET RS_SIMKA = ' + intgrfldTmpERcSimka.AsString + ', ' +
+                'RS_IN = ' + intgrfldTmpERcIn.AsString + ', ' +
+                'RS_SMS = ' + intgrfldTmpERcSMS.AsString + ', ' +
+                'RS_REPORTDAY = ' + IntToStr(old_rd_id) + ', ' +
+                'RS_OWNER = ' + intgrfldTmpERcOwner.AsString + ', ' +
+                'RS_BALANCE = ' + crncyfldTmpERcBalance.AsString + ' ' +
+                'WHERE RSID = ' + intgrfldTmpERcIDRepSim.AsString;
+            ExecQuery;
+            Next;
+          end;
+        end;
+      end;
+
+      erInsert: begin
+        SQL.Text := 'INSERT INTO REPORT_DAY (RD_DATE, RD_FINANCE1, RD_FNCE1SUM, RD_FINANCE2, RD_FNCE2SUM, RD_RESPONS) VALUES ' +
+            '("' + DateToStr(dtpDate.Date) + '",' + VarToStr(cbbIDAccount1.KeyValue) + ', ' + ToStrPoint(edtSum1.Text) + ', ' +
+            VarToStr(cbbIDAccount2.KeyValue) + ', ' + ToStrPoint(edtSum2.Text) + ', ' + IntToStr(user.ID) + ') RETURNING RD_ID';
+        ExecQuery;
+        RDB_DB_KEY_LAST_REPORT_DAY := Fields[0].AsInteger;
+
+        with cdsTmpER do begin
+          First;
+          while not Eof do begin
+            pfbqryUpdate.Close;
+            SQL.Text := 'INSERT INTO REPORT_SIMKA (RS_SIMKA, RS_IN, RS_SMS, RS_REPORTDAY, RS_OWNER, RS_BALANCE) VALUES ' + '(' +
+                intgrfldTmpERcSimka.AsString + ', ' + intgrfldTmpERcIn.AsString + ', ' +
+                intgrfldTmpERcSMS.AsString + ', ' + IntToStr(RDB_DB_KEY_LAST_REPORT_DAY) + ', ' +
+                intgrfldTmpERcOwner.AsString + ', ' + crncyfldTmpERcBalance.AsString;
+            ExecQuery;
+            Next;
+          end;
+        end;
+      end;
+    else
+      raise Exception.Create('Не определено состояние редактирования!' + #13#10 +
+        'Обратитесь к разработчику');
+    end;
 
     Commit;
     Close;
@@ -304,6 +362,35 @@ begin
     end;
   end;  
 
+end;
+
+procedure TfrmEditingReport.actSaveUpdate(Sender: TObject);
+begin
+  // дата (красная), ID лицевого счета 1,2 и сумма 1,2
+  // состояние набора данных
+  // набор данных
+  (Sender as TAction).Enabled := False;
+
+  if Trunc(dtpDate.Date) <> Trunc(Date) then
+    dtpDate.Color := clRed
+  else
+    dtpDate.Color := clWindow;
+
+  if (cbbIDAccount1.KeyValue = Null) or
+      not TestFloat(edtSum1.Text) or
+      (cbbIDAccount2.KeyValue = Null) or
+      not TestFloat(edtSum2.Text) then
+    Exit;
+
+  if cdsTmpER.State <> dsBrowse then
+    Exit;
+
+  (Sender as TAction).Enabled := True;
+end;
+
+procedure TfrmEditingReport.FormDestroy(Sender: TObject);
+begin
+  cdsTmpER.EmptyDataSet
 end;
 
 end.
