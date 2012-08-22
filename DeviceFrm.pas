@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ChaildFrm, DB, FIBDataSet, pFIBDataSet, ActnList, Menus,
-  StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, fib;
+  StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, fib, ComCtrls;
 
 type
   TfrmDevice = class(TChaildForm)

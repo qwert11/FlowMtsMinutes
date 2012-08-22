@@ -1,8 +1,8 @@
 object frmMain: TfrmMain
-  Left = 82
-  Top = 129
+  Left = 195
+  Top = 368
   Width = 1292
-  Height = 623
+  Height = 612
   Caption = #1056#1072#1089#1093#1086#1076' '#1084#1080#1085#1091#1090' '#1052#1058#1057
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -19,7 +19,7 @@ object frmMain: TfrmMain
     Left = 0
     Top = 0
     Width = 1284
-    Height = 517
+    Height = 514
     Align = alClient
     DataGrouping.GroupLevels = <>
     DataSource = DM.ds1
@@ -144,7 +144,7 @@ object frmMain: TfrmMain
   end
   object pnl1: TPanel
     Left = 0
-    Top = 517
+    Top = 514
     Width = 1284
     Height = 52
     Align = alBottom
