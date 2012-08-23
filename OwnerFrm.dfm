@@ -31,6 +31,7 @@ inherited frmOwner: TfrmOwner
       Top = 56
       Width = 121
       Height = 21
+      MaxLength = 50
       TabOrder = 4
       Text = 'edtOwner'
     end

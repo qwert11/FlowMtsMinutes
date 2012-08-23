@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, IniFiles, DBGridEhGrouping, ExtCtrls, GridsEh, DBGridEh,
-  ActnList, Menus, StdCtrls;
+  ActnList, Menus, StdCtrls, DB, DBTables, BDE, DBXpress, pFIBErrorHandler;
 
 type
   TfrmMain = class(TForm)
@@ -39,6 +39,7 @@ type
     procedure btnFinanceClick(Sender: TObject);
     procedure btnTarifPlanClick(Sender: TObject);
     procedure btnSimkaClick(Sender: TObject);
+    procedure ApplicationEventException(Sender: TObject; E: Exception);
   private
     { Private declarations }
   public
@@ -54,9 +55,12 @@ uses DM_, CustomerFunctions, EditingReportFrm, FinanceFrm, TarifPlanFrm,
   SimkaFrm;
 
 {$R *.dfm}
+{ TODO 5 -oDEFINE -cTEST : Убрать в настройках проэкта из DEFINE TESTMODE }
 
 procedure TfrmMain.FormCreate(Sender: TObject);
 begin
+  Application.OnException := ApplicationEventException;
+
   with DM do
     try
       WindowState := ReadIni('Window', 'WindowState', riInteger);
@@ -88,8 +92,10 @@ begin
   try
     EditingReport.ShowModal;
     if EditingReport.ModalResult = mrOk then begin
+      {$IFNDEF TESTMODE}
       dbgrdh1.DataSource.DataSet.Close;
       dbgrdh1.DataSource.DataSet.Open;
+      {$ENDIF}
     end;
   finally
     EditingReport.Free
@@ -109,6 +115,30 @@ end;
 procedure TfrmMain.btnSimkaClick(Sender: TObject);
 begin
   frmSimka.ShowModal
+end;
+
+procedure TfrmMain.ApplicationEventException(Sender: TObject; E: Exception);
+var
+  err: DBIResult;
+  EDlg: TForm;
+begin
+  if E is EDatabaseError then begin
+     err := (E as EDBEngineError).errors[(E as EDBEngineError).errorcount - 1].errorcode;
+     if (err = DBIERR_KEYVIOL) then
+       showMessage('Ошибка Key violation!')
+     else if (err = DBIERR_LOCKED) then
+       showmessage('Запись блокирована другим пользователем')
+     else if (err = DBIERR_FILELOCKED) then
+       showmessage('Таблица блокирована кем-то еще')
+     else
+       showmessage('Другая ошибка DB') end else
+  if E is EDatabaseError then begin
+  { TODO 1 -oexception -cошибки  : сделать другой тип в место EDatabaseError }
+    EDlg := CreateMessageDialog('Ошибка базы данных', mtError, [mbOK]);
+    EDlg.ShowModal;
+    EDlg.Release end
+  else
+     Application.MessageBox(PChar(E.Message), 'Ошибка', MB_ICONASTERISK);
 end;
 
 end.

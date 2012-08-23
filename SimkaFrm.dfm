@@ -85,6 +85,7 @@ inherited frmSimka: TfrmSimka
       Top = 64
       Width = 121
       Height = 21
+      MaxLength = 12
       TabOrder = 4
       Text = 'edtNumber'
       OnKeyPress = edtNumberKeyPress

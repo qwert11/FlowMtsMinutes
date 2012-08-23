@@ -68,11 +68,14 @@ type
     procedure actEditExecute(Sender: TObject);
     procedure strngfldTmpERSimNumberGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
-    procedure intgrfldTmpERDeviceNumbrGetText(Sender: TField;
-      var Text: String; DisplayText: Boolean);
     procedure actSaveExecute(Sender: TObject);
     procedure actSaveUpdate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure strngfldTmpERDeviceNameGetText(Sender: TField;
+      var Text: String; DisplayText: Boolean);
+    procedure cbbIDAccount1KeyPress(Sender: TObject; var Key: Char);
+    procedure edtSum1KeyPress(Sender: TObject; var Key: Char);
+    procedure cdsTmpERBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
     FEditingReport: TEditingReport;
@@ -95,12 +98,10 @@ const
   PNL_INF_TIMER = 1;
   PNL_INF_RESPONS = 2;
 
-  // FN - dield name // ER - editin report
+  
   FN_ER_LOOKUP_SIMKA = 'SimNumber';
-  FN_ER_LOOKUP_DEVICE = 'DeviceNumbr';
-  //FN_ER_SMS = 'cSMS';
+  FN_ER_LOOKUP_DEVICE = 'DeviceName';
   FN_ER_LOOKUP_OWNER = 'Owner';
-  //FN_ER_BALANCE = 'cBalance';
 
 var
   TimerStop: TTime;
@@ -124,8 +125,13 @@ end;
 procedure TfrmEditingReport.FormActivate(Sender: TObject);
 begin
   { TODO 5 : раскоментировать и добавить вход по паролю }
-  if user.login = DEF_USER then
-    Close;
+  if user.login = DEF_USER then begin
+    {$IFDEF TESTMODE}
+    {$ELSE}
+    MessageBox(0, 'Неверный логин и пароль', 'ошибка', MB_ICONERROR);
+    Exit;
+    {$ENDIF}
+  end;
 
   TimerStop := Time;
 
@@ -175,23 +181,6 @@ begin
               crncyfldTmpERcBalance.Value := FieldByName('RS_BALANCE').AsInteger;
               intgrfldTmpERcIDRepSim.Value := FieldByName('RS_ID').AsInteger;
 
-
-//              strngfldSimka.Value := FieldByName('S_NUMBER').AsString + '/' +
-//                FieldByName('TP_NAME').AsString + '/' + FieldByName('TP_ABON_BOARD').AsString + '/' +
-//                FieldByName('TP_SMS_MONTH').AsString;
-//              intgrfldIDSimka.Value := FieldByName('RS_SIMKA').AsInteger;
-//
-//              cds.FieldByName('cdsIn').AsString := FieldByName('D_NUM').AsString + '/' +
-//                FieldByName('D_TITLE').AsString;
-//              cds.FieldByName('IDIn').Value := FieldByName('RS_IN').AsInteger;
-//
-//              cds.FieldByName('cdsSMS').AsString := FieldByName('RS_SMS').AsString;
-//
-//              cds.FieldByName('cdsOwner').AsString := FieldByName('O_NAME').AsString;
-//              cds.FieldByName('IDOwner').Value := FieldByName('RS_OWNER').AsInteger;
-//
-//              cds.FieldByName('ID_RS').Value := FieldByName('RS_ID').AsInteger;
-
               cdsTmpER.Post;
             except
               on E: Exception do begin
@@ -221,10 +210,8 @@ begin
             try
               intgrfldTmpERcSimka.Value := FieldByName('RS_SIMKA').AsInteger;
               intgrfldTmpERcIn.Value := FieldByName('RS_IN').AsInteger;
-              //intgrfldTmpERcSMS.Value := FieldByName('RS_SMS').AsInteger;
               intgrfldTmpERcOwner.Value := FieldByName('RS_OWNER').AsInteger;
               crncyfldTmpERcBalance.Value := FieldByName('RS_BALANCE').AsInteger;
-              //intgrfldTmpERcIDRepSim.Value := FieldByName('RS_ID').AsInteger;
 
               cdsTmpER.Post;
             except
@@ -263,14 +250,26 @@ end;
 procedure TfrmEditingReport.actEditExecute(Sender: TObject);
 begin
   with dbgrdhRepSIM.Columns[dbgrdhRepSIM.SelectedIndex] do
-    if FieldName = FN_ER_LOOKUP_SIMKA then begin
-      frmSimka.ShowModal
-    end else
-    if FieldName = FN_ER_LOOKUP_DEVICE then begin
-      frmDevice.ShowModal
-    end else
-    if FieldName = FN_ER_LOOKUP_OWNER then begin
-      frmOwner.ShowModal
+    if (FieldName = FN_ER_LOOKUP_SIMKA) or (FieldName = FN_ER_LOOKUP_DEVICE) or
+        (FieldName = FN_ER_LOOKUP_OWNER) then begin
+      if not (cdsTmpER.State in [dsEdit, dsInsert]) then
+        cdsTmpER.Edit;
+
+      if FieldName = FN_ER_LOOKUP_SIMKA then with frmSimka do begin
+        ShowModal;
+        if ModalResult = mrOK then
+          intgrfldTmpERcSimka.Value := pfbdtst1SID.Value;
+      end else
+      if FieldName = FN_ER_LOOKUP_DEVICE then with frmDevice do begin
+        ShowModal;
+        if ModalResult = mrOK then
+          intgrfldTmpERcIn.Value := pfbdtst1DID.Value;
+      end else
+      if FieldName = FN_ER_LOOKUP_OWNER then with frmOwner do begin
+        ShowModal;
+        if ModalResult = mrOK then
+          intgrfldTmpERcOwner.Value := pfbdtst1OID.Value;
+      end;
     end;
 end;
 
@@ -279,12 +278,6 @@ procedure TfrmEditingReport.strngfldTmpERSimNumberGetText(Sender: TField;
 begin
   Text := strngfldTmpERSimNumber.Value + '/ ' +
     strngfldTmpERSimTarifPlan.Value + '/ ' + crncyfldTmpERSimAbonBoard.AsString 
-end;
-
-procedure TfrmEditingReport.intgrfldTmpERDeviceNumbrGetText(Sender: TField;
-  var Text: String; DisplayText: Boolean);
-begin
-  Text := strngfldTmpERDeviceName.Value + '/№' + intgrfldTmpERDeviceNumbr.AsString
 end;
 
 procedure TfrmEditingReport.actSaveExecute(Sender: TObject);
@@ -376,6 +369,9 @@ begin
   else
     dtpDate.Color := clWindow;
 
+  if cdsTmpER.Eof then
+    Exit;
+
   if (cbbIDAccount1.KeyValue = Null) or
       not TestFloat(edtSum1.Text) or
       (cbbIDAccount2.KeyValue = Null) or
@@ -390,7 +386,70 @@ end;
 
 procedure TfrmEditingReport.FormDestroy(Sender: TObject);
 begin
-  cdsTmpER.EmptyDataSet
+  if Assigned(cdsTmpER.DataSetField) then
+    cdsTmpER.EmptyDataSet
+end;
+
+procedure TfrmEditingReport.strngfldTmpERDeviceNameGetText(Sender: TField;
+  var Text: String; DisplayText: Boolean);
+begin
+  Text := strngfldTmpERDeviceName.Value + '/№' + intgrfldTmpERDeviceNumbr.AsString
+end;
+
+procedure TfrmEditingReport.cbbIDAccount1KeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if Key = #13 then begin
+    frmFinance.ShowModal;
+    with frmFinance do
+    if ModalResult = mrOk then
+      (Sender as TDBLookupComboboxEh).KeyValue := pfbdtst1.FieldByName('FID').AsInteger;
+  end;
+end;
+
+procedure TfrmEditingReport.edtSum1KeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  MaskKeyEdit(Sender, Key, ['0'..'9',DecimalSeparator]);
+end;
+
+procedure TfrmEditingReport.cdsTmpERBeforePost(DataSet: TDataSet);
+  procedure ShowWarning(F: TField);
+  var
+    I: Integer;
+    s: string;
+  begin
+    if VarIsNull(F.AsVariant) then begin
+      Application.ProcessMessages;
+      tmr1.Enabled := False;
+      try
+        for I := 0 to 3 do begin
+          s := F.FieldName;
+          s := dbgrdhRepSIM.FieldColumns[s].Title.Caption;
+          stat1.Panels[PNL_INF_TIMER].Text := 'Введите в ' +
+            dbgrdhRepSIM.FieldColumns[F.FieldName].DisplayText;
+          stat1.Panels[PNL_INF_TIMER].Text := 'Введите в ' + s;
+//          stat1.Panels[PNL_INF_TIMER].Text := 'Введите в ' +
+//            dbgrdhRepSIM.FieldColumns[F.FieldName].DisplayText;
+          stat1.Refresh;
+          Sleep(500);
+          stat1.Panels[PNL_INF_TIMER].Text := '';
+          stat1.Refresh;
+          Sleep(200);
+        end;
+      finally
+        tmr1.Enabled := True;
+      end;
+      Abort;
+    end;
+  end;
+begin
+  ShowWarning(intgrfldTmpERcSimka);
+  ShowWarning(intgrfldTmpERcIn);
+  ShowWarning(intgrfldTmpERcSMS);
+  ShowWarning(intgrfldTmpERcOwner);
+  ShowWarning(crncyfldTmpERcBalance);
+  ShowWarning(intgrfldTmpERcIDRepSim);
 end;
 
 end.

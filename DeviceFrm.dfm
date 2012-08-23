@@ -52,6 +52,7 @@ inherited frmDevice: TfrmDevice
       Top = 64
       Width = 121
       Height = 21
+      MaxLength = 20
       TabOrder = 5
       Text = 'edtTitle'
     end

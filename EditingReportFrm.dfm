@@ -1,7 +1,7 @@
 object frmEditingReport: TfrmEditingReport
-  Left = 190
-  Top = 236
-  Width = 879
+  Left = 278
+  Top = 235
+  Width = 892
   Height = 489
   Caption = 'frmEditingReport'
   Color = clBtnFace
@@ -19,8 +19,8 @@ object frmEditingReport: TfrmEditingReport
   TextHeight = 13
   object stat1: TStatusBar
     Left = 0
-    Top = 416
-    Width = 871
+    Top = 424
+    Width = 884
     Height = 19
     Panels = <
       item
@@ -36,8 +36,8 @@ object frmEditingReport: TfrmEditingReport
   object dbgrdhRepSIM: TDBGridEh
     Left = 0
     Top = 0
-    Width = 671
-    Height = 416
+    Width = 684
+    Height = 424
     Align = alClient
     DataGrouping.GroupLevels = <>
     DataSource = ds1
@@ -61,29 +61,19 @@ object frmEditingReport: TfrmEditingReport
         EditButtons = <>
         FieldName = 'cSimka'
         Footers = <>
+        Title.Caption = #1058#1077#1083'. / '#1090#1072#1088'.'#1087#1083#1072#1085' / '#1072#1073#1086#1085'.'#1087#1083#1072#1090#1072
         Width = 20
       end
       item
         EditButtons = <>
         FieldName = 'cIn'
         Footers = <>
-        Width = 20
-      end
-      item
-        EditButtons = <>
-        FieldName = 'cSMS'
-        Footers = <>
+        Title.Caption = #1059#1089#1090#1088#1086#1081#1089#1090#1074#1086' / '#8470
         Width = 20
       end
       item
         EditButtons = <>
         FieldName = 'cOwner'
-        Footers = <>
-        Width = 20
-      end
-      item
-        EditButtons = <>
-        FieldName = 'cBalance'
         Footers = <>
         Width = 20
       end
@@ -102,9 +92,23 @@ object frmEditingReport: TfrmEditingReport
       end
       item
         EditButtons = <>
+        FieldName = 'cSMS'
+        Footers = <>
+        Title.Caption = 'SMS ('#1096#1090'.)'
+        Width = 55
+      end
+      item
+        EditButtons = <>
+        FieldName = 'cBalance'
+        Footers = <>
+        Title.Caption = #1041#1072#1083#1072#1085#1089' ('#1075#1088'.)'
+        Width = 66
+      end
+      item
+        EditButtons = <>
         FieldName = 'SimTarifPlan'
         Footers = <>
-        Width = 37
+        Width = 31
       end
       item
         EditButtons = <>
@@ -116,28 +120,30 @@ object frmEditingReport: TfrmEditingReport
         EditButtons = <>
         FieldName = 'DeviceNumbr'
         Footers = <>
-        Title.Caption = #1059#1089#1090#1088#1086#1081#1089#1090#1074#1086' / '#8470
-        Width = 96
+        Width = 25
       end
       item
         EditButtons = <>
         FieldName = 'DeviceName'
         Footers = <>
-        Width = 46
+        Title.Caption = #1059#1089#1090#1088#1086#1081#1089#1090#1074#1086' / '#8470
+        Width = 101
       end
       item
         EditButtons = <>
         FieldName = 'Owner'
         Footers = <>
+        Title.Caption = #1042#1083#1072#1076#1077#1083#1077#1094
+        Width = 102
       end>
     object RowDetailData: TRowDetailPanelControlEh
     end
   end
   object pnl1: TPanel
-    Left = 671
+    Left = 684
     Top = 0
     Width = 200
-    Height = 416
+    Height = 424
     Align = alRight
     TabOrder = 2
     object lbl2: TLabel
@@ -181,6 +187,7 @@ object frmEditingReport: TfrmEditingReport
       ListSource = frmFinance.ds1
       TabOrder = 1
       Visible = True
+      OnKeyPress = cbbIDAccount1KeyPress
     end
     object cbbIDAccount1: TDBLookupComboboxEh
       Left = 56
@@ -193,6 +200,7 @@ object frmEditingReport: TfrmEditingReport
       ListSource = frmFinance.ds1
       TabOrder = 2
       Visible = True
+      OnKeyPress = cbbIDAccount1KeyPress
     end
     object edtSum1: TEdit
       Left = 56
@@ -201,6 +209,7 @@ object frmEditingReport: TfrmEditingReport
       Height = 21
       TabOrder = 3
       Text = 'edtSum1'
+      OnKeyPress = edtSum1KeyPress
     end
     object edtSum2: TEdit
       Left = 56
@@ -209,6 +218,7 @@ object frmEditingReport: TfrmEditingReport
       Height = 21
       TabOrder = 4
       Text = 'edtSum2'
+      OnKeyPress = edtSum1KeyPress
     end
     object btnSave: TBitBtn
       Left = 16
@@ -270,6 +280,7 @@ object frmEditingReport: TfrmEditingReport
     FetchOnDemand = False
     Params = <>
     StoreDefs = True
+    BeforePost = cdsTmpERBeforePost
     Left = 48
     Top = 232
     object intgrfldTmpERcSimka: TIntegerField
@@ -342,7 +353,6 @@ object frmEditingReport: TfrmEditingReport
       LookupKeyFields = 'DID'
       LookupResultField = 'D_NUM'
       KeyFields = 'cIn'
-      OnGetText = intgrfldTmpERDeviceNumbrGetText
       Lookup = True
     end
     object strngfldTmpERDeviceName: TStringField
@@ -353,6 +363,7 @@ object frmEditingReport: TfrmEditingReport
       LookupKeyFields = 'DID'
       LookupResultField = 'D_TITLE'
       KeyFields = 'cIn'
+      OnGetText = strngfldTmpERDeviceNameGetText
       Lookup = True
     end
     object strngfldTmpEROwner: TStringField

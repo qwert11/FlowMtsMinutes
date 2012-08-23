@@ -14,6 +14,7 @@ type
     edtOwner: TEdit;
     lbl1: TLabel;
     procedure btnSaveClick(Sender: TObject); override;
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -65,6 +66,12 @@ begin
       Abort;
     end;
   end;
+end;
+
+procedure TfrmOwner.FormCreate(Sender: TObject);
+begin
+  inherited;
+  FCheckComponents.Add(edtOwner)
 end;
 
 end.

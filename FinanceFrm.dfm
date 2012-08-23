@@ -44,6 +44,7 @@ inherited frmFinance: TfrmFinance
       Top = 24
       Width = 121
       Height = 21
+      MaxLength = 50
       TabOrder = 4
       Text = 'edtIDAccount'
     end
@@ -52,6 +53,7 @@ inherited frmFinance: TfrmFinance
       Top = 64
       Width = 121
       Height = 21
+      MaxLength = 30
       TabOrder = 5
       Text = 'edtCode'
     end

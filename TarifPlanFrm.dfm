@@ -56,6 +56,7 @@ inherited frmTarifPlan: TfrmTarifPlan
       Top = 24
       Width = 121
       Height = 21
+      MaxLength = 50
       TabOrder = 4
       Text = 'edtTarifPlan'
     end

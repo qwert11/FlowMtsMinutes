@@ -72,7 +72,6 @@ const
 
 {$R *.dfm}
 
-{$DEFINE TESTMODE}
 
 { TODO 2 -oAcrion -cUpdate : UPDATE для Edit, Insert, Delete }
 

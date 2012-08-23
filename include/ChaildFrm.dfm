@@ -22,7 +22,7 @@ object ChaildForm: TChaildForm
     Left = 0
     Top = 0
     Width = 472
-    Height = 245
+    Height = 253
     Align = alClient
     DataSource = ds1
     PopupMenu = pm1
@@ -36,7 +36,7 @@ object ChaildForm: TChaildForm
   end
   object pnl1: TPanel
     Left = 0
-    Top = 245
+    Top = 253
     Width = 472
     Height = 90
     Align = alBottom
@@ -78,7 +78,7 @@ object ChaildForm: TChaildForm
   end
   object stat1: TStatusBar
     Left = 0
-    Top = 335
+    Top = 343
     Width = 472
     Height = 19
     Panels = <

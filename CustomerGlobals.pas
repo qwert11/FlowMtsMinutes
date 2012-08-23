@@ -23,5 +23,5 @@ var
 implementation
 
 initialization
-  //user.login := DEF_USER;
+
 end.

@@ -17,6 +17,7 @@ type
     pfbdtst1F_IDACCOUNT: TFIBStringField;
     pfbdtst1F_CODE: TFIBStringField; 
     procedure btnSaveClick(Sender: TObject); override;
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -72,6 +73,12 @@ begin
       Abort;
     end;
   end;
+end;
+
+procedure TfrmFinance.FormCreate(Sender: TObject);
+begin
+  inherited;
+  FCheckComponents.Add(edtIDAccount)
 end;
 
 end.

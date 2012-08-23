@@ -19,7 +19,7 @@ object frmMain: TfrmMain
     Left = 0
     Top = 0
     Width = 1284
-    Height = 506
+    Height = 514
     Align = alClient
     DataGrouping.GroupLevels = <>
     DataSource = DM.ds1
@@ -144,7 +144,7 @@ object frmMain: TfrmMain
   end
   object pnl1: TPanel
     Left = 0
-    Top = 506
+    Top = 514
     Width = 1284
     Height = 52
     Align = alBottom
