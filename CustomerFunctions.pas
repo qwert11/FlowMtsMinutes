@@ -11,14 +11,18 @@ type
   TReadIni = (riString, riInteger, riBool, riDate, riFloat);
   TMask = set of Char;
 
+  ECustomerError = class (Exception);
+  ECusConvertError = class (EAbort);
+
+
 function ToStrNull(S: string): string; overload;
 function ToStrNull(V: Variant): string; overload;
 function EditFieldInt(FIBXSQLVAR: TFIBXSQLVAR; const AValue: string): Boolean;
 function EditFieldFlt(FIBXSQLVAR: TFIBXSQLVAR; const AValue: string): Boolean;
 procedure CloseAllCombobox(Form: TForm);
 
-function TestInteger(A: string): Boolean;
-function TestFloat(A: string): Boolean;
+function TestInteger(A: string; SilentExcept: Boolean = True): Boolean;
+function TestFloat(A: string; SilentExcept: Boolean = True): Boolean;
 
 
 function ToStrPoint(Value: Real): string; overload;
@@ -54,35 +58,46 @@ begin
 end;
 
 
-function TestInteger(A: string): Boolean;
-//var
-//  tmpInteger: Integer;
+function TestInteger(A: string; SilentExcept: Boolean): Boolean;
 begin
   Result := False;
   try
+    if A = '' then
+      raise ECusConvertError.Create('Пустая строка не может быть преобразована в тип Integer');
     StrToInt(A);
     Result := True;
   except
     on EConvertError do begin
-      Application.MessageBox('Ошибка преобразования типа String в Integer',
+      if not SilentExcept then
+        Application.MessageBox('Ошибка преобразования типа String to Integer',
           'Ошибка', MB_ICONERROR);
+      Abort;
+    end;
+    on ECusConvertError do begin
+      if not SilentExcept then
+        Application.MessageBox('Ошибка преобразования nil to Integer', 'Ошибка', MB_ICONERROR);
       Abort;
     end;
   end;
 end;
 
-function TestFloat(A: string): Boolean;
-//var
-//  tmpReal: Real;
+function TestFloat(A: string; SilentExcept: Boolean): Boolean;
 begin
   Result := False;
   try
+    if A = '' then
+      raise ECusConvertError.Create('Пустая строка не может быть преобразована в тип Real');  
     StrToFloat(A);
     Result := True;
   except
     on EConvertError do begin
-      Application.MessageBox('Ошибка преобразования типа String в Real',
-          'Ошибка', MB_ICONERROR);
+      if not SilentExcept then
+        Application.MessageBox('Ошибка преобразования типа String to Real', 'Ошибка', MB_ICONERROR);
+      Abort;
+    end;
+    on E: ECusConvertError do begin
+      if not SilentExcept then
+        Application.MessageBox('Ошибка преобразования nil to Real', 'Ошибка', MB_ICONERROR);
       Abort;
     end;
   end;
@@ -104,12 +119,12 @@ function ToStrPoint(Value: Real): string;
 begin
   Result := FloatToStr(Value);
   if findComa(Result) < 0 then
-    Result := Result + DecimalSeparator + '00'
+    Result := Result + '.00'
   else
-    Result[findComa(Result)] := DecimalSeparator
+    Result[findComa(Result)] := '.'
 end;
 
-function ToStrPoint(Value: string): string; 
+function ToStrPoint(Value: string): string;
 begin
   try
     Result := FloatToStr(StrToFloat(Value))
@@ -119,9 +134,9 @@ begin
   end;
 
   if findComa(Result) < 0 then
-    Result := Result + DecimalSeparator + '00'
+    Result := Result + '.00'
   else
-    Result[findComa(Result)] := DecimalSeparator
+    Result[findComa(Result)] := '.'
 end;
 
 function EditFieldInt(FIBXSQLVAR: TFIBXSQLVAR; const AValue: string): Boolean;

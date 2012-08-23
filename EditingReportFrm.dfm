@@ -1,7 +1,7 @@
 object frmEditingReport: TfrmEditingReport
   Left = 278
   Top = 235
-  Width = 892
+  Width = 738
   Height = 489
   Caption = 'frmEditingReport'
   Color = clBtnFace
@@ -20,7 +20,7 @@ object frmEditingReport: TfrmEditingReport
   object stat1: TStatusBar
     Left = 0
     Top = 424
-    Width = 884
+    Width = 730
     Height = 19
     Panels = <
       item
@@ -36,7 +36,7 @@ object frmEditingReport: TfrmEditingReport
   object dbgrdhRepSIM: TDBGridEh
     Left = 0
     Top = 0
-    Width = 684
+    Width = 530
     Height = 424
     Align = alClient
     DataGrouping.GroupLevels = <>
@@ -62,6 +62,7 @@ object frmEditingReport: TfrmEditingReport
         FieldName = 'cSimka'
         Footers = <>
         Title.Caption = #1058#1077#1083'. / '#1090#1072#1088'.'#1087#1083#1072#1085' / '#1072#1073#1086#1085'.'#1087#1083#1072#1090#1072
+        Visible = False
         Width = 20
       end
       item
@@ -69,18 +70,22 @@ object frmEditingReport: TfrmEditingReport
         FieldName = 'cIn'
         Footers = <>
         Title.Caption = #1059#1089#1090#1088#1086#1081#1089#1090#1074#1086' / '#8470
+        Visible = False
         Width = 20
       end
       item
         EditButtons = <>
         FieldName = 'cOwner'
         Footers = <>
+        Title.Caption = #1042#1083#1072#1076#1077#1083#1077#1094
+        Visible = False
         Width = 20
       end
       item
         EditButtons = <>
         FieldName = 'cIDRepSim'
         Footers = <>
+        Visible = False
         Width = 20
       end
       item
@@ -92,13 +97,6 @@ object frmEditingReport: TfrmEditingReport
       end
       item
         EditButtons = <>
-        FieldName = 'cSMS'
-        Footers = <>
-        Title.Caption = 'SMS ('#1096#1090'.)'
-        Width = 55
-      end
-      item
-        EditButtons = <>
         FieldName = 'cBalance'
         Footers = <>
         Title.Caption = #1041#1072#1083#1072#1085#1089' ('#1075#1088'.)'
@@ -106,20 +104,30 @@ object frmEditingReport: TfrmEditingReport
       end
       item
         EditButtons = <>
+        FieldName = 'cSMS'
+        Footers = <>
+        Title.Caption = 'SMS ('#1096#1090'.)'
+        Width = 55
+      end
+      item
+        EditButtons = <>
         FieldName = 'SimTarifPlan'
         Footers = <>
+        Visible = False
         Width = 31
       end
       item
         EditButtons = <>
         FieldName = 'SimAbonBoard'
         Footers = <>
+        Visible = False
         Width = 35
       end
       item
         EditButtons = <>
         FieldName = 'DeviceNumbr'
         Footers = <>
+        Visible = False
         Width = 25
       end
       item
@@ -140,7 +148,7 @@ object frmEditingReport: TfrmEditingReport
     end
   end
   object pnl1: TPanel
-    Left = 684
+    Left = 530
     Top = 0
     Width = 200
     Height = 424
@@ -311,7 +319,6 @@ object frmEditingReport: TfrmEditingReport
     object intgrfldTmpERcIDRepSim: TIntegerField
       DisplayWidth = 10
       FieldName = 'cIDRepSim'
-      Required = True
     end
     object strngfldTmpERSimNumber: TStringField
       DisplayWidth = 22

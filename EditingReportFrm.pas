@@ -292,13 +292,21 @@ begin
 
     case FEditingReport of
       erEdit: begin
-        SQL.Text := 'UPDATE REPORT_DAY SET RD_DATE = "' + DateToStr(dtpDate.Date) + '", ' +
+        SQL.Text := 'ALTER INDEX REPORT_DAY_DATE INACTIVE';
+        ExecQuery;
+        Close;
+
+        SQL.Text := 'UPDATE REPORT_DAY SET RD_DATE = ''' + DateToStr(dtpDate.Date) + ''', ' +
             'RD_FINANCE1 = ' + VarToStr(cbbIDAccount1.KeyValue) + ', ' +
             'RD_FNCE1SUM = ' + ToStrPoint(edtSum1.Text) + ', ' +
             'RD_FINANCE2 = ' + VarToStr(cbbIDAccount2.KeyValue) + ', ' +
             'RD_FNCE2SUM = ' + ToStrPoint(edtSum2.Text) + ', ' +
             'RD_RESPONS = ' + IntToStr(user.ID) + ' ' +
             'WHERE RD_ID = ' + IntToStr(old_rd_id);
+        ExecQuery;
+        Close;
+
+        SQL.Text := 'ALTER INDEX REPORT_DAY_DATE ACTIVE';
         ExecQuery;
         Close;
 
@@ -320,11 +328,23 @@ begin
       end;
 
       erInsert: begin
+        SQL.Text := 'ALTER INDEX REPORT_DAY_DATE INACTIVE';
+        ExecQuery;
+        Close;
+
         SQL.Text := 'INSERT INTO REPORT_DAY (RD_DATE, RD_FINANCE1, RD_FNCE1SUM, RD_FINANCE2, RD_FNCE2SUM, RD_RESPONS) VALUES ' +
-            '("' + DateToStr(dtpDate.Date) + '",' + VarToStr(cbbIDAccount1.KeyValue) + ', ' + ToStrPoint(edtSum1.Text) + ', ' +
+            '(''' + DateToStr(dtpDate.Date) + ''',' + VarToStr(cbbIDAccount1.KeyValue) + ', ' + ToStrPoint(edtSum1.Text) + ', ' +
             VarToStr(cbbIDAccount2.KeyValue) + ', ' + ToStrPoint(edtSum2.Text) + ', ' + IntToStr(user.ID) + ') RETURNING RD_ID';
+        {$IFDEF DEBUG}      // TESTMODE
+        ShowMessage(SQL.Text);
+        Abort;
+        {$ENDIF}
         ExecQuery;
         RDB_DB_KEY_LAST_REPORT_DAY := Fields[0].AsInteger;
+
+        SQL.Text := 'ALTER INDEX REPORT_DAY_DATE ACTIVE';
+        ExecQuery;
+        Close;
 
         with cdsTmpER do begin
           First;
@@ -333,7 +353,11 @@ begin
             SQL.Text := 'INSERT INTO REPORT_SIMKA (RS_SIMKA, RS_IN, RS_SMS, RS_REPORTDAY, RS_OWNER, RS_BALANCE) VALUES ' + '(' +
                 intgrfldTmpERcSimka.AsString + ', ' + intgrfldTmpERcIn.AsString + ', ' +
                 intgrfldTmpERcSMS.AsString + ', ' + IntToStr(RDB_DB_KEY_LAST_REPORT_DAY) + ', ' +
-                intgrfldTmpERcOwner.AsString + ', ' + crncyfldTmpERcBalance.AsString;
+                intgrfldTmpERcOwner.AsString + ', ' + crncyfldTmpERcBalance.AsString + ')';
+            {$IFDEF DEBUG}}      // TESTMODE
+            ShowMessage(SQL.Text);
+            Abort;
+            {$ENDIF}
             ExecQuery;
             Next;
           end;
@@ -358,11 +382,13 @@ begin
 end;
 
 procedure TfrmEditingReport.actSaveUpdate(Sender: TObject);
+var
+  bEnabled: Boolean;
 begin
   // дата (красна€), ID лицевого счета 1,2 и сумма 1,2
   // состо€ние набора данных
   // набор данных
-  (Sender as TAction).Enabled := False;
+  bEnabled := True;
 
   if Trunc(dtpDate.Date) <> Trunc(Date) then
     dtpDate.Color := clRed
@@ -370,18 +396,18 @@ begin
     dtpDate.Color := clWindow;
 
   if cdsTmpER.Eof then
-    Exit;
+    bEnabled := False;
 
   if (cbbIDAccount1.KeyValue = Null) or
       not TestFloat(edtSum1.Text) or
       (cbbIDAccount2.KeyValue = Null) or
       not TestFloat(edtSum2.Text) then
-    Exit;
+    bEnabled := False;
 
   if cdsTmpER.State <> dsBrowse then
-    Exit;
+    bEnabled := False;
 
-  (Sender as TAction).Enabled := True;
+  (Sender as TAction).Enabled := bEnabled;
 end;
 
 procedure TfrmEditingReport.FormDestroy(Sender: TObject);
@@ -415,27 +441,37 @@ end;
 
 procedure TfrmEditingReport.cdsTmpERBeforePost(DataSet: TDataSet);
   procedure ShowWarning(F: TField);
+  const
+    COUNT_SHOWS = 3;
   var
     I: Integer;
-    s: string;
   begin
     if VarIsNull(F.AsVariant) then begin
       Application.ProcessMessages;
       tmr1.Enabled := False;
       try
-        for I := 0 to 3 do begin
-          s := F.FieldName;
-          s := dbgrdhRepSIM.FieldColumns[s].Title.Caption;
+
+      { TODO 1 -oBefoPost -cошибки  : переводить фокус на плохую €чейку }
+//        if @F = @intgrfldTmpERcSimka then
+//          dbgrdhRepSIM.SelectedField := strngfldTmpERSimNumber else
+//        if @F = @intgrfldTmpERcIn then
+//          dbgrdhRepSIM.SelectedField := strngfldTmpERDeviceName else
+//        if @F = @intgrfldTmpERcOwner then
+//           dbgrdhRepSIM.SelectedField := strngfldTmpEROwner
+//        else
+//          dbgrdhRepSIM.SelectedField := F;
+        
+
+        dbgrdhRepSIM.Refresh;
+        dbgrdhRepSIM.SetFocus;
+        for I := 1 to COUNT_SHOWS do begin
           stat1.Panels[PNL_INF_TIMER].Text := '¬ведите в ' +
-            dbgrdhRepSIM.FieldColumns[F.FieldName].DisplayText;
-          stat1.Panels[PNL_INF_TIMER].Text := '¬ведите в ' + s;
-//          stat1.Panels[PNL_INF_TIMER].Text := '¬ведите в ' +
-//            dbgrdhRepSIM.FieldColumns[F.FieldName].DisplayText;
+            dbgrdhRepSIM.FieldColumns[F.FieldName].Title.Caption;
           stat1.Refresh;
-          Sleep(500);
+          Sleep(400);
           stat1.Panels[PNL_INF_TIMER].Text := '';
           stat1.Refresh;
-          Sleep(200);
+          Sleep(100);
         end;
       finally
         tmr1.Enabled := True;
@@ -449,7 +485,6 @@ begin
   ShowWarning(intgrfldTmpERcSMS);
   ShowWarning(intgrfldTmpERcOwner);
   ShowWarning(crncyfldTmpERcBalance);
-  ShowWarning(intgrfldTmpERcIDRepSim);
 end;
 
 end.
