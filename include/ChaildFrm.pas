@@ -153,26 +153,19 @@ begin
         end;
 
       else
-        raise Exception.Create('Не определенное значение FEditorState');
+        raise EAbort.Create('Не определенное значение FEditorState');
       end;
       DM.pfbtrnsctn1.CommitRetaining;
     except
-      on EFIBError do begin
-        DM.pfbtrnsctn1.Rollback;
-        raise Exception.Create('Ошибка базы данных' + #13#10 + 'Обратитесь к разработчику');
-      end;
-      on E: Exception do begin
-        DM.pfbtrnsctn1.Rollback;
-        Application.MessageBox(PChar(E.Message), 'Ошибка', MB_ICONERROR);
-        {$IFNDEF TESTMODE}
-        raise EAbort.Create('Это нельзя видеть');
-        {$ENDIF}
-      end;
+      on EFIBError do
+        raise EAbort.Create('Ошибка базы данных' + #13#10 + 'Обратитесь к разработчику');
     end;
   except
-    { TODO -oexception -cошибки  : проверить hook на ошибки }
-    on E: Exception do
-      Application.MessageBox(PChar(E.Message), 'Ошибка HOOK', MB_ICONERROR);
+    { DONE -oexception -cошибки  : проверить hook на ошибки }
+    on E: Exception do begin
+      DM.pfbtrnsctn1.Rollback;
+      Application.MessageBox(PChar(E.Message), 'Ошибка', MB_ICONERROR);
+    end;
   end;
 
   btnCancelClick(nil);

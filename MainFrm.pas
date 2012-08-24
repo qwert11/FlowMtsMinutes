@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, IniFiles, DBGridEhGrouping, ExtCtrls, GridsEh, DBGridEh,
-  ActnList, Menus, StdCtrls, DB, DBTables, BDE, DBXpress, pFIBErrorHandler;
+  ActnList, Menus, StdCtrls, DB, DBTables, BDE, DBXpress,
+  fib;
 
 type
   TfrmMain = class(TForm)
@@ -121,6 +122,7 @@ procedure TfrmMain.ApplicationEventException(Sender: TObject; E: Exception);
 var
   err: DBIResult;
   EDlg: TForm;
+  
 begin
   if E is EDatabaseError then begin
      err := (E as EDBEngineError).errors[(E as EDBEngineError).errorcount - 1].errorcode;
@@ -132,9 +134,9 @@ begin
        showmessage('Таблица блокирована кем-то еще')
      else
        showmessage('Другая ошибка DB') end else
-  if E is EDatabaseError then begin
-  { TODO 1 -oexception -cошибки  : сделать другой тип в место EDatabaseError }
-    EDlg := CreateMessageDialog('Ошибка базы данных', mtError, [mbOK]);
+  if E is EFIBError then begin
+  { TODO  -oexception -cошибки  : отлавливать все ошибки}
+    EDlg := CreateMessageDialog('Ошибка базы данных FireBird', mtError, [mbOK]);
     EDlg.ShowModal;
     EDlg.Release end
   else

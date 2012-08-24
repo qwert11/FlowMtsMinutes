@@ -457,10 +457,10 @@ procedure TfrmEditingReport.cdsTmpERBeforePost(DataSet: TDataSet);
 //        if @F = @intgrfldTmpERcIn then
 //          dbgrdhRepSIM.SelectedField := strngfldTmpERDeviceName else
 //        if @F = @intgrfldTmpERcOwner then
-//           dbgrdhRepSIM.SelectedField := strngfldTmpEROwner
+//           dbgrdhRepSIM.SelectedField := strngfldTmpEROwner;
 //        else
 //          dbgrdhRepSIM.SelectedField := F;
-        
+
 
         dbgrdhRepSIM.Refresh;
         dbgrdhRepSIM.SetFocus;

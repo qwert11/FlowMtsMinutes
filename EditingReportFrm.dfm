@@ -19,7 +19,7 @@ object frmEditingReport: TfrmEditingReport
   TextHeight = 13
   object stat1: TStatusBar
     Left = 0
-    Top = 424
+    Top = 416
     Width = 730
     Height = 19
     Panels = <
@@ -37,7 +37,7 @@ object frmEditingReport: TfrmEditingReport
     Left = 0
     Top = 0
     Width = 530
-    Height = 424
+    Height = 416
     Align = alClient
     DataGrouping.GroupLevels = <>
     DataSource = ds1
@@ -151,7 +151,7 @@ object frmEditingReport: TfrmEditingReport
     Left = 530
     Top = 0
     Width = 200
-    Height = 424
+    Height = 416
     Align = alRight
     TabOrder = 2
     object lbl2: TLabel
