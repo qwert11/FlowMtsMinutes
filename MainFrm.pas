@@ -53,7 +53,7 @@ var
 implementation
 
 uses DM_, CustomerFunctions, EditingReportFrm, FinanceFrm, TarifPlanFrm,
-  SimkaFrm;
+  SimkaFrm, CustomerGlobals;
 
 {$R *.dfm}
 { TODO 5 -oDEFINE -cTEST : Убрать в настройках проэкта из DEFINE TESTMODE }
@@ -122,25 +122,53 @@ procedure TfrmMain.ApplicationEventException(Sender: TObject; E: Exception);
 var
   err: DBIResult;
   EDlg: TForm;
-  
+  error_string: string;
+  ErrorsList: TStrings;
+  sPatch: string[60];
+  phnSimkaReportLog: string;
 begin
+  error_string := '';
   if E is EDatabaseError then begin
      err := (E as EDBEngineError).errors[(E as EDBEngineError).errorcount - 1].errorcode;
      if (err = DBIERR_KEYVIOL) then
-       showMessage('Ошибка Key violation!')
+       error_string := 'Ошибка Key violation!'
      else if (err = DBIERR_LOCKED) then
-       showmessage('Запись блокирована другим пользователем')
+       error_string := 'Запись блокирована другим пользователем'
      else if (err = DBIERR_FILELOCKED) then
-       showmessage('Таблица блокирована кем-то еще')
+       error_string := 'Таблица блокирована кем-то еще'
      else
-       showmessage('Другая ошибка DB') end else
-  if E is EFIBError then begin
+       error_string := 'Другая ошибка DB' end else
+  if E is EFIBError then 
   { TODO  -oexception -cошибки  : отлавливать все ошибки}
-    EDlg := CreateMessageDialog('Ошибка базы данных FireBird', mtError, [mbOK]);
+    error_string := 'Ошибка базы данных FireBird';
+
+  error_string := E.Message + ' ' + error_string;
+
+  GetDir(0, sPatch);
+  phnSimkaReportLog := sPatch + '\' + SIMKA_REPORT_LOG;
+
+  ErrorsList := TStringList.Create;
+  EDlg := CreateMessageDialog(error_string, mtError, [mbOK]);
+  with ErrorsList do
+  try
+    if FileExists(phnSimkaReportLog) then
+      LoadFromFile(phnSimkaReportLog);
+    Add('');
+    Add('');
+    Add('{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{');
+    Add(FormatDateTime('c', Now));
+    Add('Пользователь: ID ' + IntToStr(user.ID) + ' ' + user.Surname + ' ' +
+      user.Name + ' ' + user.Patronymic);
+    Add(error_string);
+    Add('}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}');
+    SaveToFile(phnSimkaReportLog);
+
     EDlg.ShowModal;
-    EDlg.Release end
-  else
-     Application.MessageBox(PChar(E.Message), 'Ошибка', MB_ICONASTERISK);
+  finally
+    Free;
+    EDlg.Release
+  end;
+
 end;
 
 end.

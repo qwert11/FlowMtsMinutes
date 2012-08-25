@@ -468,10 +468,10 @@ procedure TfrmEditingReport.cdsTmpERBeforePost(DataSet: TDataSet);
           stat1.Panels[PNL_INF_TIMER].Text := '¬ведите в ' +
             dbgrdhRepSIM.FieldColumns[F.FieldName].Title.Caption;
           stat1.Refresh;
-          Sleep(400);
+          Delay(400);
           stat1.Panels[PNL_INF_TIMER].Text := '';
           stat1.Refresh;
-          Sleep(100);
+          Delay(100);
         end;
       finally
         tmr1.Enabled := True;

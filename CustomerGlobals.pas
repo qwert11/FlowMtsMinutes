@@ -5,6 +5,7 @@ interface
 const
   DEF_USER = 'Anonimous';
   CONFIG_FILE = 'Config.INI';
+  SIMKA_REPORT_LOG = 'SimkaReportLog.txt';
 
 type
   TDomainTitle = string[50];

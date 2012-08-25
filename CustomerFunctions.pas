@@ -36,10 +36,27 @@ procedure ClearEdit(frm: TForm);
 procedure CloseTDBLookupComboboxEh(frm: TForm);
 procedure SetDblkCbbFrom_IbTbl_Frm(Frm: TForm; Cbb: TDBLookupComboboxEh;
   tbl: TpFIBDataSet; DM: TDataModule);
+procedure Delay(MiliSeconds: Integer);
 
 implementation
 
 uses CustomerGlobals;
+
+
+procedure Delay(MiliSeconds: Integer);
+const
+  MIN_INTERVAL = 50;
+var
+  I,
+  divMinInterval: Integer;
+begin
+  divMinInterval := MiliSeconds div MIN_INTERVAL;
+  for I := 1 to divMinInterval do begin
+    Application.ProcessMessages;
+    Sleep(MIN_INTERVAL);
+  end;
+  Sleep(MiliSeconds - MIN_INTERVAL * divMinInterval);
+end;
 
 
 function ToStrNull(S: string): string;
