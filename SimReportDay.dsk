@@ -1,30 +1,27 @@
 [Closed Files]
-File_0=SourceModule,'F:\myProgram\Delphi\FlowMtsMinutes\CustomerFunctions.pas',0,1,43,1,60,0,0
-File_1=SourceModule,'F:\myProgram\Delphi\FlowMtsMinutes\CustomerGlobals.pas',0,1,4,7,22,0,0
-File_2=SourceModule,'c:\program files\borland\delphi7\source\rtl\Sys\sysutils.pas',0,1,2196,20,2200,0,0
-File_3=SourceModule,'C:\Program Files\Borland\Delphi7\Lib\fibplus_6_9_9_D5-2007\sources\fib.pas',0,1,66,1,49,0,0
-File_4=SourceModule,'C:\Program Files\Borland\Delphi7\Lib\fibplus_6_9_9_D5-2007\sources\pFIBErrorHandler.pas',0,1,64,3,64,0,0
-File_5=SourceModule,'c:\program files\borland\delphi7\source\vcl\DB.pas',0,1,10399,1,10412,0,0
-File_6=SourceModule,'c:\program files\borland\delphi7\source\vcl\dbctrls.pas',0,1,1,13,10,0,0
+File_0=SourceModule,'c:\program files\borland\delphi7\source\vcl\DB.pas',0,1,850,1,863,0,0
+File_1=SourceModule,'C:\Program Files\Borland\Delphi7\Lib\fibplus_6_9_9_D5-2007\sources\FIBDatabase.pas',0,1,3131,1,3148,0,0
+File_2=SourceModule,'C:\Program Files\Borland\Delphi7\Lib\fibplus_6_9_9_D5-2007\sources\pFIBEventLists.pas',0,1,142,1,154,0,0
+File_3=SourceModule,'C:\Program Files\Borland\Delphi7\Lib\fibplus_6_9_9_D5-2007\sources\pFIBDataSet.pas',0,1,417,1,426,0,0
+File_4=SourceModule,'c:\program files\borland\delphi7\source\rtl\Sys\sysutils.pas',0,1,2196,20,2200,0,0
+File_5=SourceModule,'C:\Program Files\Borland\Delphi7\Lib\fibplus_6_9_9_D5-2007\sources\pFIBErrorHandler.pas',0,1,64,3,64,0,0
 
 [Modules]
-Module0=F:\myProgram\Delphi\FlowMtsMinutes\EditingReportFrm.pas
+Module0=F:\myProgram\Delphi\FlowMtsMinutes\CustomerGlobals.pas
 Module1=F:\myProgram\Delphi\FlowMtsMinutes\MainFrm.pas
-Module2=F:\myProgram\Delphi\FlowMtsMinutes\SimReportDay.dpr
-Module3=C:\Program Files\Borland\Delphi7\Lib\fibplus_6_9_9_D5-2007\sources\pFIBDataSet.pas
-Module4=C:\Program Files\Borland\Delphi7\Lib\fibplus_6_9_9_D5-2007\sources\FIBDatabase.pas
-Module5=C:\Program Files\Borland\Delphi7\Lib\fibplus_6_9_9_D5-2007\sources\pFIBEventLists.pas
-Module6=F:\myProgram\Delphi\FlowMtsMinutes\include\ChaildFrm.pas
-Module7=F:\myProgram\Delphi\FlowMtsMinutes\FinanceFrm.pas
-Module8=F:\myProgram\Delphi\FlowMtsMinutes\AuthentificationFrm.pas
-Module9=F:\myProgram\Delphi\FlowMtsMinutes\RegistrationFrm.pas
-Module10=F:\myProgram\Delphi\FlowMtsMinutes\UsersFrm.pas
-Count=11
+Module2=F:\myProgram\Delphi\FlowMtsMinutes\EditingReportFrm.pas
+Module3=C:\Program Files\Borland\Delphi7\Lib\fibplus_6_9_9_D5-2007\sources\fib.pas
+Module4=F:\myProgram\Delphi\FlowMtsMinutes\SimReportDay.dpr
+Module5=F:\myProgram\Delphi\FlowMtsMinutes\RegistrationFrm.pas
+Module6=F:\myProgram\Delphi\FlowMtsMinutes\AuthentificationFrm.pas
+Module7=F:\myProgram\Delphi\FlowMtsMinutes\UsersFrm.pas
+Module8=F:\myProgram\Delphi\FlowMtsMinutes\CustomerFunctions.pas
+Count=9
 EditWindowCount=1
 
-[F:\myProgram\Delphi\FlowMtsMinutes\EditingReportFrm.pas]
+[F:\myProgram\Delphi\FlowMtsMinutes\CustomerGlobals.pas]
 ModuleType=SourceModule
-FormState=1
+FormState=0
 FormOnTop=0
 
 [F:\myProgram\Delphi\FlowMtsMinutes\MainFrm.pas]
@@ -32,32 +29,22 @@ ModuleType=SourceModule
 FormState=1
 FormOnTop=0
 
+[F:\myProgram\Delphi\FlowMtsMinutes\EditingReportFrm.pas]
+ModuleType=SourceModule
+FormState=1
+FormOnTop=0
+
+[C:\Program Files\Borland\Delphi7\Lib\fibplus_6_9_9_D5-2007\sources\fib.pas]
+ModuleType=SourceModule
+FormState=0
+FormOnTop=0
+
 [F:\myProgram\Delphi\FlowMtsMinutes\SimReportDay.dpr]
 ModuleType=SourceModule
 FormState=0
 FormOnTop=0
 
-[C:\Program Files\Borland\Delphi7\Lib\fibplus_6_9_9_D5-2007\sources\pFIBDataSet.pas]
-ModuleType=SourceModule
-FormState=0
-FormOnTop=0
-
-[C:\Program Files\Borland\Delphi7\Lib\fibplus_6_9_9_D5-2007\sources\FIBDatabase.pas]
-ModuleType=SourceModule
-FormState=0
-FormOnTop=0
-
-[C:\Program Files\Borland\Delphi7\Lib\fibplus_6_9_9_D5-2007\sources\pFIBEventLists.pas]
-ModuleType=SourceModule
-FormState=0
-FormOnTop=0
-
-[F:\myProgram\Delphi\FlowMtsMinutes\include\ChaildFrm.pas]
-ModuleType=SourceModule
-FormState=1
-FormOnTop=0
-
-[F:\myProgram\Delphi\FlowMtsMinutes\FinanceFrm.pas]
+[F:\myProgram\Delphi\FlowMtsMinutes\RegistrationFrm.pas]
 ModuleType=SourceModule
 FormState=1
 FormOnTop=0
@@ -67,14 +54,14 @@ ModuleType=SourceModule
 FormState=1
 FormOnTop=0
 
-[F:\myProgram\Delphi\FlowMtsMinutes\RegistrationFrm.pas]
+[F:\myProgram\Delphi\FlowMtsMinutes\UsersFrm.pas]
 ModuleType=SourceModule
 FormState=1
 FormOnTop=0
 
-[F:\myProgram\Delphi\FlowMtsMinutes\UsersFrm.pas]
+[F:\myProgram\Delphi\FlowMtsMinutes\CustomerFunctions.pas]
 ModuleType=SourceModule
-FormState=1
+FormState=0
 FormOnTop=0
 
 [C:\Program Files\Borland\Delphi7\Projects\ProjectGroup1.bpg]
@@ -82,6 +69,14 @@ FormState=0
 FormOnTop=0
 
 [F:\myProgram\Delphi\FlowMtsMinutes\DM_.pas]
+FormState=0
+FormOnTop=0
+
+[F:\myProgram\Delphi\FlowMtsMinutes\FinanceFrm.pas]
+FormState=0
+FormOnTop=0
+
+[F:\myProgram\Delphi\FlowMtsMinutes\include\ChaildFrm.pas]
 FormState=0
 FormOnTop=0
 
@@ -102,8 +97,8 @@ FormState=0
 FormOnTop=0
 
 [EditWindow0]
-ViewCount=11
-CurrentView=1
+ViewCount=9
+CurrentView=4
 View0=0
 View1=1
 View2=2
@@ -113,8 +108,6 @@ View5=5
 View6=6
 View7=7
 View8=8
-View9=9
-View10=10
 CodeExplorer=CodeExplorer@EditWindow0
 MessageView=MessageView@EditWindow0
 Create=1
@@ -134,82 +127,68 @@ LeftPanelData=000004000000000000000000000000000000000000000000000100000000000000
 RightPanelSize=0
 BottomPanelSize=0
 BottomPanelClients=MessageView@EditWindow0
-BottomPanelData=00000400010000000B0000004D65737361676556696577A10300000000000002550000000000000001000000000000000000000000010000000058030000000000000100000000580300000000000001000000005803000000000000010000000058030000000000000100000000A103000000000000FFFFFFFF
+BottomPanelData=00000400010000000B0000004D6573736167655669657758030000000000000255000000000000000100000000000000000000000001000000005803000000000000010000000058030000000000000100000000580300000000000001000000005803000000000000FFFFFFFF
 
 [View0]
 Module=F:\myProgram\Delphi\FlowMtsMinutes\UsersFrm.pas
-CursorX=1
-CursorY=1
+CursorX=37
+CursorY=11
 TopLine=1
 LeftCol=1
 
 [View1]
 Module=F:\myProgram\Delphi\FlowMtsMinutes\EditingReportFrm.pas
-CursorX=35
-CursorY=205
-TopLine=191
+CursorX=1
+CursorY=412
+TopLine=395
 LeftCol=1
 
 [View2]
-Module=F:\myProgram\Delphi\FlowMtsMinutes\MainFrm.pas
+Module=C:\Program Files\Borland\Delphi7\Lib\fibplus_6_9_9_D5-2007\sources\fib.pas
 CursorX=1
-CursorY=87
-TopLine=93
+CursorY=534
+TopLine=525
 LeftCol=1
 
 [View3]
-Module=F:\myProgram\Delphi\FlowMtsMinutes\FinanceFrm.pas
-CursorX=29
-CursorY=11
-TopLine=10
+Module=F:\myProgram\Delphi\FlowMtsMinutes\MainFrm.pas
+CursorX=45
+CursorY=146
+TopLine=140
 LeftCol=1
 
 [View4]
-Module=F:\myProgram\Delphi\FlowMtsMinutes\include\ChaildFrm.pas
-CursorX=1
-CursorY=14
-TopLine=181
+Module=F:\myProgram\Delphi\FlowMtsMinutes\CustomerGlobals.pas
+CursorX=37
+CursorY=8
+TopLine=4
 LeftCol=1
 
 [View5]
 Module=F:\myProgram\Delphi\FlowMtsMinutes\SimReportDay.dpr
-CursorX=1
-CursorY=33
-TopLine=24
+CursorX=54
+CursorY=17
+TopLine=7
 LeftCol=1
 
 [View6]
-Module=C:\Program Files\Borland\Delphi7\Lib\fibplus_6_9_9_D5-2007\sources\pFIBDataSet.pas
-CursorX=1
-CursorY=426
-TopLine=417
+Module=F:\myProgram\Delphi\FlowMtsMinutes\CustomerFunctions.pas
+CursorX=13
+CursorY=113
+TopLine=98
 LeftCol=1
 
 [View7]
-Module=C:\Program Files\Borland\Delphi7\Lib\fibplus_6_9_9_D5-2007\sources\pFIBEventLists.pas
-CursorX=1
-CursorY=154
-TopLine=142
-LeftCol=1
-
-[View8]
-Module=C:\Program Files\Borland\Delphi7\Lib\fibplus_6_9_9_D5-2007\sources\FIBDatabase.pas
-CursorX=1
-CursorY=3148
-TopLine=3131
-LeftCol=1
-
-[View9]
 Module=F:\myProgram\Delphi\FlowMtsMinutes\AuthentificationFrm.pas
 CursorX=25
 CursorY=1
 TopLine=1
 LeftCol=1
 
-[View10]
+[View8]
 Module=F:\myProgram\Delphi\FlowMtsMinutes\RegistrationFrm.pas
-CursorX=24
-CursorY=8
+CursorX=34
+CursorY=10
 TopLine=1
 LeftCol=1
 
@@ -235,12 +214,10 @@ LRDockWidth=426
 Dockable=1
 
 [Breakpoints]
-Count=5
-Breakpoint0='F:\myProgram\Delphi\FlowMtsMinutes\EditingReportFrm.pas',331,'',0,1,'',1,0,0,'',1,'','',''
-Breakpoint1='F:\myProgram\Delphi\FlowMtsMinutes\EditingReportFrm.pas',391,'',0,1,'',1,0,0,'',1,'','',''
-Breakpoint2='F:\myProgram\Delphi\FlowMtsMinutes\EditingReportFrm.pas',204,'',0,1,'',1,0,0,'',1,'','',''
-Breakpoint3='F:\myProgram\Delphi\FlowMtsMinutes\SimReportDay.dpr',33,'',0,1,'',1,0,0,'',1,'','',''
-Breakpoint4='F:\myProgram\Delphi\FlowMtsMinutes\MainFrm.pas',181,'',0,1,'',1,0,0,'',1,'','',''
+Count=3
+Breakpoint0='F:\myProgram\Delphi\FlowMtsMinutes\MainFrm.pas',179,'',0,1,'',1,0,0,'',1,'','',''
+Breakpoint1='F:\myProgram\Delphi\FlowMtsMinutes\MainFrm.pas',128,'',0,1,'',1,0,0,'',1,'','',''
+Breakpoint2='F:\myProgram\Delphi\FlowMtsMinutes\EditingReportFrm.pas',407,'',0,1,'',1,0,0,'',1,'','',''
 
 [AddressBreakpoints]
 Count=0
@@ -455,11 +432,11 @@ Visible=0
 State=0
 Left=12
 Top=0
-Width=917
+Width=844
 Height=85
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=917
+ClientWidth=844
 ClientHeight=85
 TBDockHeight=85
 LRDockWidth=443

@@ -75,7 +75,11 @@ type
       var Text: String; DisplayText: Boolean);
     procedure cbbIDAccount1KeyPress(Sender: TObject; var Key: Char);
     procedure edtSum1KeyPress(Sender: TObject; var Key: Char);
+    function CheckRepSimRecord(ShowWarning: Boolean = True): Boolean;
     procedure cdsTmpERBeforePost(DataSet: TDataSet);
+    procedure dbgrdhRepSIMDrawColumnCell(Sender: TObject;
+      const Rect: TRect; DataCol: Integer; Column: TColumnEh;
+      State: TGridDrawState);
   private
     { Private declarations }
     FEditingReport: TEditingReport;
@@ -116,21 +120,22 @@ begin
   FEditingReport := AEditingReport;
 end;
 
+// время работы 
 procedure TfrmEditingReport.tmr1Timer(Sender: TObject);
 begin
   stat1.Panels[PNL_INF_TIMER].Text := TimeToStr(Now - TimerStop)
 end;
 
-
+//check users
 procedure TfrmEditingReport.FormActivate(Sender: TObject);
 begin
   { TODO 5 : раскоментировать и добавить вход по паролю }
   if user.login = DEF_USER then begin
-    {$IFDEF TESTMODE}
-    {$ELSE}
+{$IFDEF TESTMODE}
+{$ELSE}
     MessageBox(0, 'Неверный логин и пароль', 'ошибка', MB_ICONERROR);
     Exit;
-    {$ENDIF}
+{$ENDIF}
   end;
 
   TimerStop := Time;
@@ -147,86 +152,99 @@ begin
     cdsTmpER.CreateDataSet;
 
   with frmMain.dbgrdh1.DataSource.DataSet do
-    case FEditingReport of
-      erEdit:
-        begin
-          if Eof then
-            Exit;
-          stat1.Panels[PNL_INF_STAT_EDIT].Text := 'Редактирование записи: ' +
-            FieldByName('RD_ID').AsString;
+    try
+      // внимание опасный промежуток после выключения - включить
+      cdsTmpER.BeforePost := nil;   {*}
+      cdsTmpER.BeforeInsert := nil; {*}
 
-          // запоминаем редактируемую запись ReportDay
-          old_rd_id := FieldByName('RD_ID').Value;
+      case FEditingReport of
+        erEdit:
+          begin
+            if Eof then
+              Exit;
+            stat1.Panels[PNL_INF_STAT_EDIT].Text := 'Редактирование записи: ' +
+              FieldByName('RD_ID').AsString;
 
-          stat1.Panels[PNL_INF_RESPONS].Text := 'Отчет составил: ' +
-            FieldByName('RE_SURNAME').AsString;
+            // запоминаем редактируемую запись ReportDay
+            old_rd_id := FieldByName('RD_ID').Value;
 
-          // инициируем поля с последнего заполнения если оно есть
-          First;
-          // 
-          if not Eof then begin
-            cbbIDAccount1.KeyField := FieldByName('RD_FINANCE1').Value;
-            edtSum1.Text := FieldByName('RD_FNCE1SUM').AsString;
-            cbbIDAccount2.KeyField := FieldByName('RD_FINANCE2').Value;
-            edtSum2.Text := FieldByName('RD_FNCE2SUM').AsString;
-          end;
-          // CDS          
-          while not Eof do begin
-            cdsTmpER.Append;
-            try
-              intgrfldTmpERcSimka.Value := FieldByName('RS_SIMKA').AsInteger;
-              intgrfldTmpERcIn.Value := FieldByName('RS_IN').AsInteger;
-              intgrfldTmpERcSMS.Value := FieldByName('RS_SMS').AsInteger;
-              intgrfldTmpERcOwner.Value := FieldByName('RS_OWNER').AsInteger;
-              crncyfldTmpERcBalance.Value := FieldByName('RS_BALANCE').AsInteger;
-              intgrfldTmpERcIDRepSim.Value := FieldByName('RS_ID').AsInteger;
+            stat1.Panels[PNL_INF_RESPONS].Text := 'Отчет составил: ' +
+              FieldByName('RE_SURNAME').AsString;
 
-              cdsTmpER.Post;
-            except
-              on E: Exception do begin
-                cdsTmpER.Cancel;
-                Application.MessageBox(PChar(E.Message), 'Ошибка добавления данных', MB_ICONERROR);
-                Break;
+            // инициируем поля с последнего заполнения если оно есть
+            First;
+            //
+            if not Eof then begin
+              cbbIDAccount1.KeyValue := FieldByName('RD_FINANCE1').Value;
+              edtSum1.Text := FieldByName('RD_FNCE1SUM').AsString;
+              cbbIDAccount2.KeyValue := FieldByName('RD_FINANCE2').Value;
+              edtSum2.Text := FieldByName('RD_FNCE2SUM').AsString;
+            end;
+            // CDS
+            while not Eof do begin
+              cdsTmpER.Append;
+              try
+                intgrfldTmpERcSimka.Value := FieldByName('RS_SIMKA').AsInteger;
+                intgrfldTmpERcIn.Value := FieldByName('RS_IN').AsInteger;
+                intgrfldTmpERcSMS.Value := FieldByName('RS_SMS').AsInteger;
+                intgrfldTmpERcOwner.Value := FieldByName('RS_OWNER').AsInteger;
+                crncyfldTmpERcBalance.Value := FieldByName('RS_BALANCE').AsInteger;
+                intgrfldTmpERcIDRepSim.Value := FieldByName('RS_ID').AsInteger;
+
+                cdsTmpER.Post;
+                Next;
+              except
+                on E: Exception do begin
+                  cdsTmpER.Cancel;
+                  Application.MessageBox(PChar(E.Message), 'Ошибка добавления данных', MB_ICONERROR);
+                  Break;
+                end;
               end;
             end;
           end;
-        end;
-      erInsert: begin
-          stat1.Panels[PNL_INF_STAT_EDIT].Text := 'Новая запись';
-          stat1.Panels[PNL_INF_RESPONS].Text := 'Отчет составил: ' +
-            user.Patronymic + ' ' + user.Name[1] + '.' + user.Patronymic[1] + '.';
+        erInsert: begin
+            stat1.Panels[PNL_INF_STAT_EDIT].Text := 'Новая запись';
+            stat1.Panels[PNL_INF_RESPONS].Text := 'Отчет составил: ' +
+              user.Patronymic + ' ' + user.Name[1] + '.' + user.Patronymic[1] + '.';
 
-          // заполняем поля по умолчанию если они имеются (умолчания)
-          // - т.е. берем данные с последнего отчета 
-          First;
-          // 
-          if not Eof then begin
-            cbbIDAccount1.KeyField := FieldByName('RD_FINANCE1').Value;
-            cbbIDAccount2.KeyField := FieldByName('RD_FINANCE2').Value;
-          end;
-          // CDS
-          while not Eof do begin
-            cdsTmpER.Append;
-            try
-              intgrfldTmpERcSimka.Value := FieldByName('RS_SIMKA').AsInteger;
-              intgrfldTmpERcIn.Value := FieldByName('RS_IN').AsInteger;
-              intgrfldTmpERcOwner.Value := FieldByName('RS_OWNER').AsInteger;
-              crncyfldTmpERcBalance.Value := FieldByName('RS_BALANCE').AsInteger;
+            // заполняем поля по умолчанию если они имеются (умолчания)
+            // - т.е. берем данные с последнего отчета
+            First;
+            //
+            if not Eof then begin
+              cbbIDAccount1.KeyValue := FieldByName('RD_FINANCE1').Value;
+              cbbIDAccount2.KeyValue := FieldByName('RD_FINANCE2').Value;
+            end;
+            // CDS
+            while not Eof do begin
+              cdsTmpER.Append;
+              try
+                intgrfldTmpERcSimka.Value := FieldByName('RS_SIMKA').AsInteger;
+                intgrfldTmpERcIn.Value := FieldByName('RS_IN').AsInteger;
+                intgrfldTmpERcOwner.Value := FieldByName('RS_OWNER').AsInteger;
+                crncyfldTmpERcBalance.Value := FieldByName('RS_BALANCE').AsInteger;
 
-              cdsTmpER.Post;
-            except
-              on E: Exception do begin
-                cdsTmpER.Cancel;
-                Application.MessageBox(PChar(E.Message), 'Ошибка добавления данных', MB_ICONERROR);
-                Break;
+                cdsTmpER.Post;
+                Next;
+              except
+                on E: Exception do begin
+                  cdsTmpER.Cancel;
+                  Application.MessageBox(PChar(E.Message), 'Ошибка добавления данных', MB_ICONERROR);
+                  Break;
+                end;
               end;
             end;
+            actSave.Enabled := False;
           end;
-        end;
-
+      end;
+    finally
+      // опасный промежуток включаем после - выключить
+      cdsTmpER.BeforePost := cdsTmpERBeforePost;    {*}
+      cdsTmpER.BeforeInsert := cdsTmpERBeforePost;  {*}
     end;
 end;
 
+// выбрать из списка
 procedure TfrmEditingReport.dbgrdhRepSIMKeyPress(Sender: TObject;
   var Key: Char);
 begin
@@ -240,6 +258,7 @@ begin
   CloseAllCombobox(Self)
 end;
 
+// окно редактирования показывать?  
 procedure TfrmEditingReport.actEditUpdate(Sender: TObject);
 begin
   with dbgrdhRepSIM.Columns[dbgrdhRepSIM.SelectedIndex] do
@@ -285,6 +304,17 @@ var
   RDB_DB_KEY_LAST_REPORT_DAY: Integer;
 begin
   { TODO 5 -oUpdate -cChecked : проверить введенные данные }
+  ModalResult := mrNone;
+
+  with cdsTmpER do begin
+    First;
+    while not Eof do
+      if CheckRepSimRecord then
+        Next
+      else
+        Exit;
+  end;
+
   with pfbqryUpdate, pfbtrnsctUpdate do
   try
     StartTransaction;
@@ -375,13 +405,36 @@ begin
     on E: Exception do begin
       Rollback;
       Application.MessageBox(PChar(E.Message), 'ошибка', MB_ICONERROR);
+      raise Exception.Create(E.Message);
       Halt;
     end;
   end;  
-
+  ModalResult := mrOk;
 end;
 
 procedure TfrmEditingReport.actSaveUpdate(Sender: TObject);
+  function Check(cbb: TDBLookupComboboxEh): Boolean; 
+  begin
+    Result := True;
+    if (cbb.KeyValue = Null) then begin
+      cbb.Color := clRed;
+      Enabled := False end
+    else
+      cbb.Color := clWindow;
+  end;
+  function CheckFloat(edt: TEdit): Boolean;
+  begin
+    try
+      Result := TestFloat(edt.Text);
+      if Result then
+        edt.Color := clWindow
+      else
+        edt.Color := clRed
+    except
+      Result := False;
+      edt.Color := clRed;
+    end;
+  end;
 var
   bEnabled: Boolean;
 begin
@@ -395,13 +448,11 @@ begin
   else
     dtpDate.Color := clWindow;
 
-  if cdsTmpER.Eof then
+  if cdsTmpER.IsEmpty then
     bEnabled := False;
 
-  if (cbbIDAccount1.KeyValue = Null) or
-      not TestFloat(edtSum1.Text) or
-      (cbbIDAccount2.KeyValue = Null) or
-      not TestFloat(edtSum2.Text) then
+  if not Check(cbbIDAccount1) or not CheckFloat(edtSum1) or
+    not Check(cbbIDAccount2) or not CheckFloat(edtSum2) then
     bEnabled := False;
 
   if cdsTmpER.State <> dsBrowse then
@@ -439,18 +490,20 @@ begin
   MaskKeyEdit(Sender, Key, ['0'..'9',DecimalSeparator]);
 end;
 
-procedure TfrmEditingReport.cdsTmpERBeforePost(DataSet: TDataSet);
-  procedure ShowWarning(F: TField);
-  const
-    COUNT_SHOWS = 3;
-  var
-    I: Integer;
-  begin
-    if VarIsNull(F.AsVariant) then begin
-      Application.ProcessMessages;
+{ TODO 5 -oBeforePost -cCheck :
+post в Insert(первом) и Insert(копированя посл.данных) и Edit из ReportSim и добавление пользователем  данных }
+
+function TfrmEditingReport.CheckRepSimRecord(ShowWarning: Boolean = True): Boolean;
+
+  function CheckField(F: TField): Boolean;
+    procedure ShowsWarning(F: TField);
+    const
+      COUNT_SHOWS = 3;
+    var
+      I: Integer;
+    begin
       tmr1.Enabled := False;
       try
-
       { TODO 1 -oBefoPost -cошибки  : переводить фокус на плохую ячейку }
 //        if @F = @intgrfldTmpERcSimka then
 //          dbgrdhRepSIM.SelectedField := strngfldTmpERSimNumber else
@@ -460,10 +513,9 @@ procedure TfrmEditingReport.cdsTmpERBeforePost(DataSet: TDataSet);
 //           dbgrdhRepSIM.SelectedField := strngfldTmpEROwner;
 //        else
 //          dbgrdhRepSIM.SelectedField := F;
+//        dbgrdhRepSIM.Refresh;
+//        dbgrdhRepSIM.SetFocus;
 
-
-        dbgrdhRepSIM.Refresh;
-        dbgrdhRepSIM.SetFocus;
         for I := 1 to COUNT_SHOWS do begin
           stat1.Panels[PNL_INF_TIMER].Text := 'Введите в ' +
             dbgrdhRepSIM.FieldColumns[F.FieldName].Title.Caption;
@@ -476,15 +528,72 @@ procedure TfrmEditingReport.cdsTmpERBeforePost(DataSet: TDataSet);
       finally
         tmr1.Enabled := True;
       end;
-      Abort;
     end;
+  begin
+    Result := True;
+    if VarIsNull(F.AsVariant) then
+      Result := False;
+    if F is TCurrencyField then
+      if not TestFloat(F.AsString) then
+        Result := False;
+    if F is TIntegerField then
+      if not TestFloat(F.AsString) then
+        Result := False;
+
+    if (not Result) and ShowWarning then
+      ShowsWarning(F);
   end;
 begin
-  ShowWarning(intgrfldTmpERcSimka);
-  ShowWarning(intgrfldTmpERcIn);
-  ShowWarning(intgrfldTmpERcSMS);
-  ShowWarning(intgrfldTmpERcOwner);
-  ShowWarning(crncyfldTmpERcBalance);
+  Result := False;
+  if not CheckField(intgrfldTmpERcSimka) then
+    Exit;
+  if not CheckField(crncyfldTmpERcBalance) then
+    Exit;
+  if not CheckField(intgrfldTmpERcSMS) then
+    Exit;
+  if not CheckField(intgrfldTmpERcIn) then
+    Exit;
+  if not CheckField(intgrfldTmpERcOwner) then
+    Exit;
+  Result := True;
 end;
+
+procedure TfrmEditingReport.cdsTmpERBeforePost(DataSet: TDataSet);
+begin
+  if not CheckRepSimRecord then
+    Abort;
+end;
+
+{ TODO 5 -cCheck : различия выделить цветом (разные для edit и insert)}
+
+procedure TfrmEditingReport.dbgrdhRepSIMDrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumnEh;
+  State: TGridDrawState);
+begin
+
+  case FEditingReport of
+    erEdit: ;
+    erInsert: ;
+  else
+    Exit;
+  end;
+
+  if VarIsNull(cdsTmpER.FieldByName(Column.FieldName).Value) then
+  with dbgrdhRepSIM.Canvas do
+  begin
+    Brush.Color := clRed;
+    FillRect(Rect);
+    Font.Color := clWhite;
+    if Column.Field.DataType = ftString then
+    //В строковых полях текст прижимается влево
+      TextOut(Rect.Left + 2, Rect.Top + 2, Column.Field.Text)
+    else
+    //В остальных полях – вправо
+      TextOut(Rect.Right - TextWidth(Column.Field.Text) -
+        2, Rect.Top + 2, Column.Field.Text)
+  end;
+
+end;
+
 
 end.

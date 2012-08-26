@@ -21,6 +21,7 @@ uses
 
 begin
   Application.Initialize;
+  Application.Title := 'Отчет по SIM картам';
   Application.CreateForm(TDM, DM);
   Application.CreateForm(TfrmMain, frmMain);
   Application.CreateForm(TfrmDevice, frmDevice);

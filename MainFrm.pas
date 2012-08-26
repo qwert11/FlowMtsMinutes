@@ -93,10 +93,8 @@ begin
   try
     EditingReport.ShowModal;
     if EditingReport.ModalResult = mrOk then begin
-      {$IFNDEF TESTMODE}
       dbgrdh1.DataSource.DataSet.Close;
       dbgrdh1.DataSource.DataSet.Open;
-      {$ENDIF}
     end;
   finally
     EditingReport.Free

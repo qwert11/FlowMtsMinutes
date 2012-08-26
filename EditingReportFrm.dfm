@@ -1,6 +1,6 @@
 object frmEditingReport: TfrmEditingReport
-  Left = 278
-  Top = 235
+  Left = 267
+  Top = 154
   Width = 738
   Height = 489
   Caption = 'frmEditingReport'
@@ -55,6 +55,7 @@ object frmEditingReport: TfrmEditingReport
     TitleFont.Height = -11
     TitleFont.Name = 'MS Sans Serif'
     TitleFont.Style = []
+    OnDrawColumnCell = dbgrdhRepSIMDrawColumnCell
     OnKeyPress = dbgrdhRepSIMKeyPress
     Columns = <
       item
@@ -288,6 +289,7 @@ object frmEditingReport: TfrmEditingReport
     FetchOnDemand = False
     Params = <>
     StoreDefs = True
+    BeforeInsert = cdsTmpERBeforePost
     BeforePost = cdsTmpERBeforePost
     Left = 48
     Top = 232
@@ -304,7 +306,6 @@ object frmEditingReport: TfrmEditingReport
     object intgrfldTmpERcSMS: TIntegerField
       DisplayWidth = 10
       FieldName = 'cSMS'
-      Required = True
     end
     object intgrfldTmpERcOwner: TIntegerField
       DisplayWidth = 10
@@ -314,7 +315,6 @@ object frmEditingReport: TfrmEditingReport
     object crncyfldTmpERcBalance: TCurrencyField
       DisplayWidth = 10
       FieldName = 'cBalance'
-      Required = True
     end
     object intgrfldTmpERcIDRepSim: TIntegerField
       DisplayWidth = 10
