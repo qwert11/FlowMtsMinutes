@@ -217,4 +217,14 @@ object DM: TDM
       Origin = 'REPORT_DAY.RD_RESPONS'
     end
   end
+  object pfbqryDelete: TpFIBQuery
+    Transaction = pfbtrnsctn1
+    Database = DB
+    SQL.Strings = (
+      'DELETE FROM REPORT_DAY'
+      'WHERE'
+      '    RD_ID=:P_RD_ID')
+    Left = 64
+    Top = 96
+  end
 end

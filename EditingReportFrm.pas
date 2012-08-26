@@ -146,8 +146,6 @@ begin
   Caption := 'Сегодня: ' + DateToStr(Date) + ' ' +
     user.Patronymic + ' ' + user.Name[1] + '.' + user.Patronymic[1] + '.';
 
-  dtpDate.Date := Date;
-
   if not cdsTmpER.Active then
     cdsTmpER.CreateDataSet;
 
@@ -160,8 +158,9 @@ begin
       case FEditingReport of
         erEdit:
           begin
-            if Eof then
+            if IsEmpty then
               Exit;
+
             stat1.Panels[PNL_INF_STAT_EDIT].Text := 'Редактирование записи: ' +
               FieldByName('RD_ID').AsString;
 
@@ -175,6 +174,7 @@ begin
             First;
             //
             if not Eof then begin
+              dtpDate.Date := FieldByName('RD_DATE').AsDateTime;
               cbbIDAccount1.KeyValue := FieldByName('RD_FINANCE1').Value;
               edtSum1.Text := FieldByName('RD_FNCE1SUM').AsString;
               cbbIDAccount2.KeyValue := FieldByName('RD_FINANCE2').Value;
@@ -189,7 +189,7 @@ begin
                 intgrfldTmpERcSMS.Value := FieldByName('RS_SMS').AsInteger;
                 intgrfldTmpERcOwner.Value := FieldByName('RS_OWNER').AsInteger;
                 crncyfldTmpERcBalance.Value := FieldByName('RS_BALANCE').AsInteger;
-                intgrfldTmpERcIDRepSim.Value := FieldByName('RS_ID').AsInteger;
+                intgrfldTmpERcIDRepSim.Value := FieldByName('RSID').AsInteger;
 
                 cdsTmpER.Post;
                 Next;
@@ -203,6 +203,7 @@ begin
             end;
           end;
         erInsert: begin
+            dtpDate.Date := Date;
             stat1.Panels[PNL_INF_STAT_EDIT].Text := 'Новая запись';
             stat1.Panels[PNL_INF_RESPONS].Text := 'Отчет составил: ' +
               user.Patronymic + ' ' + user.Name[1] + '.' + user.Patronymic[1] + '.';
@@ -236,6 +237,8 @@ begin
             end;
             actSave.Enabled := False;
           end;
+      else
+        raise EAbort.Create('Неверный тип открытия Editing Report');
       end;
     finally
       // опасный промежуток включаем после - выключить
@@ -303,7 +306,7 @@ procedure TfrmEditingReport.actSaveExecute(Sender: TObject);
 var
   RDB_DB_KEY_LAST_REPORT_DAY: Integer;
 begin
-  { TODO 5 -oUpdate -cChecked : проверить введенные данные }
+  { DONE 5 -oUpdate -cChecked : проверить введенные данные }
   ModalResult := mrNone;
 
   with cdsTmpER do begin
@@ -490,9 +493,9 @@ begin
   MaskKeyEdit(Sender, Key, ['0'..'9',DecimalSeparator]);
 end;
 
-{ TODO 5 -oBeforePost -cCheck :
+{ DONE 5 -oBeforePost -cCheck :
 post в Insert(первом) и Insert(копированя посл.данных) и Edit из ReportSim и добавление пользователем  данных }
-
+// проверка записи
 function TfrmEditingReport.CheckRepSimRecord(ShowWarning: Boolean = True): Boolean;
 
   function CheckField(F: TField): Boolean;
@@ -504,18 +507,6 @@ function TfrmEditingReport.CheckRepSimRecord(ShowWarning: Boolean = True): Boole
     begin
       tmr1.Enabled := False;
       try
-      { TODO 1 -oBefoPost -cошибки  : переводить фокус на плохую ячейку }
-//        if @F = @intgrfldTmpERcSimka then
-//          dbgrdhRepSIM.SelectedField := strngfldTmpERSimNumber else
-//        if @F = @intgrfldTmpERcIn then
-//          dbgrdhRepSIM.SelectedField := strngfldTmpERDeviceName else
-//        if @F = @intgrfldTmpERcOwner then
-//           dbgrdhRepSIM.SelectedField := strngfldTmpEROwner;
-//        else
-//          dbgrdhRepSIM.SelectedField := F;
-//        dbgrdhRepSIM.Refresh;
-//        dbgrdhRepSIM.SetFocus;
-
         for I := 1 to COUNT_SHOWS do begin
           stat1.Panels[PNL_INF_TIMER].Text := 'Введите в ' +
             dbgrdhRepSIM.FieldColumns[F.FieldName].Title.Caption;
@@ -563,36 +554,41 @@ begin
   if not CheckRepSimRecord then
     Abort;
 end;
-
+{ TODO 1 : apply }
 { TODO 5 -cCheck : различия выделить цветом (разные для edit и insert)}
 
 procedure TfrmEditingReport.dbgrdhRepSIMDrawColumnCell(Sender: TObject;
   const Rect: TRect; DataCol: Integer; Column: TColumnEh;
   State: TGridDrawState);
-begin
-
-  case FEditingReport of
-    erEdit: ;
-    erInsert: ;
-  else
-    Exit;
-  end;
-
-  if VarIsNull(cdsTmpER.FieldByName(Column.FieldName).Value) then
-  with dbgrdhRepSIM.Canvas do
+  procedure SetFormatingCell(ErrorColor: TColor);
   begin
-    Brush.Color := clRed;
-    FillRect(Rect);
-    Font.Color := clWhite;
-    if Column.Field.DataType = ftString then
-    //В строковых полях текст прижимается влево
-      TextOut(Rect.Left + 2, Rect.Top + 2, Column.Field.Text)
-    else
-    //В остальных полях – вправо
-      TextOut(Rect.Right - TextWidth(Column.Field.Text) -
-        2, Rect.Top + 2, Column.Field.Text)
+    with dbgrdhRepSIM.Canvas do begin
+      Brush.Color := clRed;
+      FillRect(Rect);
+      Font.Color := clWhite;
+      if Column.Field.DataType = ftString then
+      //В строковых полях текст прижимается влево
+        TextOut(Rect.Left + 2, Rect.Top + 2, Column.Field.Text)
+      else
+      //В остальных полях – вправо
+        TextOut(Rect.Right - TextWidth(Column.Field.Text) -
+          2, Rect.Top + 2, Column.Field.Text)
+    end;
   end;
-
+  { TODO 1 -oDrawCellColum -cCheck : Закончить ф-цию FindDiff }
+//  function FindDiff: Boolean;
+//  begin
+//
+//  end;
+begin
+  case FEditingReport of
+    erEdit:
+      if  VarIsNull(cdsTmpER.FieldByName(Column.FieldName).Value) then
+        SetFormatingCell(clRed);
+    erInsert:
+      if VarIsNull(cdsTmpER.FieldByName(Column.FieldName).Value) then
+        SetFormatingCell(clRed);
+  end;
 end;
 
 

@@ -3,7 +3,8 @@ unit DM_;
 interface
 
 uses
-  SysUtils, Classes, FIBDatabase, pFIBDatabase, DB, FIBDataSet, pFIBDataSet;
+  SysUtils, Classes, FIBDatabase, pFIBDatabase, DB, FIBDataSet, pFIBDataSet,
+  FIBQuery, pFIBQuery;
 
 type
   TDM = class(TDataModule)
@@ -35,6 +36,7 @@ type
     fbntgrfldViewRD_FINANCE1: TFIBIntegerField;
     fbntgrfldViewRD_FINANCE2: TFIBIntegerField;
     fbntgrfldViewRD_RESPONS: TFIBIntegerField;
+    pfbqryDelete: TpFIBQuery;
   private
     { Private declarations }
   public

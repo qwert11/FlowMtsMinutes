@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
   Left = 266
   Top = 308
-  Width = 852
+  Width = 862
   Height = 371
   Caption = #1056#1072#1089#1093#1086#1076' '#1084#1080#1085#1091#1090' '#1052#1058#1057
   Color = clBtnFace
@@ -18,8 +18,8 @@ object frmMain: TfrmMain
   object dbgrdh1: TDBGridEh
     Left = 0
     Top = 0
-    Width = 844
-    Height = 265
+    Width = 854
+    Height = 246
     Align = alClient
     DataGrouping.GroupLevels = <>
     DataSource = DM.ds1
@@ -144,8 +144,8 @@ object frmMain: TfrmMain
   end
   object pnl1: TPanel
     Left = 0
-    Top = 265
-    Width = 844
+    Top = 246
+    Width = 854
     Height = 52
     Align = alBottom
     TabOrder = 1
@@ -174,32 +174,77 @@ object frmMain: TfrmMain
       TabOrder = 2
     end
     object btnFinance: TButton
-      Left = 568
+      Left = 472
       Top = 16
-      Width = 75
+      Width = 55
       Height = 25
-      Caption = 'btnFinance'
+      Caption = 'Finance'
       TabOrder = 3
+      Visible = False
       OnClick = btnFinanceClick
     end
     object btnTarifPlan: TButton
-      Left = 664
+      Left = 536
       Top = 16
-      Width = 75
+      Width = 55
       Height = 25
-      Caption = 'btnTarifPlan'
+      Caption = 'TarifPlan'
       TabOrder = 4
+      Visible = False
       OnClick = btnTarifPlanClick
     end
     object btnSimka: TButton
-      Left = 752
+      Left = 600
       Top = 16
-      Width = 75
+      Width = 55
       Height = 25
-      Caption = 'btnSimka'
+      Caption = 'Simka'
       TabOrder = 5
+      Visible = False
       OnClick = btnSimkaClick
     end
+    object btnDevise: TButton
+      Left = 664
+      Top = 16
+      Width = 55
+      Height = 25
+      Caption = 'Devise'
+      TabOrder = 6
+      Visible = False
+    end
+    object btnOwner: TButton
+      Left = 728
+      Top = 16
+      Width = 55
+      Height = 25
+      Caption = 'Owner'
+      TabOrder = 7
+      Visible = False
+    end
+    object btnAutentification: TButton
+      Left = 792
+      Top = 16
+      Width = 55
+      Height = 25
+      Action = actAutentification
+      TabOrder = 8
+    end
+  end
+  object stat1: TStatusBar
+    Left = 0
+    Top = 298
+    Width = 854
+    Height = 19
+    Panels = <
+      item
+        Width = 150
+      end
+      item
+        Width = 150
+      end
+      item
+        Width = 50
+      end>
   end
   object actlst1: TActionList
     Left = 48
@@ -208,16 +253,24 @@ object frmMain: TfrmMain
       Caption = #1053#1086#1074#1072#1103' '#1079#1072#1087#1080#1089#1100
       Hint = #1044#1086#1073#1072#1074#1080#1090#1100' '#1085#1086#1074#1091#1102' '#1079#1072#1087#1080#1089#1100
       OnExecute = actInsertExecute
+      OnUpdate = actInsertUpdate
     end
     object actEdit: TAction
       Caption = #1056#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1090#1100' '#1079#1072#1087#1080#1089#1100
       Hint = #1056#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1085#1080#1077' '#1090#1077#1082#1091#1097#1077#1081' '#1079#1072#1087#1080#1089#1080
+      OnExecute = actEditExecute
       OnUpdate = actEditUpdate
     end
     object actDelete: TAction
       Caption = #1059#1076#1072#1083#1080#1090#1100' '#1079#1072#1087#1080#1089#1100
       Hint = #1059#1076#1072#1083#1077#1085#1080#1077' '#1090#1077#1082#1091#1097#1077#1081' '#1079#1072#1087#1080#1089#1080
+      OnExecute = actDeleteExecute
       OnUpdate = actEditUpdate
+    end
+    object actAutentification: TAction
+      Caption = #1042#1086#1081#1090#1080
+      Hint = #1042#1086#1081#1090#1080' '#1087#1086#1076' '#1089#1074#1086#1080#1084' '#1083#1086#1075#1080#1085#1086#1084' '#1080' '#1087#1072#1088#1086#1083#1077#1084
+      OnExecute = actAutentificationExecute
     end
   end
   object pm1: TPopupMenu

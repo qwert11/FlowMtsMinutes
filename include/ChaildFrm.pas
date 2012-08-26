@@ -114,6 +114,7 @@ begin
   stat1.Panels[STATE_PNL_SBAR].Text := '';
 end;
 
+// отмена
 procedure TChaildForm.btnCancelClick(Sender: TObject);
 begin
   FEditorState := esNone;
@@ -122,6 +123,7 @@ begin
   NullAllField;
 end;
 
+// сохранить
 procedure TChaildForm.btnSaveClick(Sender: TObject);
 begin
   try
@@ -132,8 +134,6 @@ begin
           if dbgrd1.DataSource.DataSet.Eof then
             Exit;
           Delete;
-          Close;
-          Open;
         end;
 
         esEdit: begin
@@ -141,20 +141,20 @@ begin
             Exit;
           Edit;
           Post;
-          Close;
-          Open;
         end;
 
         esInsert: begin
           Insert;
           Post;
-          Close;
-          Open;
         end;
 
       else
         raise EAbort.Create('Не определенное значение FEditorState');
       end;
+
+      pfbdtst1.Close;
+      pfbdtst1.Open;
+
       DM.pfbtrnsctn1.CommitRetaining;
     except
       on EFIBError do
@@ -165,12 +165,14 @@ begin
     on E: Exception do begin
       DM.pfbtrnsctn1.Rollback;
       Application.MessageBox(PChar(E.Message), 'Ошибка', MB_ICONERROR);
+      raise Exception.Create(E.Message);
     end;
   end;
 
   btnCancelClick(nil);
 end;
 
+// обнулить поля
 procedure TChaildForm.NullAllField;
 var
   I: Integer;
@@ -189,6 +191,7 @@ begin
     pfbdtst1.Open
 end;
 
+// выбрать и закрыть
 procedure TChaildForm.dbgrd1DblClick(Sender: TObject);
 begin
   ModalResult := mrNone;
@@ -196,6 +199,7 @@ begin
     ModalResult := mrOk;
 end;
 
+// подготовка 
 procedure TChaildForm.QueryPrepare;
   procedure Prep(Q: TFIBQuery);
   begin
@@ -214,6 +218,7 @@ begin
   end;
 end;
 
+// возможно ли сохранение
 procedure TChaildForm.actSaveUpdate(Sender: TObject);
 const
   CheckInput = 'Заполните все поля';
@@ -247,6 +252,7 @@ begin
   pfbdtst1.Close;
 end;
 
+// закрыть все комбо 
 procedure TChaildForm.FormCloseQuery(Sender: TObject;
   var CanClose: Boolean);
 begin

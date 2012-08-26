@@ -9,6 +9,12 @@ uses
 
 type
   TfrmUsers = class(TChaildForm)
+    fbntgrfldpfbdtst1REID: TFIBIntegerField;
+    fpfbdtst1RE_SURNAME: TFIBStringField;
+    fpfbdtst1RE_NAME: TFIBStringField;
+    fpfbdtst1RE_PATRONYMIC: TFIBStringField;
+    fpfbdtst1RE_PASSWORD: TFIBStringField;
+    fpfbdtst1RE_LOGIND: TFIBStringField;
   private
     { Private declarations }
   public

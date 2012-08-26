@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, IniFiles, DBGridEhGrouping, ExtCtrls, GridsEh, DBGridEh,
   ActnList, Menus, StdCtrls, DB, DBTables, BDE, DBXpress,
-  fib;
+  fib, ComCtrls;
 
 type
   TfrmMain = class(TForm)
@@ -34,6 +34,11 @@ type
     btnFinance: TButton;
     btnTarifPlan: TButton;
     btnSimka: TButton;
+    btnDevise: TButton;
+    btnOwner: TButton;
+    stat1: TStatusBar;
+    btnAutentification: TButton;
+    actAutentification: TAction;
     procedure FormCreate(Sender: TObject);
     procedure actEditUpdate(Sender: TObject);
     procedure actInsertExecute(Sender: TObject);
@@ -41,6 +46,10 @@ type
     procedure btnTarifPlanClick(Sender: TObject);
     procedure btnSimkaClick(Sender: TObject);
     procedure ApplicationEventException(Sender: TObject; E: Exception);
+    procedure actDeleteExecute(Sender: TObject);
+    procedure actEditExecute(Sender: TObject);
+    procedure actAutentificationExecute(Sender: TObject);
+    procedure actInsertUpdate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -53,13 +62,26 @@ var
 implementation
 
 uses DM_, CustomerFunctions, EditingReportFrm, FinanceFrm, TarifPlanFrm,
-  SimkaFrm, CustomerGlobals;
+  SimkaFrm, CustomerGlobals, AuthentificationFrm;
+
+const
+  PNL_INF_STATUS = 2;
 
 {$R *.dfm}
 { TODO 5 -oDEFINE -cTEST : Убрать в настройках проэкта из DEFINE TESTMODE }
 
 procedure TfrmMain.FormCreate(Sender: TObject);
 begin
+  
+  {$IFDEF TESTMODE}
+    btnFinance.Visible := True;
+    btnTarifPlan.Visible := True;
+    btnSimka.Visible := True;
+    btnDevise.Visible := True;
+    btnOwner.Visible := True;
+    stat1.Panels[PNL_INF_STATUS].Text := 'Вы находитесь в режиме тестирования';
+  {$ENDIF}
+
   Application.OnException := ApplicationEventException;
 
   with DM do
@@ -69,9 +91,9 @@ begin
         DB.DatabaseName := ReadIni('Base', 'Patch', riString);
         DB.Connected := True;
       end;
-      
+
       if not pfbdtstView.Active then
-        pfbdtstView.Open; 
+        pfbdtstView.Open;
     except
       on E: Exception do begin
         Application.MessageBox(PChar(E.Message), 'Ошибка', MB_ICONERROR);
@@ -80,15 +102,33 @@ begin
     end;
 end;
 
+function CheckAutentification(WithAutentif: Boolean = False): Boolean;
+begin
+  Result := False;
+  if user.login = DEF_USER then
+    if not WithAutentif or (frmAuthentification.ShowModal <> mrOk) then
+        Exit;
+  Result := True
+end;
+
+procedure TfrmMain.actInsertUpdate(Sender: TObject);
+begin
+  (Sender as TAction).Enabled := CheckAutentification
+end;
+
 procedure TfrmMain.actEditUpdate(Sender: TObject);
 begin
-  (Sender as TAction).Enabled := not dbgrdh1.DataSource.DataSet.Eof
+  (Sender as TAction).Enabled :=
+    not dbgrdh1.DataSource.DataSet.Eof and CheckAutentification
 end;
 
 procedure TfrmMain.actInsertExecute(Sender: TObject);
 var
   EditingReport: TfrmEditingReport;
 begin
+  if not CheckAutentification(True) then
+    Exit;
+    
   EditingReport := TfrmEditingReport.Create((Sender as TComponent), erInsert);
   try
     EditingReport.ShowModal;
@@ -137,7 +177,7 @@ begin
      else
        error_string := 'Другая ошибка DB' end else
   if E is EFIBError then 
-  { TODO  -oexception -cошибки  : отлавливать все ошибки}
+  { DONE  -oexception -cошибки  : отлавливать все ошибки}
     error_string := 'Ошибка базы данных FireBird';
 
   error_string := E.Message + ' ' + error_string;
@@ -168,5 +208,58 @@ begin
   end;
 
 end;
+
+// удалить текущую запись
+procedure TfrmMain.actDeleteExecute(Sender: TObject);
+var
+  ID: Integer;
+begin
+  if not CheckAutentification(True) then
+    Exit;
+    
+  if MessageDlg('Вы действительно хотите удалить запись', mtWarning,
+      mbOKCancel, 0) <> mrOk then
+    Exit;
+  with DM, pfbqryDelete, pfbtrnsctn1 do
+  try
+    Close;
+    if pfbdtstView.IsEmpty then
+      raise EAbort.Create('Пустая таблица');
+    ID := fbntgrfldViewRD_ID.Value;
+    ParamByName('P_RD_ID').AsInteger := ID;
+    ExecQuery;
+    CommitRetaining;
+    Close;
+    pfbdtstView.Close;
+    pfbdtstView.Open;
+  except
+    Rollback;
+    MessageDlg('Нельзя удалить запись из пустой таблицы', mtError, [mbOK], 0);
+  end;
+end;
+
+procedure TfrmMain.actEditExecute(Sender: TObject);
+var
+  EditingReport: TfrmEditingReport;
+begin
+  if not CheckAutentification(True) then
+    Exit;
+  EditingReport := TfrmEditingReport.Create((Sender as TComponent), erEdit);
+  try
+    EditingReport.ShowModal;
+    if EditingReport.ModalResult = mrOk then begin
+      dbgrdh1.DataSource.DataSet.Close;
+      dbgrdh1.DataSource.DataSet.Open;
+    end;
+  finally
+    EditingReport.Free
+  end;
+end;
+
+procedure TfrmMain.actAutentificationExecute(Sender: TObject);
+begin
+  frmAuthentification.ShowModal
+end;
+
 
 end.
