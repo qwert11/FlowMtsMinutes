@@ -19,7 +19,7 @@ object frmMain: TfrmMain
     Left = 0
     Top = 0
     Width = 854
-    Height = 246
+    Height = 254
     Align = alClient
     DataGrouping.GroupLevels = <>
     DataSource = DM.ds1
@@ -144,7 +144,7 @@ object frmMain: TfrmMain
   end
   object pnl1: TPanel
     Left = 0
-    Top = 246
+    Top = 254
     Width = 854
     Height = 52
     Align = alBottom
@@ -232,7 +232,7 @@ object frmMain: TfrmMain
   end
   object stat1: TStatusBar
     Left = 0
-    Top = 298
+    Top = 306
     Width = 854
     Height = 19
     Panels = <

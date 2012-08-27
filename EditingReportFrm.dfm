@@ -19,7 +19,7 @@ object frmEditingReport: TfrmEditingReport
   TextHeight = 13
   object stat1: TStatusBar
     Left = 0
-    Top = 416
+    Top = 424
     Width = 730
     Height = 19
     Panels = <
@@ -37,7 +37,7 @@ object frmEditingReport: TfrmEditingReport
     Left = 0
     Top = 0
     Width = 530
-    Height = 416
+    Height = 424
     Align = alClient
     DataGrouping.GroupLevels = <>
     DataSource = ds1
@@ -49,6 +49,7 @@ object frmEditingReport: TfrmEditingReport
     FooterFont.Name = 'MS Sans Serif'
     FooterFont.Style = []
     IndicatorOptions = [gioShowRowIndicatorEh]
+    PopupMenu = pm1
     TabOrder = 1
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
@@ -152,7 +153,7 @@ object frmEditingReport: TfrmEditingReport
     Left = 530
     Top = 0
     Width = 200
-    Height = 416
+    Height = 424
     Align = alRight
     TabOrder = 2
     object lbl2: TLabel
@@ -290,7 +291,6 @@ object frmEditingReport: TfrmEditingReport
     Params = <>
     StoreDefs = True
     BeforeInsert = cdsTmpERBeforePost
-    BeforePost = cdsTmpERBeforePost
     Left = 48
     Top = 232
     object intgrfldTmpERcSimka: TIntegerField
@@ -407,6 +407,11 @@ object frmEditingReport: TfrmEditingReport
       OnExecute = actSaveExecute
       OnUpdate = actSaveUpdate
     end
+    object actApply: TAction
+      Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100
+      OnExecute = actApplyExecute
+      OnUpdate = actApplyUpdate
+    end
   end
   object pm1: TPopupMenu
     Left = 48
@@ -444,6 +449,9 @@ object frmEditingReport: TfrmEditingReport
       object mniDelete1: TMenuItem
         Action = actDelete
       end
+    end
+    object mniApply: TMenuItem
+      Action = actApply
     end
   end
   object pfbtrnsctUpdate: TpFIBTransaction

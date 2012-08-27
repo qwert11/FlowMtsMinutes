@@ -80,7 +80,8 @@ begin
   Result := False;
   try
     if A = '' then
-      raise ECusConvertError.Create('Пустая строка не может быть преобразована в тип Integer');
+      Exit;
+      //raise ECusConvertError.Create('Пустая строка не может быть преобразована в тип Integer');
     StrToInt(A);
     Result := True;
   except
@@ -103,7 +104,8 @@ begin
   Result := False;
   try
     if A = '' then
-      raise ECusConvertError.Create('Пустая строка не может быть преобразована в тип Real');  
+      Exit;
+      //raise ECusConvertError.Create('Пустая строка не может быть преобразована в тип Real');
     StrToFloat(A);
     Result := True;
   except

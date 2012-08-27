@@ -10,7 +10,7 @@ uses
   Menus, Buttons, FIBQuery, pFIBQuery, FIBDatabase, pFIBDatabase;
 
 type
-  TEditingReport = (erEdit, erInsert);
+  TEditingReport = (erEdit, erInsert, erDelete);
 
   TfrmEditingReport = class(TForm)
     tmr1: TTimer;
@@ -60,6 +60,8 @@ type
     actSave: TAction;
     pfbtrnsctUpdate: TpFIBTransaction;
     pfbqryUpdate: TpFIBQuery;
+    actApply: TAction;
+    mniApply: TMenuItem;
     procedure tmr1Timer(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure dbgrdhRepSIMKeyPress(Sender: TObject; var Key: Char);
@@ -80,6 +82,8 @@ type
     procedure dbgrdhRepSIMDrawColumnCell(Sender: TObject;
       const Rect: TRect; DataCol: Integer; Column: TColumnEh;
       State: TGridDrawState);
+    procedure actApplyExecute(Sender: TObject);
+    procedure actApplyUpdate(Sender: TObject);
   private
     { Private declarations }
     FEditingReport: TEditingReport;
@@ -144,7 +148,7 @@ begin
   ClearEdit(Self);
 
   Caption := 'Сегодня: ' + DateToStr(Date) + ' ' +
-    user.Patronymic + ' ' + user.Name[1] + '.' + user.Patronymic[1] + '.';
+    user.Surname + ' ' + user.Name[1] + '.' + user.Patronymic[1] + '.';
 
   if not cdsTmpER.Active then
     cdsTmpER.CreateDataSet;
@@ -206,7 +210,7 @@ begin
             dtpDate.Date := Date;
             stat1.Panels[PNL_INF_STAT_EDIT].Text := 'Новая запись';
             stat1.Panels[PNL_INF_RESPONS].Text := 'Отчет составил: ' +
-              user.Patronymic + ' ' + user.Name[1] + '.' + user.Patronymic[1] + '.';
+              user.Surname + ' ' + user.Name[1] + '.' + user.Patronymic[1] + '.';
 
             // заполняем поля по умолчанию если они имеются (умолчания)
             // - т.е. берем данные с последнего отчета
@@ -421,7 +425,7 @@ procedure TfrmEditingReport.actSaveUpdate(Sender: TObject);
     Result := True;
     if (cbb.KeyValue = Null) then begin
       cbb.Color := clRed;
-      Enabled := False end
+      Result := False end
     else
       cbb.Color := clWindow;
   end;
@@ -581,6 +585,7 @@ procedure TfrmEditingReport.dbgrdhRepSIMDrawColumnCell(Sender: TObject;
 //
 //  end;
 begin
+
   case FEditingReport of
     erEdit:
       if  VarIsNull(cdsTmpER.FieldByName(Column.FieldName).Value) then
@@ -591,5 +596,15 @@ begin
   end;
 end;
 
+
+procedure TfrmEditingReport.actApplyExecute(Sender: TObject);
+begin
+  cdsTmpER.Post
+end;
+
+procedure TfrmEditingReport.actApplyUpdate(Sender: TObject);
+begin
+  actApply.Enabled := (cdsTmpER.State = dsEdit) or (cdsTmpER.State =  dsInsert)
+end;
 
 end.

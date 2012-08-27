@@ -84,7 +84,10 @@ object DM: TDM
       
         '   left outer join respons on (report_day.rd_respons = respons.r' +
         'eid)'
-      '   inner join finance on (report_day.rd_finance2 = finance.fid)')
+      '   inner join finance on (report_day.rd_finance2 = finance.fid)'
+      
+        'order by report_day.rd_date, report_simka.rs_owner, report_simka' +
+        '.rsid')
     Active = True
     Transaction = pfbtrnsView
     Database = DB
@@ -224,7 +227,7 @@ object DM: TDM
       'DELETE FROM REPORT_DAY'
       'WHERE'
       '    RD_ID=:P_RD_ID')
-    Left = 64
-    Top = 96
+    Left = 104
+    Top = 112
   end
 end

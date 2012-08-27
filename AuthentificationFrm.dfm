@@ -17,14 +17,14 @@ object frmAuthentification: TfrmAuthentification
   object lbl1: TLabel
     Left = 15
     Top = 32
-    Width = 40
+    Width = 29
     Height = 13
     Caption = #1083#1086#1075#1080#1085
   end
   object lbl2: TLabel
     Left = 15
     Top = 56
-    Width = 40
+    Width = 36
     Height = 13
     Caption = #1087#1072#1088#1086#1083#1100
   end
@@ -70,5 +70,6 @@ object frmAuthentification: TfrmAuthentification
     PasswordChar = '*'
     TabOrder = 3
     Text = 'edtPasswordqqqqqqqqqqqqqqqqqqq'
+    OnClick = edtPasswordClick
   end
 end

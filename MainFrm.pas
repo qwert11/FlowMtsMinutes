@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, IniFiles, DBGridEhGrouping, ExtCtrls, GridsEh, DBGridEh,
   ActnList, Menus, StdCtrls, DB, DBTables, BDE, DBXpress,
-  fib, ComCtrls;
+  fib, ComCtrls, EditingReportFrm;
 
 type
   TfrmMain = class(TForm)
@@ -50,8 +50,10 @@ type
     procedure actEditExecute(Sender: TObject);
     procedure actAutentificationExecute(Sender: TObject);
     procedure actInsertUpdate(Sender: TObject);
+    procedure SetEditReport(AEdit: TEditingReport);
   private
     { Private declarations }
+    EditReport: TEditingReport;
   public
     { Public declarations }
   end;
@@ -61,7 +63,7 @@ var
 
 implementation
 
-uses DM_, CustomerFunctions, EditingReportFrm, FinanceFrm, TarifPlanFrm,
+uses DM_, CustomerFunctions, FinanceFrm, TarifPlanFrm,
   SimkaFrm, CustomerGlobals, AuthentificationFrm;
 
 const
@@ -239,27 +241,41 @@ begin
 end;
 
 procedure TfrmMain.actEditExecute(Sender: TObject);
-var
-  EditingReport: TfrmEditingReport;
 begin
-  if not CheckAutentification(True) then
-    Exit;
-  EditingReport := TfrmEditingReport.Create((Sender as TComponent), erEdit);
-  try
-    EditingReport.ShowModal;
-    if EditingReport.ModalResult = mrOk then begin
-      dbgrdh1.DataSource.DataSet.Close;
-      dbgrdh1.DataSource.DataSet.Open;
-    end;
-  finally
-    EditingReport.Free
-  end;
+  EditReport := erEdit
 end;
 
 procedure TfrmMain.actAutentificationExecute(Sender: TObject);
 begin
-  frmAuthentification.ShowModal
+  frmAuthentification.ShowModal;
+  if frmAuthentification.ModalResult = mrOK then
+    stat1.Panels[PNL_INF_STATUS].Text := 'Вы зашли как (' + user.login + '): ' +
+      user.Surname + ' ' + user.Name[1] + '.' + user.Patronymic[1] + '.'
 end;
 
+
+procedure TfrmMain.SetEditReport(AEdit: TEditingReport);
+var
+  EditingReport: TfrmEditingReport;
+begin
+  case AEdit of
+    erEdit: begin
+      if not CheckAutentification(True) then
+        Exit;
+      EditingReport := TfrmEditingReport.Create(Self, erEdit);
+      try
+        EditingReport.ShowModal;
+        if EditingReport.ModalResult = mrOk then begin
+          dbgrdh1.DataSource.DataSet.Close;
+          dbgrdh1.DataSource.DataSet.Open;
+        end;
+      finally
+        EditingReport.Free
+      end;
+    end;
+    erInsert: ;
+    erDelete: ;
+  end;    
+end;
 
 end.

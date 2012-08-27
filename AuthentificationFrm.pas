@@ -16,6 +16,7 @@ type
     lbl2: TLabel;
     procedure btn1Click(Sender: TObject);
     procedure txtRegistrationClick(Sender: TObject);
+    procedure edtPasswordClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -44,19 +45,18 @@ begin
     Exit;
   end;
 
-  with frmUsers, user do
-  if  (edtPassword.Text <> fpfbdtst1RE_PASSWORD.Value) or
-      (cbbLogin.KeyValue <> fbntgrfldpfbdtst1REID.Value) then begin
-    Application.MessageBox('Введите верно логин и пароль',
-      PChar('Предупреждение №' + IntToStr(CountEnter)), MB_ICONWARNING);
-    Exit;
-
-
+  with frmUsers, user do begin
+    if  (edtPassword.Text <> fpfbdtst1RE_PASSWORD.Value) or
+        (cbbLogin.KeyValue <> fbntgrfldpfbdtst1REID.Value) then begin
+      Application.MessageBox('Введите верно логин и пароль',
+        PChar('Предупреждение №' + IntToStr(CountEnter)), MB_ICONWARNING);
+      Exit
+    end;
     login := fpfbdtst1RE_LOGIND.Value;
     ID := fbntgrfldpfbdtst1REID.Value;
     Surname := fpfbdtst1RE_SURNAME.Value;
     Name := fpfbdtst1RE_NAME.Value;
-    Patronymic := fpfbdtst1RE_PATRONYMIC.Value; 
+    Patronymic := fpfbdtst1RE_PATRONYMIC.Value;
   end;
   ModalResult := mrOk;
 end;
@@ -64,6 +64,11 @@ end;
 procedure TfrmAuthentification.txtRegistrationClick(Sender: TObject);
 begin
   frmUsers.Show
+end;
+
+procedure TfrmAuthentification.edtPasswordClick(Sender: TObject);
+begin
+  edtPassword.SelectAll
 end;
 
 end.
