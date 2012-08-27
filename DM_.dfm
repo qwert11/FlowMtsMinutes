@@ -6,7 +6,7 @@ object DM: TDM
   Width = 174
   object DB: TpFIBDatabase
     Connected = True
-    DBName = 'REPORTMTS.FDB'
+    DBName = '192.168.1.153:D:\Prog\FlowMtsMinutes\REPORTMTS.FDB'
     DBParams.Strings = (
       'password=masterkey'
       'user_name=SYSDBA'
@@ -67,7 +67,9 @@ object DM: TDM
       '    report_simka.rsid,'
       '    report_day.rd_finance1,'
       '    report_day.rd_finance2,'
-      '    report_day.rd_respons'
+      '    report_day.rd_respons,'
+      '    respons.re_name,'
+      '    respons.re_patronymic'
       'from report_day'
       
         '   inner join report_simka on (report_day.rd_id = report_simka.r' +
@@ -88,7 +90,6 @@ object DM: TDM
       
         'order by report_day.rd_date, report_simka.rs_owner, report_simka' +
         '.rsid')
-    Active = True
     Transaction = pfbtrnsView
     Database = DB
     Left = 56
@@ -192,6 +193,17 @@ object DM: TDM
     object fbstrngfldViewRE_SURNAME: TFIBStringField
       FieldName = 'RE_SURNAME'
       Origin = 'RESPONS.RE_SURNAME'
+      OnGetText = fbstrngfldViewRE_SURNAMEGetText
+      Size = 50
+      EmptyStrToNull = True
+    end
+    object fbstrngfldViewRE_NAME: TFIBStringField
+      FieldName = 'RE_NAME'
+      Size = 50
+      EmptyStrToNull = True
+    end
+    object fbstrngfldViewRE_PATRONYMIC: TFIBStringField
+      FieldName = 'RE_PATRONYMIC'
       Size = 50
       EmptyStrToNull = True
     end

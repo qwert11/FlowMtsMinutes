@@ -53,7 +53,7 @@ type
     procedure SetEditReport(AEdit: TEditingReport);
   private
     { Private declarations }
-    EditReport: TEditingReport;
+    property EditReport: TEditingReport write SetEditReport;
   public
     { Public declarations }
   end;
@@ -125,22 +125,8 @@ begin
 end;
 
 procedure TfrmMain.actInsertExecute(Sender: TObject);
-var
-  EditingReport: TfrmEditingReport;
 begin
-  if not CheckAutentification(True) then
-    Exit;
-    
-  EditingReport := TfrmEditingReport.Create((Sender as TComponent), erInsert);
-  try
-    EditingReport.ShowModal;
-    if EditingReport.ModalResult = mrOk then begin
-      dbgrdh1.DataSource.DataSet.Close;
-      dbgrdh1.DataSource.DataSet.Open;
-    end;
-  finally
-    EditingReport.Free
-  end;
+  EditReport := erInsert
 end;
 
 procedure TfrmMain.btnFinanceClick(Sender: TObject);
@@ -213,31 +199,8 @@ end;
 
 // удалить текущую запись
 procedure TfrmMain.actDeleteExecute(Sender: TObject);
-var
-  ID: Integer;
 begin
-  if not CheckAutentification(True) then
-    Exit;
-    
-  if MessageDlg('Вы действительно хотите удалить запись', mtWarning,
-      mbOKCancel, 0) <> mrOk then
-    Exit;
-  with DM, pfbqryDelete, pfbtrnsctn1 do
-  try
-    Close;
-    if pfbdtstView.IsEmpty then
-      raise EAbort.Create('Пустая таблица');
-    ID := fbntgrfldViewRD_ID.Value;
-    ParamByName('P_RD_ID').AsInteger := ID;
-    ExecQuery;
-    CommitRetaining;
-    Close;
-    pfbdtstView.Close;
-    pfbdtstView.Open;
-  except
-    Rollback;
-    MessageDlg('Нельзя удалить запись из пустой таблицы', mtError, [mbOK], 0);
-  end;
+  EditReport := erDelete
 end;
 
 procedure TfrmMain.actEditExecute(Sender: TObject);
@@ -257,11 +220,13 @@ end;
 procedure TfrmMain.SetEditReport(AEdit: TEditingReport);
 var
   EditingReport: TfrmEditingReport;
+  ID: Integer;
 begin
+  if not CheckAutentification(True) then
+    Exit;
+    
   case AEdit of
     erEdit: begin
-      if not CheckAutentification(True) then
-        Exit;
       EditingReport := TfrmEditingReport.Create(Self, erEdit);
       try
         EditingReport.ShowModal;
@@ -273,8 +238,41 @@ begin
         EditingReport.Free
       end;
     end;
-    erInsert: ;
-    erDelete: ;
+    
+    erInsert: begin
+      EditingReport := TfrmEditingReport.Create(Self, erInsert);
+      try
+        EditingReport.ShowModal;
+        if EditingReport.ModalResult = mrOk then begin
+          dbgrdh1.DataSource.DataSet.Close;
+          dbgrdh1.DataSource.DataSet.Open;
+        end;
+      finally
+        EditingReport.Free
+      end;
+    end;
+
+    erDelete: begin
+      if MessageDlg('Вы действительно хотите удалить запись', mtWarning,
+          mbOKCancel, 0) <> mrOk then
+        Exit;
+      with DM, pfbqryDelete, pfbtrnsctn1 do
+      try
+        Close;
+        if pfbdtstView.IsEmpty then
+          raise EAbort.Create('Пустая таблица');
+        ID := fbntgrfldViewRD_ID.Value;
+        ParamByName('P_RD_ID').AsInteger := ID;
+        ExecQuery;
+        CommitRetaining;
+        Close;
+        pfbdtstView.Close;
+        pfbdtstView.Open;
+      except
+        Rollback;
+        MessageDlg('Нельзя удалить запись из пустой таблицы', mtError, [mbOK], 0);
+      end;
+    end;
   end;    
 end;
 

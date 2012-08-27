@@ -28,7 +28,7 @@ var
 
 implementation
 
-uses UsersFrm, CustomerGlobals;
+uses UsersFrm, CustomerGlobals, RegistrationFrm;
 
 var
   CountEnter: Integer = 0;
@@ -63,7 +63,11 @@ end;
 
 procedure TfrmAuthentification.txtRegistrationClick(Sender: TObject);
 begin
+  {$IFDEF TESTMODE}
   frmUsers.Show
+  {$ELSE}
+  frmRegistration.ShowModal
+  {$ENDIF}
 end;
 
 procedure TfrmAuthentification.edtPasswordClick(Sender: TObject);

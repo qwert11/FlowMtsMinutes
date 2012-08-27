@@ -157,7 +157,8 @@ begin
     try
       // внимание опасный промежуток после выключения - включить
       cdsTmpER.BeforePost := nil;   {*}
-      cdsTmpER.BeforeInsert := nil; {*}
+      //cdsTmpER.BeforeInsert := nil; {*}
+      { TODO -oFormActive -cCheck  : подумать о том нужен ли обработчик OnBefoInsert и как с ним работать }
 
       case FEditingReport of
         erEdit:
@@ -247,7 +248,7 @@ begin
     finally
       // опасный промежуток включаем после - выключить
       cdsTmpER.BeforePost := cdsTmpERBeforePost;    {*}
-      cdsTmpER.BeforeInsert := cdsTmpERBeforePost;  {*}
+      //cdsTmpER.BeforeInsert := cdsTmpERBeforePost;  {*}
     end;
 end;
 
@@ -552,6 +553,8 @@ begin
     Exit;
   Result := True;
 end;
+
+{ TODO -oFormActive -cCheck  : где - то EOF поменять на IsEmpty }
 
 procedure TfrmEditingReport.cdsTmpERBeforePost(DataSet: TDataSet);
 begin

@@ -37,6 +37,10 @@ type
     fbntgrfldViewRD_FINANCE2: TFIBIntegerField;
     fbntgrfldViewRD_RESPONS: TFIBIntegerField;
     pfbqryDelete: TpFIBQuery;
+    fbstrngfldViewRE_NAME: TFIBStringField;
+    fbstrngfldViewRE_PATRONYMIC: TFIBStringField;
+    procedure fbstrngfldViewRE_SURNAMEGetText(Sender: TField;
+      var Text: String; DisplayText: Boolean);
   private
     { Private declarations }
   public
@@ -49,5 +53,23 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TDM.fbstrngfldViewRE_SURNAMEGetText(Sender: TField;
+  var Text: String; DisplayText: Boolean);
+  function Get_N_P(const N, P: string): string;
+    function GetI(I: string): string;
+    begin
+      if I = '' then
+        Result := ''
+      else
+        Result := I[1] + '.'
+    end;
+  begin
+    Result := GetI(N) + GetI(P)
+  end;
+begin
+  Text := fbstrngfldViewRE_SURNAME.AsString + ' ' +
+    Get_N_P(fbstrngfldViewRE_NAME.AsString, fbstrngfldViewRE_PATRONYMIC.AsString) 
+end;
 
 end.

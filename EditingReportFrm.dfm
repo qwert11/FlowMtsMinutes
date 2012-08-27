@@ -290,7 +290,7 @@ object frmEditingReport: TfrmEditingReport
     FetchOnDemand = False
     Params = <>
     StoreDefs = True
-    BeforeInsert = cdsTmpERBeforePost
+    BeforePost = cdsTmpERBeforePost
     Left = 48
     Top = 232
     object intgrfldTmpERcSimka: TIntegerField

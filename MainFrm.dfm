@@ -1,8 +1,8 @@
 object frmMain: TfrmMain
-  Left = 266
-  Top = 308
-  Width = 862
-  Height = 371
+  Left = 116
+  Top = 235
+  Width = 1306
+  Height = 488
   Caption = #1056#1072#1089#1093#1086#1076' '#1084#1080#1085#1091#1090' '#1052#1058#1057
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -18,8 +18,8 @@ object frmMain: TfrmMain
   object dbgrdh1: TDBGridEh
     Left = 0
     Top = 0
-    Width = 854
-    Height = 254
+    Width = 1298
+    Height = 371
     Align = alClient
     DataGrouping.GroupLevels = <>
     DataSource = DM.ds1
@@ -42,113 +42,143 @@ object frmMain: TfrmMain
         EditButtons = <>
         FieldName = 'RD_DATE'
         Footers = <>
+        Title.Caption = #1044#1072#1090#1072
       end
       item
         EditButtons = <>
         FieldName = 'F_IDACCOUNT'
         Footers = <>
-        Width = 87
+        Title.Caption = 'ID '#1083#1080#1094'.'#1089#1095#1077#1090#1072#8470'1'
+        Width = 94
       end
       item
         EditButtons = <>
         FieldName = 'RD_FNCE1SUM'
         Footers = <>
+        Title.Caption = #1057#1091#1084#1084#1072' '#8470'1'
+        Width = 82
       end
       item
         EditButtons = <>
         FieldName = 'F_IDACCOUNT1'
         Footers = <>
-        Width = 90
+        Title.Caption = 'ID '#1083#1080#1094'.'#1089#1095#1077#1090#1072#8470'2'
+        Width = 100
       end
       item
         EditButtons = <>
         FieldName = 'RD_FNCE2SUM'
         Footers = <>
+        Title.Caption = #1057#1091#1084#1084#1072' '#8470'2'
+        Width = 91
       end
       item
         EditButtons = <>
         FieldName = 'S_NUMBER'
         Footers = <>
+        Title.Caption = #1053#1086#1084#1077#1088' '#1090#1077#1083'.'
+        Width = 85
       end
       item
         EditButtons = <>
         FieldName = 'O_NAME'
         Footers = <>
-        Width = 54
+        Title.Caption = #1042#1083#1072#1076#1077#1083#1077#1094
+        Width = 69
       end
       item
         EditButtons = <>
         FieldName = 'TP_NAME'
         Footers = <>
-        Width = 60
+        Title.Caption = #1058#1072#1088'.'#1087#1083#1072#1085
+        Width = 71
       end
       item
         EditButtons = <>
         FieldName = 'TP_ABON_BOARD'
         Footers = <>
+        Title.Caption = #1040#1073#1086#1085'.'#1087#1083#1072#1090#1072
+        Width = 78
       end
       item
         EditButtons = <>
         FieldName = 'TP_SMS_MONTH'
         Footers = <>
+        Title.Caption = #1057#1052#1057' '#1085#1072' '#1084#1077#1089'.'
+        Width = 79
       end
       item
         EditButtons = <>
         FieldName = 'RS_SMS'
         Footers = <>
+        Title.Caption = #1054#1089#1090#1072#1090'.'#1057#1052#1057
+        Width = 75
       end
       item
         EditButtons = <>
         FieldName = 'RS_BALANCE'
         Footers = <>
+        Title.Caption = #1041#1072#1083#1072#1085#1089
+        Width = 80
       end
       item
         EditButtons = <>
         FieldName = 'D_NUM'
         Footers = <>
+        Title.Caption = #1042' '#1091#1089#1090#1088'. '#8470
+        Width = 73
       end
       item
         EditButtons = <>
         FieldName = 'D_TITLE'
         Footers = <>
-        Width = 51
+        Title.Caption = #1053#1072#1079#1074'. '#1091#1089#1090#1088'.'
+        Width = 73
       end
       item
         EditButtons = <>
         FieldName = 'RD_ID'
         Footers = <>
-      end
-      item
-        EditButtons = <>
-        FieldName = 'RE_SURNAME'
-        Footers = <>
-        Width = 82
+        Visible = False
       end
       item
         EditButtons = <>
         FieldName = 'RS_IN'
         Footers = <>
+        Visible = False
       end
       item
         EditButtons = <>
         FieldName = 'RS_SIMKA'
         Footers = <>
+        Visible = False
       end
       item
         EditButtons = <>
         FieldName = 'RS_OWNER'
         Footers = <>
+        Visible = False
+      end
+      item
+        EditButtons = <>
+        FieldName = 'RE_SURNAME'
+        Footers = <>
+        Title.Caption = #1054#1090#1074#1077#1090#1089#1090#1074#1077#1085#1085#1099#1081
+        Width = 143
       end>
     object RowDetailData: TRowDetailPanelControlEh
     end
   end
   object pnl1: TPanel
     Left = 0
-    Top = 254
-    Width = 854
+    Top = 371
+    Width = 1298
     Height = 52
     Align = alBottom
     TabOrder = 1
+    DesignSize = (
+      1298
+      52)
     object btnNewRecord: TButton
       Left = 24
       Top = 16
@@ -222,18 +252,19 @@ object frmMain: TfrmMain
       Visible = False
     end
     object btnAutentification: TButton
-      Left = 792
+      Left = 1236
       Top = 16
       Width = 55
       Height = 25
       Action = actAutentification
+      Anchors = [akTop, akRight]
       TabOrder = 8
     end
   end
   object stat1: TStatusBar
     Left = 0
-    Top = 306
-    Width = 854
+    Top = 423
+    Width = 1298
     Height = 19
     Panels = <
       item
