@@ -1,6 +1,6 @@
 inherited frmTarifPlan: TfrmTarifPlan
-  Left = 403
-  Top = 216
+  Left = 461
+  Top = 222
   Caption = 'frmTarifPlan'
   OldCreateOrder = True
   PixelsPerInch = 96

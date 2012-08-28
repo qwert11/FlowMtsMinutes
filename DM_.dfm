@@ -1,7 +1,7 @@
 object DM: TDM
   OldCreateOrder = False
-  Left = 1472
-  Top = 600
+  Left = 1682
+  Top = 617
   Height = 259
   Width = 174
   object DB: TpFIBDatabase

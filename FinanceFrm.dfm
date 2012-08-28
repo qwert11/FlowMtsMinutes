@@ -1,6 +1,6 @@
 inherited frmFinance: TfrmFinance
-  Left = 749
-  Top = 184
+  Left = 856
+  Top = 189
   Caption = 'frmFinance'
   OldCreateOrder = True
   PixelsPerInch = 96

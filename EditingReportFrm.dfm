@@ -1,6 +1,6 @@
 object frmEditingReport: TfrmEditingReport
-  Left = 267
-  Top = 154
+  Left = 305
+  Top = 158
   Width = 738
   Height = 489
   Caption = 'frmEditingReport'

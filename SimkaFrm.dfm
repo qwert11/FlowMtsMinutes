@@ -1,6 +1,6 @@
 inherited frmSimka: TfrmSimka
-  Left = 577
-  Top = 246
+  Left = 659
+  Top = 253
   Caption = 'frmSimka'
   OldCreateOrder = True
   PixelsPerInch = 96
@@ -143,7 +143,6 @@ inherited frmSimka: TfrmSimka
       '    S_NUMBER'
       'FROM'
       '    SIMKA ')
-    Active = True
     object pfbdtst1SID: TFIBIntegerField
       FieldName = 'SID'
       Origin = 'SIMKA.SID'

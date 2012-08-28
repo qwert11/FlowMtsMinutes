@@ -307,6 +307,7 @@ begin
     strngfldTmpERSimTarifPlan.Value + '/ ' + crncyfldTmpERSimAbonBoard.AsString 
 end;
 
+
 procedure TfrmEditingReport.actSaveExecute(Sender: TObject);
 var
   RDB_DB_KEY_LAST_REPORT_DAY: Integer;
@@ -329,6 +330,7 @@ begin
     Close;
 
     case FEditingReport of
+{ TODO 5 -oEdit -cSave : в edit добавить процедуру вставки или удаления записи }    
       erEdit: begin
         SQL.Text := 'ALTER INDEX REPORT_DAY_DATE INACTIVE';
         ExecQuery;
