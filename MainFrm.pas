@@ -121,7 +121,7 @@ end;
 procedure TfrmMain.actEditUpdate(Sender: TObject);
 begin
   (Sender as TAction).Enabled :=
-    not dbgrdh1.DataSource.DataSet.Eof and CheckAutentification
+    not dbgrdh1.DataSource.DataSet.IsEmpty and CheckAutentification
 end;
 
 procedure TfrmMain.actInsertExecute(Sender: TObject);

@@ -31,6 +31,7 @@ object frmMain: TfrmMain
     FooterFont.Name = 'MS Sans Serif'
     FooterFont.Style = []
     IndicatorOptions = [gioShowRowIndicatorEh]
+    PopupMenu = pm1
     TabOrder = 0
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
